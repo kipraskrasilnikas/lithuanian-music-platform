@@ -33,8 +33,12 @@
                 <input type="email" class="form-control" id="registrationEmailInput" name="email" value="{{ old('email') }}" onkeyup="saveValue(this);">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <label for="passwordInput" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password">
+            </div>
+            <div class="mb-3">
+                <label for="passwordConfirmationInput" class="form-label">Confirm password</label>
+                <input type="password" class="form-control" name="password_confirmation">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
