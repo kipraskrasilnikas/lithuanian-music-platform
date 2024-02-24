@@ -26,11 +26,11 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" onkeyup="saveValue(this);">
             </div>
             <div class="mb-3">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+                <label for="registrationEmailInput">Email address</label>
+                <input type="email" class="form-control" id="registrationEmailInput" name="email" value="{{ old('email') }}" onkeyup="saveValue(this);">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -39,4 +39,23 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+
+    <script type="text/javascript">
+        document.getElementById("name").value = getSavedValue("name");
+        document.getElementById("registrationEmailInput").value = getSavedValue("registrationEmailInput");
+
+        function saveValue(e){
+            var id = e.id;
+            var val = e.value;
+            localStorage.setItem(id, val);
+        }
+
+        function getSavedValue(v){
+            if (!localStorage.getItem(v)) {
+                return "";
+            }
+
+            return localStorage.getItem(v);
+        }
+    </script>
 @endsection
