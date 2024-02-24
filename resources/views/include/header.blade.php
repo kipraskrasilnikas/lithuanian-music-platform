@@ -37,7 +37,7 @@
             </ul>
             <span class="navbar-text">
                 @auth
-                    {{ auth()->user()->name }}
+                    <a class="nav-link" href="{{ route('profile') }}">{{ auth()->user()->name }}</a>
                 @endauth
             </span>
         </div>

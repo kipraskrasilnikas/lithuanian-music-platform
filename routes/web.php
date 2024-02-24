@@ -30,8 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     // sito viduje tiesiog, jei noriu, kad butu prisijunge zmones, kad prieitu
 
     // ir sita atidarys, tik kai ispildysi autha. cia pvz kai prisijungsi
-    Route::get('/profile', function() {
-        return "Hi";
-    });
+    Route::get('/profile', [AuthManager::class, 'profile'])->name('profile');
+    Route::post('/profile', [AuthManager::class, 'profilePost'])->name('profile.post');
 });
 

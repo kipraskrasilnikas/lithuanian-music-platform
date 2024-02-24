@@ -67,4 +67,40 @@ class AuthManager extends Controller
         Auth::logout();
         return redirect(route('login'));
     }
+
+    function profile() {
+        if (Auth::check()) {
+            $user = Auth::user();
+            return view('profile', compact('user'));
+        }
+
+        return redirect()->route('home');
+    }
+
+    function profilePost(Request $request) {
+        $request->validate([
+            'name'      => 'required',
+            'email'     => 'required|email',
+            'password'  => $request->filled('password') ? 'min:8|confirmed' : '',
+            'password_confirmation'  => $request->filled('password') ? 'min:8' : ''
+        ]);
+
+        // Retrieve the authenticated user
+        $user = Auth::user();
+
+        // Update user's information based on form input
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        // Update password only if it's filled
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        // Save the updated user information
+        $user->save();
+        
+        // Redirect with success message
+        return redirect()->route('profile')->with("success", "Profile updated successfully!");
+    }
 }
