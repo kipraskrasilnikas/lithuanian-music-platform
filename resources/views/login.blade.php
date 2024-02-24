@@ -25,8 +25,8 @@
         <form action="{{ route('login.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
             @csrf
             <div class="mb-3">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="{{ old('email') }}">
+                <label for="emailInput">Email address</label>
+                <input type="email" class="form-control" id="emailInput" name="email" value="{{ old('email') }}" onkeyup="saveValue(this);">
             </div>
 
             <div class="mb-3">
@@ -36,4 +36,22 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+
+    <script type="text/javascript">
+        document.getElementById("emailInput").value = getSavedValue("emailInput");
+
+        function saveValue(e){
+            var id = e.id; 
+            var val = e.value;
+            localStorage.setItem(id, val);
+        }
+
+        function getSavedValue(v){
+            if (!localStorage.getItem(v)) {
+                return "";
+            }
+
+            return localStorage.getItem(v);
+        }
+    </script>
 @endsection
