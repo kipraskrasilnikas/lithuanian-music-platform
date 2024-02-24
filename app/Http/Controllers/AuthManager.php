@@ -29,7 +29,7 @@ class AuthManager extends Controller
 
     function loginPost(Request $request) {
         $request->validate([
-            'email'     => 'required',
+            'email'     => 'required|email',
             'password'  => 'required'
         ]);
 
@@ -38,7 +38,7 @@ class AuthManager extends Controller
             return redirect()->intended(route('home'))->with("success", "Login Successful!");
         } 
         
-        return redirect(route('login'))->with("error", "Login details are not valid!");
+        return redirect()->back()->withInput()->with("error", "Login details are not valid!");
     }
 
     function registrationPost(Request $request) {
