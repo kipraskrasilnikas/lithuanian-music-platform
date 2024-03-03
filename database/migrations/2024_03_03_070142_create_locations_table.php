@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('country');
-            $table->string('region');
+            $table->string('county');
             $table->string('city');
             $table->string('address')->nullable();
+            $table->string('postcode')->nullable();
             $table->timestamps();
         });
     }
