@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-
 
 class AuthManager extends Controller
 {
@@ -71,7 +71,22 @@ class AuthManager extends Controller
     function profile() {
         if (Auth::check()) {
             $user = Auth::user();
-            return view('profile', compact('user'));
+
+            // Define the list of Lithuanian counties
+            $counties = [
+                'Alytus',
+                'Kaunas',
+                'Klaipėda',
+                'Marijampolė',
+                'Panevėžys',
+                'Šiauliai',
+                'Tauragė',
+                'Telšiai',
+                'Utena',
+                'Vilnius'
+            ];
+
+            return view('profile', compact('user', 'counties'));
         }
 
         return redirect()->route('home');
@@ -79,10 +94,18 @@ class AuthManager extends Controller
 
     function profilePost(Request $request) {
         $request->validate([
-            'name'      => 'required',
-            'email'     => 'required|email',
-            'password'  => $request->filled('password') ? 'min:8|confirmed' : '',
-            'password_confirmation'  => $request->filled('password') ? 'min:8' : ''
+            'name'                  => 'required',
+            'email'                 => 'required|email',
+            'password'              => $request->filled('password') ? 'min:8|confirmed' : '',
+            'password_confirmation' => $request->filled('password') ? 'min:8' : '',
+            'locations.*.county'    => 'required',
+            // 'locations.*.city'      => 'required',
+            'locations.*.address'   => 'nullable',
+            'locations.*.postcode'  => 'nullable',
+        ],
+        [
+            'locations.*.county' => 'The County field is required!',
+            // 'locations.*.city' => 'The City field is required!',
         ]);
 
         // Retrieve the authenticated user
@@ -99,7 +122,21 @@ class AuthManager extends Controller
 
         // Save the updated user information
         $user->save();
-        
+
+        $location = new Location();
+
+        foreach ($request->locations as $location_parameters) {
+            $location = new Location();
+            foreach ($location_parameters as $key => $value) {
+                // key - county
+                // value - Kaunas
+                $location->$key = $value;
+            }
+
+            $location->user()->associate($user);
+            $location->save();
+        }
+
         // Redirect with success message
         return redirect()->route('profile')->with("success", "Profile updated successfully!");
     }
