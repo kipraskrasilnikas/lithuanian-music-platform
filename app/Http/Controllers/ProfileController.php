@@ -15,6 +15,8 @@ class ProfileController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
+            $locations = Location::Where('user_id', $user->id)->get();
+
             // Define the list of Lithuanian counties
             $counties = [
                 'Alytus',
@@ -110,16 +112,12 @@ class ProfileController extends Controller
 
         $location = new Location();
 
-        foreach ($request->locations as $location_parameters) {
-            $location = new Location();
-            foreach ($location_parameters as $key => $value) {
-                // key - county
-                // value - Kaunas
-                $location->$key = $value;
-            }
+        $user->locations()->delete();
 
+        foreach ($request->locations as $locationParameters) {
+            $location = new Location($locationParameters);
             $location->user()->associate($user);
-            $location->save();
+            $location->save();       
         }
 
         // Redirect with success message

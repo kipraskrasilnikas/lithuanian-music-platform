@@ -79,30 +79,63 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", function() {
-            var i = 0;
+            var form_location_i = 0;
+            var limit = 2;
+            var locations = {!! json_encode($locations) !!};
+            var dbLocationCount = Object.keys(locations).length;
+
+            while (form_location_i < limit && form_location_i < dbLocationCount - 1) {
+                addLocationRow(true);
+            }
+
             $('#add').click(function() {
-                ++i;
-                // cia irgi kitaip turi atrodyt tas value={{$county}}, pagal indeksa reikes imt, bet neskamba sunku
-                $('#table').append(
-                    `<tr>
-                        <td>
-                            <select name="locations[` + i + `][county]" class="form-control">
-                                <option value="">Pasirinkti apskritį</option>
-                                @foreach ($counties as $county)
-                                    <option value="{{ $county }}">{{ $county }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger remove-table-row">Pašalinti</button>
-                        </td>
-                    </tr>`);
+                if (form_location_i < limit) {
+                    addLocationRow();
+                } else {
+                    alert('Maksimalus vietų skaičius yra 3!');
+                }
             });
 
             $(document).on('click', '.remove-table-row', function() {
                 $(this).parents('tr').remove();
             });
 
+            function addLocationRow(isFromDB) {
+                ++form_location_i;
+
+                if (isFromDB) {
+                    $('#table').append(
+                        `<tr>
+                            <td>
+                                <select name="locations[` + form_location_i + `][county]" class="form-control">
+                                    <option value="">Pasirinkti apskritį</option>
+                                    @foreach ($counties as $county)
+                                        <option value="{{ $county }}" ${(locations[form_location_i].county == "{{$county}}") ? 'selected' : '' }>{{ $county }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger remove-table-row">Pašalinti</button>
+                            </td>
+                        </tr>`);
+
+                } else {
+                    $('#table').append(
+                        `<tr>
+                            <td>
+                                <select name="locations[` + form_location_i + `][county]" class="form-control">
+                                    <option value="">Pasirinkti apskritį</option>
+                                    @foreach ($counties as $county)
+                                        <option value="{{ $county }}">{{ $county }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger remove-table-row">Pašalinti</button>
+                            </td>
+                        </tr>`);
+                }
+            }
         });
     </script>
 
