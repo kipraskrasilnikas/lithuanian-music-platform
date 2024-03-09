@@ -29,7 +29,49 @@ class ProfileController extends Controller
                 'Vilnius'
             ];
 
-            return view('profile', compact('user', 'counties'));
+            $genres = [
+                'Alternatyva',
+                'Džiazas ir Bliuzas',
+                'Elektroninė muzika',
+                'Folkas, dainavimas ir dainų rašymas',
+                'Garso takelis',
+                'Hip-hopas ir Repas',
+                'Indie',
+                'Kantri',
+                'Klasika',
+                'Latin',
+                'Metalas',
+                'Pasaulinis',
+                'Pianinas',
+                'Popas',
+                'R&B ir Siela',
+                'Regė',
+                'Reggaetonas',
+                'Rokas',
+                'Šokio muzika ir EDM',
+                'Techno',
+                'Trance',
+                'Trapas',
+                'Triphopas',
+            ];
+                        
+                        
+            $specialties = [
+                'Vokalistas',
+                'Instrumentalistas', // Bendra parinktis muzikantėms, kurios pagrindiniu būdu groja instrumentais
+                'DJ',
+                'Prodiuseris',
+                'Garso inžinierius',
+                'Mixinimo inžinierius',
+                'Masterinimo inžinierius',
+                'Kompozitorius',
+                'Dainų autorius',
+                'Reperis',
+                'Foninis vokalistas',
+                'Bytbokseris'
+            ];
+                        
+            return view('profile', compact('user', 'counties', 'locations'));
         }
 
         return redirect()->route('home');
