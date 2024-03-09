@@ -9,26 +9,26 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                        <a class="nav-link" href="{{ route('logout') }}">Atsijungti</a>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link" href="{{ route('login') }}">Prisijungti</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('registration') }}">Registration</a>
+                        <a class="nav-link" href="{{ route('registration') }}">Registruotis</a>
                     </li>
                 @endauth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Dropdown link
+                        Nusileidžiantis sąrašas
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#">Veiksmas</a></li>
+                        <li><a class="dropdown-item" href="#">Kitas veiksmas</a></li>
+                        <li><a class="dropdown-item" href="#">Dar kažkoks kitas veiksmas</a></li>
                     </ul>
                 </li>
             </ul>

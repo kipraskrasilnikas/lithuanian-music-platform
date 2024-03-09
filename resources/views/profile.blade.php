@@ -1,10 +1,10 @@
 @extends('layout')
 
-@section('title', 'Profile')
+@section('title', 'Profilio puslapis')
 
 @section('content')
     <div class="container">
-        <h1 class="display-4">Profile page</h1>
+        <h1 class="display-4">Profilis</h1>
 
         <div class="mt-5">
             @if ($errors->any())
@@ -27,42 +27,42 @@
         <form action="{{ route('profile.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
             @csrf
             <div class="mb-3">
-                <label class="form-label">Full Name</label>
+                <label class="form-label">Vardas, Pavardė</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
             </div>
             <div class="mb-3">
-                <label for="loginEmailInput">Email address</label>
+                <label for="loginEmailInput">El. pašto adresas</label>
                 <input type="email" class="form-control" id="loginEmailInput" name="email" value="{{ $user->email }}">
             </div>
             <div class="mb-3">
-                <label for="passwordInput" class="form-label">Password</label>
+                <label for="passwordInput" class="form-label">Slaptažodis</label>
                 <input type="password" class="form-control" name="password">
             </div>
             <div class="mb-3">
-                <label for="passwordConfirmationInput" class="form-label">Confirm password</label>
+                <label for="passwordConfirmationInput" class="form-label">Patvirtinti slaptažodį</label>
                 <input type="password" class="form-control" name="password_confirmation">
             </div>
             <div class="mb-3" style="font-size: 30px;">
-                <label class="form-label">Locations</label>
+                <label class="form-label">Vietos (galima iki 3-jų)</label>
             </div>
 
             <table class="table table-bordered" id="table">
                 <tr>
-                    <th>County</th>
-                    <th>Action</th>
+                    <th>Apskritis</th>
+                    <th>Veiksmas</th>
                 </tr>
                 <tr>
                     <td>
-                        <select name="locations[0][county]" class="form-control">
-                            <option value="">Select County</option>
+                        <select name="locations[0][county]" value="{{ $locations[0]->county }}" class="form-control">
+                            <option value="">Pasirinkti apskritį</option>
                             @foreach ($counties as $county)
-                                <option value="{{ $county }}">{{ $county }}</option>
+                                <option value="{{ $county }}" {{ $locations[0]->county == $county ? 'selected' : '' }} >{{ $county }}</option>
                             @endforeach
                         </select>
                         {{-- <input type="text" name="locations[0][county]" placeholder="Enter your County" class="form-control"> --}}
                     </td>
                     <td>
-                        <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
+                        <button type="button" name="add" id="add" class="btn btn-success">Pridėti daugiau</button>
                     </td>
                 </tr>
             </table>
@@ -71,7 +71,7 @@
                 <button type="button" class="btn btn-primary" id="add-location">Add Location</button>
             </div> --}}
             <div class="mb-3 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Išsaugoti</button>
             </div>
         </form>
     </div>
@@ -87,14 +87,14 @@
                     `<tr>
                         <td>
                             <select name="locations[` + i + `][county]" class="form-control">
-                                <option value="">Select County</option>
+                                <option value="">Pasirinkti apskritį</option>
                                 @foreach ($counties as $county)
                                     <option value="{{ $county }}">{{ $county }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger remove-table-row">Remove</button>
+                            <button type="button" class="btn btn-danger remove-table-row">Pašalinti</button>
                         </td>
                     </tr>`);
             });

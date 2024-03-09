@@ -1,9 +1,11 @@
 @extends('layout')
 
-@section('title', 'Login')
+@section('title', 'Prisijungimo puslapis')
 
 @section('content')
     <div class="container">
+        <h1 class="display-4">Prisijungimas</h1>
+
         <div class="mt-5">
             @if ($errors->any())
                 <div class="col-12">
@@ -25,15 +27,15 @@
         <form action="{{ route('login.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
             @csrf
             <div class="mb-3">
-                <label for="loginEmailInput">Email address</label>
+                <label for="loginEmailInput">El. pašto adresas</label>
                 <input type="email" class="form-control" id="loginEmailInput" name="email" value="{{ old('email') }}" onkeyup="saveValue(this);">
             </div>
 
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <label for="exampleInputPassword1" class="form-label">Slaptažodis</label>
                 <input type="password" class="form-control" name="password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Prisijungti</button>
         </form>
     </div>
 

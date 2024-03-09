@@ -1,9 +1,10 @@
 @extends('layout')
 
-@section('title', 'Registration')
+@section('title', 'Registracijos puslapis')
 
 @section('content')
     <div class="container">
+        <h1 class="display-4">Registracija</h1>
         <div class="mt-5">
             @if ($errors->any())
                 <div class="col-12">
@@ -25,22 +26,22 @@
         <form action="{{ route('registration.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
             @csrf
             <div class="mb-3">
-                <label class="form-label">Full Name</label>
+                <label class="form-label">Vardas, pavardė</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" onkeyup="saveValue(this);">
             </div>
             <div class="mb-3">
-                <label for="registrationEmailInput">Email address</label>
+                <label for="registrationEmailInput">El. pašto adresas</label>
                 <input type="email" class="form-control" id="registrationEmailInput" name="email" value="{{ old('email') }}" onkeyup="saveValue(this);">
             </div>
             <div class="mb-3">
-                <label for="passwordInput" class="form-label">Password</label>
+                <label for="passwordInput" class="form-label">Slaptažodis</label>
                 <input type="password" class="form-control" name="password">
             </div>
             <div class="mb-3">
-                <label for="passwordConfirmationInput" class="form-label">Confirm password</label>
+                <label for="passwordConfirmationInput" class="form-label">Patvirtinti slaptažodį</label>
                 <input type="password" class="form-control" name="password_confirmation">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Registruotis</button>
         </form>
     </div>
 
