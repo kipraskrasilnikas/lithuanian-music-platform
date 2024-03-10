@@ -16,21 +16,21 @@
                             <select name="specialty" class="form-control">
                                 <option value="">Pasirinkti specializaciją</option>
                                 @foreach (config('music_config.specialties') as $specialty)
-                                    <option value="{{ $specialty }}">{{ $specialty }}</option>
+                                    <option value="{{ $specialty }}" {{ $search_specialty == $specialty ? 'selected' : '' }}>{{ $specialty }}</option>
                                 @endforeach
                             </select> 
             
                             <select name="genre" class="form-control">
                                 <option value="">Pasirinkti žanrą</option>
                                 @foreach (config('music_config.genres') as $genre)
-                                    <option value="{{ $genre }}">{{ $genre }}</option>
+                                    <option value="{{ $genre }}" {{ $search_genre == $genre ? 'selected' : '' }}>{{ $genre }}</option>
                                 @endforeach
                             </select> 
 
                             <select name="county" class="form-control">
                                 <option value="">Pasirinkti apskritį</option>
                                 @foreach (config('music_config.counties') as $county)
-                                    <option value="{{ $county }}">{{ $county }}</option>
+                                    <option value="{{ $county }}" {{ $search_county == $county ? 'selected' : '' }}>{{ $county }}</option>
                                 @endforeach
                             </select> 
                                         

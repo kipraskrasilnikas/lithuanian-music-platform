@@ -37,14 +37,14 @@ class SearchController extends Controller
             });
         }
     
-        $genre = $request->genre;
-        if ($genre) {
-            $query->where('genre', 'like', "%$genre%");
+        $search_genre = $request->genre;
+        if ($search_genre) {
+            $query->where('genre', 'like', "%$search_genre%");
         }
 
-        $specialty = $request->specialty;
-        if ($specialty) {
-            $query->where('specialty', 'like', "%$specialty%");
+        $search_specialty = $request->specialty;
+        if ($search_specialty) {
+            $query->where('specialty', 'like', "%$search_specialty%");
         }
 
         $county = $request->county;
@@ -65,13 +65,13 @@ class SearchController extends Controller
         });
         
         // Filter by county if specified
-        $county = $request->county;
-        if ($county) {
-            $users = $users->filter(function ($user) use ($county) {
-                return $user->locations()->where('county', 'like', "%$county%")->exists();
+        $search_county = $request->county;
+        if ($search_county) {
+            $users = $users->filter(function ($user) use ($search_county) {
+                return $user->locations()->where('county', 'like', "%$search_county%")->exists();
             });
         }
 
-        return view('search', compact('users', 'search'));
+        return view('search', compact('users', 'search', 'search_genre', 'search_specialty', 'search_county'));
     }
 }
