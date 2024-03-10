@@ -11,6 +11,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}">Atsijungti</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('search') }}">Vartotojų paieška</a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Prisijungti</a>

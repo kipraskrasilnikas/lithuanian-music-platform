@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,5 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     // ir sita atidarys, tik kai ispildysi autha. cia pvz kai prisijungsi
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'profilePost'])->name('profile.post');
+
+    Route::get('/search', [SearchController::class, 'index'])->name('search');
+    Route::get('/searchPost', [SearchController::class, 'search'])->name('search.post');
 });
 
