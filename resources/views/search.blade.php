@@ -12,6 +12,28 @@
                     <form method="get" action="/searchPost">
                         <div class="input-group">
                             <input class="form-control" name="search" placeholder="Search..." value="{{ isset($search) ? $search : ''}}">
+
+                            <select name="specialty" class="form-control">
+                                <option value="">Pasirinkti specializaciją</option>
+                                @foreach (config('music_config.specialties') as $specialty)
+                                    <option value="{{ $specialty }}">{{ $specialty }}</option>
+                                @endforeach
+                            </select> 
+            
+                            <select name="genre" class="form-control">
+                                <option value="">Pasirinkti žanrą</option>
+                                @foreach (config('music_config.genres') as $genre)
+                                    <option value="{{ $genre }}">{{ $genre }}</option>
+                                @endforeach
+                            </select> 
+
+                            <select name="county" class="form-control">
+                                <option value="">Pasirinkti apskritį</option>
+                                @foreach (config('music_config.counties') as $county)
+                                    <option value="{{ $county }}">{{ $county }}</option>
+                                @endforeach
+                            </select> 
+                                        
                             <button type="submit" class="btn btn-primary">Search</button>
                         </div>
                     </form>
