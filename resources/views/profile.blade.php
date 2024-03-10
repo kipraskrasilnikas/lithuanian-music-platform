@@ -45,31 +45,33 @@
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Vietos (galima iki 3-jų)</label>
             </div>
-
             <table class="table table-bordered" id="table">
                 <tr>
-                    <th>Apskritis</th>
+                    <th>Apskritis<span style="color: red;">*</span></th>
+                    <th>Miestas<span style="color: red;">*</span></th>
+                    <th>Adresas</th>
                     <th>Veiksmas</th>
                 </tr>
                 <tr>
                     <td>
                         <select name="locations[0][county]" value="{{ $locations[0]->county }}" class="form-control">
-                            <option value="">Pasirinkti apskritį</option>
+                            <option value="">Pasirinkti apskritį </option>
                             @foreach ($counties as $county)
                                 <option value="{{ $county }}" {{ $locations[0]->county == $county ? 'selected' : '' }} >{{ $county }}</option>
                             @endforeach
-                        </select>
-                        {{-- <input type="text" name="locations[0][county]" placeholder="Enter your County" class="form-control"> --}}
+                        </select>                    
+                    </td>
+                    <td>
+                        <input type="text" name="locations[0][city]" value="{{ $locations[0]->city }}" placeholder="Įveskite miestą" class="form-control">
+                    </td>
+                    <td>
+                        <input type="text" name="locations[0][address]" value="{{ $locations[0]->address }}" placeholder="Įveskite adresą" class="form-control">
                     </td>
                     <td>
                         <button type="button" name="add" id="add" class="btn btn-success">Pridėti daugiau</button>
                     </td>
                 </tr>
             </table>
-
-            {{-- <div class="mb-3">
-                <button type="button" class="btn btn-primary" id="add-location">Add Location</button>
-            </div> --}}
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-primary">Išsaugoti</button>
             </div>
@@ -115,6 +117,12 @@
                                 </select>
                             </td>
                             <td>
+                                <input type="text" name="locations[` + form_location_i + `][city]" value="${locations[form_location_i].city}" placeholder="Įveskite miestą" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="locations[` + form_location_i + `][address]" value="${(locations[form_location_i].address) ? locations[form_location_i].address : ''}" placeholder="Įveskite adresą" class="form-control">
+                            </td>
+                            <td>
                                 <button type="button" class="btn btn-danger remove-table-row">Pašalinti</button>
                             </td>
                         </tr>`);
@@ -129,6 +137,12 @@
                                         <option value="{{ $county }}">{{ $county }}</option>
                                     @endforeach
                                 </select>
+                            </td>
+                            <td>
+                                <input type="text" name="locations[` + form_location_i + `][city]" placeholder="Įveskite miestą" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="locations[` + form_location_i + `][address]" placeholder="Įveskite adresą" class="form-control">
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger remove-table-row">Pašalinti</button>

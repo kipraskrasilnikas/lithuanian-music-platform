@@ -73,7 +73,7 @@ class ProfileController extends Controller
                 'Bytbokseris'
             ];
                         
-            return view('profile', compact('user', 'counties', 'locations'));
+            return view('profile', compact('user', 'counties', 'genres', 'specialties', 'locations'));
         }
 
         return redirect()->route('home');
@@ -86,13 +86,12 @@ class ProfileController extends Controller
             'password'              => $request->filled('password') ? 'min:8|confirmed' : '',
             'password_confirmation' => $request->filled('password') ? 'min:8' : '',
             'locations.*.county'    => 'required',
-            // 'locations.*.city'      => 'required',
+            'locations.*.city'      => 'required',
             'locations.*.address'   => 'nullable',
-            'locations.*.postcode'  => 'nullable',
         ],
         [
             'locations.*.county' => 'The County field is required!',
-            // 'locations.*.city' => 'The City field is required!',
+            'locations.*.city' => 'The City field is required!',
         ]);
 
         // Retrieve the authenticated user
@@ -117,7 +116,7 @@ class ProfileController extends Controller
         foreach ($request->locations as $locationParameters) {
             $location = new Location($locationParameters);
             $location->user()->associate($user);
-            $location->save();       
+            $location->save();
         }
 
         // Redirect with success message
