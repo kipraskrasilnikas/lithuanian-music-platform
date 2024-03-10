@@ -57,7 +57,6 @@ class ProfileController extends Controller
                 'Triphopas',
             ];
                         
-                        
             $specialties = [
                 'Vokalistas',
                 'Instrumentalistas', // Bendra parinktis muzikantėms, kurios pagrindiniu būdu groja instrumentais
@@ -83,6 +82,8 @@ class ProfileController extends Controller
         $request->validate([
             'name'                  => 'required',
             'email'                 => 'required|email',
+            'specialty'             => 'required',
+            'genre'                 => 'nullable',
             'password'              => $request->filled('password') ? 'min:8|confirmed' : '',
             'password_confirmation' => $request->filled('password') ? 'min:8' : '',
             'locations.*.county'    => 'required',
@@ -100,6 +101,8 @@ class ProfileController extends Controller
         // Update user's information based on form input
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->specialty = $request->input('specialty');
+        $user->genre = $request->input('genre');
 
         // Update password only if it's filled
         if ($request->filled('password')) {

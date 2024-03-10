@@ -42,6 +42,24 @@
                 <label for="passwordConfirmationInput" class="form-label">Patvirtinti slaptažodį</label>
                 <input type="password" class="form-control" name="password_confirmation">
             </div>
+            <div class="mb-3">
+                <label for="specialtyInput" class="form-label">Specializacija<span style="color: red;">*</span></label>
+                <select name="specialty" class="form-control">
+                    <option value="">Pasirinkti specializaciją</option>
+                    @foreach ($specialties as $specialty)
+                        <option value="{{ $specialty }}" {{ $user->specialty == $specialty ? 'selected' : '' }} >{{ $specialty }}</option>
+                    @endforeach
+                </select> 
+            </div>             
+            <div class="mb-3">
+                <label for="specialtyInput" class="form-label">Žanras</label>
+                <select name="genre" class="form-control">
+                    <option value="">Pasirinkti žanrą</option>
+                    @foreach ($genres as $genre)
+                        <option value="{{ $genre }}" {{ $user->genre == $genre ? 'selected' : '' }} >{{ $genre }}</option>
+                    @endforeach
+                </select> 
+            </div>                   
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Vietos (galima iki 3-jų)</label>
             </div>
@@ -54,7 +72,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select name="locations[0][county]" value="{{ $locations[0]->county }}" class="form-control">
+                        <select name="locations[0][county]" class="form-control">
                             <option value="">Pasirinkti apskritį </option>
                             @foreach ($counties as $county)
                                 <option value="{{ $county }}" {{ $locations[0]->county == $county ? 'selected' : '' }} >{{ $county }}</option>
