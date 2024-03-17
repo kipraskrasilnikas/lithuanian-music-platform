@@ -58,42 +58,37 @@
           </div>
           <div class="col-lg-10">
             <form action="/searchPost" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
-              <input type="text" class="form-control" placeholder="Enter email address">
+              <input type="text" class="form-control" placeholder="Bendra info (vardas pvz)">
 
               <div class="select-wrap">
                 <select name="specialty" class="form-control">
                   <option value="">Pasirinkti specializaciją</option>
                   @foreach (config('music_config.specialties') as $specialty)
-                    <option value="{{ $specialty }}" {{ $search_specialty == $specialty ? 'selected' : '' }}>{{ $specialty }}</option>
+                    <option value="{{ $specialty }}" {{ isset($search_specialty) && $search_specialty == $specialty ? 'selected' : '' }}>{{ $specialty }}</option>
                   @endforeach
                 </select>
               </div>
 
               <div class="select-wrap">
-                <div class="icon"><span class="bi bi-arrow-up-short"></span></div>
-                <select name="" id="" class="form-control">
-                  <option value="">Category</option>
-                  <option value="">Full Time</option>
-                  <option value="">Part Time</option>
-                  <option value="">Freelance</option>
-                  <option value="">Internship</option>
-                  <option value="">Temporary</option>
-                </select>
+                <select name="genre" class="form-control">
+                  <option value="">Pasirinkti žanrą</option>
+                  @foreach (config('music_config.genres') as $genre)
+                      <option value="{{ $genre }}" {{ isset($search_genre) && $search_genre == $genre ? 'selected' : '' }}>{{ $genre }}</option>
+                  @endforeach
+                </select> 
               </div>
 
               <div class="select-wrap">
                 <div class="icon"><span class="bi bi-arrow-up-short"></span></div>
-                <select name="" id="" class="form-control">
-                  <option value="">Category</option>
-                  <option value="">Full Time</option>
-                  <option value="">Part Time</option>
-                  <option value="">Freelance</option>
-                  <option value="">Internship</option>
-                  <option value="">Temporary</option>
-                </select>
+                <select name="county" class="form-control">
+                  <option value="">Pasirinkti apskritį</option>
+                  @foreach (config('music_config.counties') as $county)
+                      <option value="{{ $county }}" {{ isset($search_county) && $search_county == $county ? 'selected' : '' }}>{{ $county }}</option>
+                  @endforeach
+                </select> 
               </div>
 
-              <input type="submit" class="btn btn-primary" value="Sign up">
+              <input type="submit" class="btn btn-primary" value="Ieškoti muzikanto">
             </form>
           </div>
         </div>
