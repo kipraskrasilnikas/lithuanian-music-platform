@@ -22,37 +22,25 @@
       <!-- Nav Menu -->
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html#hero" class="active">Home</a></li>
-          <li><a href="index.html#about">About</a></li>
-          <li><a href="index.html#services">Services</a></li>
-          <li><a href="index.html#portfolio">Portfolio</a></li>
-          <li><a href="index.html#team">Team</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li class="dropdown has-dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down"></i></a>
-            <ul class="dd-box-shadow">
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown has-dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down"></i></a>
-                <ul class="dd-box-shadow">
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
-            </ul>
-          </li>
-          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="{{ route('home') }}#hero" class="active">Namų puslapis</a></li>
+          @auth
+            <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
+            <li><a href="{{ route('profile') }}">Mano profilis</a></li>
+          @endauth
         </ul>
 
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav><!-- End Nav Menu -->
 
-      <a class="btn-getstarted" href="index.html#about">Get Started</a>
+      @auth
+        <a class="btn-getstarted" href="{{ route('logout') }}">Atsijungti</a>
+      @else
+      <div class="btn-getstarted-group">
 
+        <a class="btn-getstarted" href="{{ route('registration') }}">Registruotis</a>
+        <a class="btn-getstarted" href="{{ route('login') }}">Prisijungti</a>
+      </div>
+      @endauth
     </div>
   </header><!-- End Header -->
 
@@ -60,18 +48,51 @@
 
     <!-- Hero Section - Home Page -->
     <section id="hero" class="hero">
-
       <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in">
 
       <div class="container">
         <div class="row">
           <div class="col-lg-10">
-            <h2 data-aos="fade-up" data-aos-delay="100">Welcome to Our Website</h2>
-            <p data-aos="fade-up" data-aos-delay="200">We are team of talented designers making websites with Bootstrap</p>
+            <h2 data-aos="fade-up" data-aos-delay="100">Sveiki atvykę į lietuvių muzikantų platformą</h2>
+            <p data-aos="fade-up" data-aos-delay="200">Raskite muzikantą, su kuriuo norite kolaboruoti, pagal bendrus paieškos, žanro, specializacijos ar apskrities filtrus</p>
           </div>
-          <div class="col-lg-5">
-            <form action="#" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
+          <div class="col-lg-10">
+            <form action="/searchPost" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
               <input type="text" class="form-control" placeholder="Enter email address">
+
+              <div class="select-wrap">
+                <select name="specialty" class="form-control">
+                  <option value="">Pasirinkti specializaciją</option>
+                  @foreach (config('music_config.specialties') as $specialty)
+                    <option value="{{ $specialty }}" {{ $search_specialty == $specialty ? 'selected' : '' }}>{{ $specialty }}</option>
+                  @endforeach
+                </select>
+              </div>
+
+              <div class="select-wrap">
+                <div class="icon"><span class="bi bi-arrow-up-short"></span></div>
+                <select name="" id="" class="form-control">
+                  <option value="">Category</option>
+                  <option value="">Full Time</option>
+                  <option value="">Part Time</option>
+                  <option value="">Freelance</option>
+                  <option value="">Internship</option>
+                  <option value="">Temporary</option>
+                </select>
+              </div>
+
+              <div class="select-wrap">
+                <div class="icon"><span class="bi bi-arrow-up-short"></span></div>
+                <select name="" id="" class="form-control">
+                  <option value="">Category</option>
+                  <option value="">Full Time</option>
+                  <option value="">Part Time</option>
+                  <option value="">Freelance</option>
+                  <option value="">Internship</option>
+                  <option value="">Temporary</option>
+                </select>
+              </div>
+
               <input type="submit" class="btn btn-primary" value="Sign up">
             </form>
           </div>
