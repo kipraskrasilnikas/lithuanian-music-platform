@@ -20,7 +20,11 @@ class SearchController extends Controller
         $genres = config('music_config.genres');
         $specialties = config('music_config.specialties');
 
-        return view('search', compact('users', 'counties', 'genres', 'specialties'));
+        $search_specialty = '';
+        $search_genre = '';
+        $search_county = '';
+
+        return view('search', compact('users', 'counties', 'genres', 'specialties', 'search_specialty', 'search_genre', 'search_county'));
     }
 
     public function search (Request $request) {
