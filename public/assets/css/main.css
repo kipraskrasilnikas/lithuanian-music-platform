@@ -2915,3 +2915,7 @@ section,
   color: var(--contrast-color);
   background-color: rgba(var(--accent-color-rgb), 0.8);
 }
+
+.no-account a {
+  text-decoration: underline;
+}

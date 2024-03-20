@@ -36,6 +36,11 @@
                 <input type="password" class="form-control" name="password">
             </div>
             <button type="submit" class="btn btn-primary">Prisijungti</button>
+
+            <div class="no-account">
+                <br>
+                <a href="{{ route('registration') }}">Neturite paskyros? Prisiregistruokite</a>
+            </div>
         </form>
     </div>
 
