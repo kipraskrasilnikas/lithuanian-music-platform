@@ -2919,3 +2919,7 @@ section,
 .no-account a {
   text-decoration: underline;
 }
+
+.form-check-input[type="checkbox"] {
+  border: 2px solid #45474B; /* Change color and thickness as needed */
+}
