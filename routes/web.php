@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'profilePost'])->name('profile.post');
 
-    Route::get('/search', [SearchController::class, 'index'])->name('search');
-    Route::get('/searchPost', [SearchController::class, 'search'])->name('search.post');
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    Route::get('/searchPost', [SearchController::class, 'searchPost'])->name('search.post');
 });
 

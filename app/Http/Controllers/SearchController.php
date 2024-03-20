@@ -7,7 +7,7 @@ use App\Models\User;
 
 class SearchController extends Controller
 {
-    public function index() {
+    public function search() {
         $users = User::all();
         $currentUserId = auth()->id();
 
@@ -27,7 +27,7 @@ class SearchController extends Controller
         return view('search', compact('users', 'counties', 'genres', 'specialties', 'search_specialty', 'search_genre', 'search_county'));
     }
 
-    public function search (Request $request) {
+    public function searchPost (Request $request) {
         $search = $request->search;
         $currentUserId = auth()->id(); // Get the ID of the current authenticated user
 
@@ -50,8 +50,6 @@ class SearchController extends Controller
         if ($search_specialty) {
             $query->where('specialty', 'like', "%$search_specialty%");
         }
-
-        $county = $request->county;
 
         if ($search) {
             $query->orWhereHas('locations', function ($query) use ($search) {
