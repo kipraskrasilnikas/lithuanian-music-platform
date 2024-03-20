@@ -20,31 +20,73 @@ class UserSeeder extends Seeder
         $genres = config('music_config.genres');
         $specialties = config('music_config.specialties');
         $counties = config('music_config.counties');
-    
-        // Repeat the insertion process for 10 times
-        for ($i = 0; $i < 10; $i++) {
-            $name = $names[array_rand($names)]; // Randomly select a name from the $names array
-            $genre = $genres[array_rand($genres)]; // Randomly select a genre from the $genres array
-            $specialty = $specialties[array_rand($specialties)]; // Randomly select a specialty from the $specialties array
-            $password = $name . '123'; // Password is the name plus '123'
 
-            $userId = DB::table('users')->insertGetId([
-                'name' => $name,
-                'genre' => $genre,
-                'specialty' => $specialty,
-                'email' => strtolower($name) . '_' . substr(Str::uuid(), 5) . '@example.com', // Generate email based on name
-                'email_verified_at' => now(),
-                'password' => Hash::make($password),
-                'remember_token' => Str::random(10),
-            ]);
+        foreach($names as $name) {
+            $user = $this->createUser($name);
+            $this->createLocations($user, $counties);
+            $this->createGenres($user, $genres);
+            $this->createSpecialties($user, $specialties);
+        }
+    }
 
-            $county = $counties[array_rand($counties)]; // Randomly select a county from the $counties array
+    private function createUser($name)
+    {
+        $password = $name . '123'; // Password is the name plus '123'
 
+        return DB::table('users')->insertGetId([
+            'name' => $name,
+            'email' => strtolower($name) . '_' . substr(Str::uuid(), 5) . '@example.com', // Generate email based on name
+            'email_verified_at' => now(),
+            'password' => Hash::make($password),
+            'remember_token' => Str::random(10),
+        ]);
+    }
+
+    private function createLocations($userId, $counties)
+    {
+        shuffle($counties); // Shuffle the counties array to randomize the selection
+
+        $locationsCount = rand(1, min(count($counties), 3)); // Random number of counties between 1 and 3
+
+        for ($i = 0; $i < $locationsCount; $i++) {
+            $county = $counties[$i]; // Get the county at index $i
             DB::table('locations')->insert([
                 'user_id' => $userId,
                 'county' => $county,
                 'city' => $county . ' City', // You can modify this based on your requirement
                 'address' => rand(100, 999) . ' Example Street', // Generate a random address
+            ]);
+        }
+    }
+
+    private function createGenres($userId, $genres)
+    {
+        shuffle($genres); // Shuffle the genres array to randomize the selection
+
+        $genresCount = rand(1, min(count($genres), 5)); // Random number of genres between 1 and 5
+
+        $uniqueGenres = array_slice($genres, 0, $genresCount); // Get a slice of unique genres
+
+        foreach ($uniqueGenres as $genre) {
+            DB::table('genres')->insert([
+                'user_id' => $userId,
+                'name' => $genre,
+            ]);
+        }
+    }
+
+    private function createSpecialties($userId, $specialties)
+    {
+        shuffle($specialties); // Shuffle the specialties array to randomize the selection
+
+        $specialtiesCount = rand(1, min(count($specialties), 5)); // Random number of specialties between 1 and 5
+
+        $uniqueSpecialties = array_slice($specialties, 0, $specialtiesCount); // Get a slice of unique specialties
+
+        foreach ($uniqueSpecialties as $specialty) {
+            DB::table('specialties')->insert([
+                'user_id' => $userId,
+                'name' => $specialty,
             ]);
         }
     }
