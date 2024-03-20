@@ -56,13 +56,17 @@
                 @endforeach
             </div>             
             <div class="mb-3">
-                <label for="specialtyInput" class="form-label">Žanras</label>
-                <select name="genre" class="form-control">
-                    <option value="">Pasirinkti žanrą</option>
-                    @foreach ($genres as $genre)
-                        <option value="{{ $genre }}" {{ $user->genre == $genre ? 'selected' : '' }} >{{ $genre }}</option>
-                    @endforeach
-                </select> 
+                <label for="genreInput" class="form-label">Žanras<span style="color: red;">*</span></label>
+                <br>
+                @foreach (config('music_config.genres') as $genres)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="genre-{{ $loop->iteration }}" name="genres[]" value="{{ $genre }}" 
+                            {{ in_array($genre, $user_genres->pluck('name')->toArray()) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="specialty-{{ $loop->iteration }}">
+                            {{ $genre }}
+                        </label>
+                    </div>
+                @endforeach
             </div>                   
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Vietos (galima iki 3-jų)</label>
@@ -78,7 +82,7 @@
                     <td>
                         <select name="locations[0][county]" class="form-control">
                             <option value="">Pasirinkti apskritį </option>
-                            @foreach ($counties as $county)
+                            @foreach (config('music_config.counties') as $county)
                                 <option value="{{ $county }}" {{ $locations[0]->county == $county ? 'selected' : '' }} >{{ $county }}</option>
                             @endforeach
                         </select>                    
@@ -133,7 +137,7 @@
                             <td>
                                 <select name="locations[` + form_location_i + `][county]" class="form-control">
                                     <option value="">Pasirinkti apskritį</option>
-                                    @foreach ($counties as $county)
+                                    @foreach (config('music_config.counties') as $county)
                                         <option value="{{ $county }}" ${(locations[form_location_i].county == "{{$county}}") ? 'selected' : '' }>{{ $county }}</option>
                                     @endforeach
                                 </select>
@@ -155,7 +159,7 @@
                             <td>
                                 <select name="locations[` + form_location_i + `][county]" class="form-control">
                                     <option value="">Pasirinkti apskritį</option>
-                                    @foreach ($counties as $county)
+                                    @foreach (config('music_config.counties') as $county)
                                         <option value="{{ $county }}">{{ $county }}</option>
                                     @endforeach
                                 </select>
