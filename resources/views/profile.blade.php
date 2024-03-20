@@ -58,7 +58,7 @@
             <div class="mb-3">
                 <label for="genreInput" class="form-label">Žanras<span style="color: red;">*</span></label>
                 <br>
-                @foreach (config('music_config.genres') as $genres)
+                @foreach (config('music_config.genres') as $genre)
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="genre-{{ $loop->iteration }}" name="genres[]" value="{{ $genre }}" 
                             {{ in_array($genre, $user_genres->pluck('name')->toArray()) ? 'checked' : '' }}>

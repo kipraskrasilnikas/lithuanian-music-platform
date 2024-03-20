@@ -6,9 +6,9 @@ use App\Models\Specialty;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Location;
+use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 
 class ProfileController extends Controller
 {
@@ -17,9 +17,10 @@ class ProfileController extends Controller
             $user = Auth::user();
 
             $user_specialties = Specialty::Where('user_id', $user->id)->get();
+            $user_genres = Genre::Where('user_id', $user->id)->get();
             $locations = Location::Where('user_id', $user->id)->get();
                         
-            return view('profile', compact('user', 'user_specialties', 'locations'));
+            return view('profile', compact('user', 'user_specialties', 'user_genres', 'locations'));
         }
 
         return redirect()->route('home');
@@ -61,19 +62,23 @@ class ProfileController extends Controller
         $user->save();
 
         $specialty = new Specialty();
-
         $user->specialties()->delete();
-
         foreach ($request->specialties as $specialtyName) {
             $specialty = new Specialty(['name' => $specialtyName]);
             $specialty->user()->associate($user);
             $specialty->save();
         }
 
+        $genre = new Genre();
+        $user->genres()->delete();
+        foreach ($request->genres as $genreName) {
+            $genre = new Genre(['name' => $genreName]);
+            $genre->user()->associate($user);
+            $genre->save();
+        }
+
         $location = new Location();
-
         $user->locations()->delete();
-
         foreach ($request->locations as $locationParameters) {
             $location = new Location($locationParameters);
             $location->user()->associate($user);
