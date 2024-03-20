@@ -11,10 +11,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
-        
       <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1>Lietuvos muzikos platforma</h1>
         <span>.</span>
       </a>
@@ -36,7 +33,6 @@
         <a class="btn-getstarted" href="{{ route('logout') }}">Atsijungti</a>
       @else
       <div class="btn-getstarted-group">
-
         <a class="btn-getstarted" href="{{ route('registration') }}">Registruotis</a>
         <a class="btn-getstarted" href="{{ route('login') }}">Prisijungti</a>
       </div>
@@ -61,29 +57,29 @@
               <input type="text" name="search" class="form-control" placeholder="Bendra info (vardas pvz)">
 
               <div class="select-wrap">
-                <select name="specialty" class="form-control">
+                <select name="specialties[]" class="form-control">
                   <option value="">Pasirinkti specializaciją</option>
                   @foreach (config('music_config.specialties') as $specialty)
-                    <option value="{{ $specialty }}" {{ isset($search_specialty) && $search_specialty == $specialty ? 'selected' : '' }}>{{ $specialty }}</option>
+                    <option value="{{ $specialty }}" {{ isset($search_specialties[0]) && $search_specialties[0] == $specialty ? 'selected' : '' }}>{{ $specialty }}</option>
                   @endforeach
                 </select>
               </div>
 
               <div class="select-wrap">
-                <select name="genre" class="form-control">
+                <select name="genres[]" class="form-control">
                   <option value="">Pasirinkti žanrą</option>
                   @foreach (config('music_config.genres') as $genre)
-                      <option value="{{ $genre }}" {{ isset($search_genre) && $search_genre == $genre ? 'selected' : '' }}>{{ $genre }}</option>
+                      <option value="{{ $genre }}" {{ isset($search_genres[0]) && $search_genre == $genre ? 'selected' : '' }}>{{ $genre }}</option>
                   @endforeach
                 </select> 
               </div>
 
               <div class="select-wrap">
                 <div class="icon"><span class="bi bi-arrow-up-short"></span></div>
-                <select name="county" class="form-control">
+                <select name="counties[]" class="form-control">
                   <option value="">Pasirinkti apskritį</option>
                   @foreach (config('music_config.counties') as $county)
-                      <option value="{{ $county }}" {{ isset($search_county) && $search_county == $county ? 'selected' : '' }}>{{ $county }}</option>
+                      <option value="{{ $county }}" {{ isset($search_counties[0]) && $search_county == $county ? 'selected' : '' }}>{{ $county }}</option>
                   @endforeach
                 </select> 
               </div>
