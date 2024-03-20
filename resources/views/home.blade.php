@@ -53,12 +53,12 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-10">
-            <h2 data-aos="fade-up" data-aos-delay="100">Sveiki atvykę į lietuvių muzikantų platformą</h2>
-            <p data-aos="fade-up" data-aos-delay="200">Raskite muzikantą, su kuriuo norite kolaboruoti, pagal bendrus paieškos, žanro, specializacijos ar apskrities filtrus</p>
+            <h2 data-aos="fade-up" data-aos-delay="100">Sveiki atvykę</h2>
+            <p data-aos="fade-up" data-aos-delay="200">Raskite su kuo kolaboruoti, pasirinkdami specifinius filtrus</p>
           </div>
           <div class="col-lg-10">
             <form action="/searchPost" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
-              <input type="text" class="form-control" placeholder="Bendra info (vardas pvz)">
+              <input type="text" name="search" class="form-control" placeholder="Bendra info (vardas pvz)">
 
               <div class="select-wrap">
                 <select name="specialty" class="form-control">
