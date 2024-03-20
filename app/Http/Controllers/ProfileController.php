@@ -18,12 +18,8 @@ class ProfileController extends Controller
 
             $user_specialties = Specialty::Where('user_id', $user->id)->get();
             $locations = Location::Where('user_id', $user->id)->get();
-
-            $counties = config('music_config.counties');
-            $genres = config('music_config.genres');
-            $specialties = config('music_config.specialties');
                         
-            return view('profile', compact('user', 'counties', 'genres', 'specialties', 'user_specialties', 'locations'));
+            return view('profile', compact('user', 'user_specialties', 'locations'));
         }
 
         return redirect()->route('home');
