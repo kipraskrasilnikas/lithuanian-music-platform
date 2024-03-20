@@ -44,11 +44,11 @@
             </div>
             <div class="mb-3">
                 <label for="specialtyInput" class="form-label">Specializacija<span style="color: red;">*</span></label>
-
                 <br>
                 @foreach (config('music_config.specialties') as $specialty)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="specialty-{{ $loop->iteration }}" name="specialties[]" value="{{ $specialty }}" {{ in_array($specialty, (isset($selected_specialties) ? $selected_specialties : [])) ? 'checked' : '' }}>
+                        <input class="form-check-input" type="checkbox" id="specialty-{{ $loop->iteration }}" name="specialties[]" value="{{ $specialty }}" 
+                            {{ in_array($specialty, $user_specialties->pluck('name')->toArray()) ? 'checked' : '' }}>
                         <label class="form-check-label" for="specialty-{{ $loop->iteration }}">
                             {{ $specialty }}
                         </label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Location;
@@ -15,14 +16,14 @@ class ProfileController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
+            $user_specialties = Specialty::Where('user_id', $user->id)->get();
             $locations = Location::Where('user_id', $user->id)->get();
 
             $counties = config('music_config.counties');
             $genres = config('music_config.genres');
             $specialties = config('music_config.specialties');
-
                         
-            return view('profile', compact('user', 'counties', 'genres', 'specialties', 'locations'));
+            return view('profile', compact('user', 'counties', 'genres', 'specialties', 'user_specialties', 'locations'));
         }
 
         return redirect()->route('home');
@@ -32,7 +33,8 @@ class ProfileController extends Controller
         $request->validate([
             'name'                  => 'required',
             'email'                 => 'required|email',
-            'specialty'             => 'required',
+            'specialties'           => 'required|array', // Validate that specialties is an array and is required
+            'specialties.*'         => 'required',       // Validate each value in specialties array is required
             'genre'                 => 'nullable',
             'password'              => $request->filled('password') ? 'min:8|confirmed' : '',
             'password_confirmation' => $request->filled('password') ? 'min:8' : '',
@@ -61,6 +63,16 @@ class ProfileController extends Controller
 
         // Save the updated user information
         $user->save();
+
+        $specialty = new Specialty();
+
+        $user->specialties()->delete();
+
+        foreach ($request->specialties as $specialtyName) {
+            $specialty = new Specialty(['name' => $specialtyName]);
+            $specialty->user()->associate($user);
+            $specialty->save();
+        }
 
         $location = new Location();
 
