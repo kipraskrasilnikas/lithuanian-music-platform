@@ -48,4 +48,12 @@ class User extends Authenticatable
     public function locations() {
         return $this->hasMany(Location::class);
     }
+
+    public function genres() {
+        return $this->hasMany(Genre::class);
+    }
+
+    public function specialties() {
+        return $this->hasMany(Specialty::class);
+    }
 }
