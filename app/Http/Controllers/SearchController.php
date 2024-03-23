@@ -56,19 +56,19 @@ class SearchController extends Controller
         });
 
         // Filter by genre
-        $search_genres = array_filter($request->genres);
+        $search_genres = array_filter($request->genres ?? []);
         if ($search_genres) {
             $query->whereIn('genres.name', $search_genres);
         }
 
         // Filter by specialty
-        $search_specialties = array_filter($request->specialties);
+        $search_specialties = array_filter($request->specialties ?? []);
         if ($search_specialties) {
             $query->whereIn('specialties.name', $search_specialties);
         }
 
         // Filter by county if specified
-        $search_counties = array_filter($request->counties);
+        $search_counties = array_filter($request->counties ?? []);
         if ($search_counties) {
             $query->whereIn('locations.county', $search_counties);
         }

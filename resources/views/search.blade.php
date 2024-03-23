@@ -106,48 +106,46 @@
                         </div>
                     </div>
                     <div class="col-lg-4 sidebar">
-                        <div class="sidebar-box bg-white p-4 ftco-animate">
-                            <h3 class="heading-sidebar">Ieškokite pagal raktažodį</h3>
-                            <form action="#" class="search-form mb-3">
+                        <form action="/searchPost" method="GET" class="browse-form">
+                            <div class="sidebar-box bg-white p-4 ftco-animate">
+                                <h3 class="heading-sidebar">Ieškokite pagal raktažodį</h3>
                                 <div class="form-group">
                                     <span class="icon icon-search"></span>
-                                    <input type="text" name="search" class="form-control" placeholder="Search...">
+                                    <input type="text" value="{{ request('search') }}" name="search" class="form-control" placeholder="Search...">
                                 </div>
-                            </form>
 
-                            <h3 class="heading-sidebar">Pagal specializaciją</h3>
-                            <form action="#" class="browse-form">
+                                <h3 class="heading-sidebar">Pagal specializaciją</h3>
                                 @foreach (config('music_config.specialties') as $specialty)
                                     <label for="option-{{ $loop->iteration }}">
-                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="specialties[]" value="{{ $specialty }}" {{ in_array($specialty, (isset($selected_specialties) ? $selected_specialties : [])) ? 'checked' : '' }}>
+                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="specialties[]" value="{{ $specialty }}" {{ in_array($specialty, (isset($search_specialties) ? $search_specialties : [])) ? 'checked' : '' }}>
                                         {{ $specialty }}
                                     </label>
                                     <br>
                                 @endforeach
-                            </form>
 
-                            <h3 class="heading-sidebar">Pagal žanrą</h3>
-                            <form action="#" class="browse-form">
+                                <h3 class="heading-sidebar">Pagal žanrą</h3>
                                 @foreach (config('music_config.genres') as $genre)
                                     <label for="option-{{ $loop->iteration }}">
-                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="genres[]" value="{{ $genre }}" {{ in_array($genre, (isset($selected_genres) ? $selected_genres : [])) ? 'checked' : '' }}>
+                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="genres[]" value="{{ $genre }}" {{ in_array($genre, (isset($search_genres) ? $search_genres : [])) ? 'checked' : '' }}>
                                         {{ $genre }}
                                     </label>
                                     <br>
                                 @endforeach
-                            </form>
 
-                            <h3 class="heading-sidebar">Pagal vietą</h3>
-                            <form action="#" class="browse-form">
+                                <h3 class="heading-sidebar">Pagal vietą</h3>
                                 @foreach (config('music_config.counties') as $county)
                                     <label for="option-{{ $loop->iteration }}">
-                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="counties[]" value="{{ $county }}" {{ in_array($county, (isset($selected_counties) ? $selected_counties : [])) ? 'checked' : '' }}>
+                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="counties[]" value="{{ $county }}" {{ in_array($county, (isset($search_counties) ? $search_counties : [])) ? 'checked' : '' }}>
                                         {{ $county }}
                                     </label>
                                     <br>
                                 @endforeach
-                            </form>
-                        </div>
+
+                                <div class="mb-3 text-center">
+                                    <button type="submit" class="btn btn-primary">Ieškoti</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
