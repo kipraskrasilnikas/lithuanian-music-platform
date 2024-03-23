@@ -8,13 +8,14 @@ use App\Models\User;
 class SearchController extends Controller
 {
     public function search() {
-        $users = User::all();
+        $query = User::query();
         $currentUserId = auth()->id();
 
-        // Filter out the current user from the search results
-        $users = $users->reject(function ($user) use ($currentUserId) {
-            return $user->id == $currentUserId;
-        });
+        // Filter out current user
+        $query->where('users.id', '!=', $currentUserId);
+
+        // Get the search results
+        $users = $query->groupBy('id')->paginate(10);
 
         $counties = config('music_config.counties');
         $genres = config('music_config.genres');
