@@ -33,30 +33,47 @@ class SearchController extends Controller
 
         $query = User::query();
 
+        // Select statement with aliases
+        $query->select('users.*', 'genres.name as genre', 'specialties.name as specialty', 'locations.county', 'locations.city');
+
+        // Join the genre table
+        $query->leftJoin('genres', 'users.id', '=', 'genres.user_id');
+
+        // Join the specialty table
+        $query->leftJoin('specialties', 'users.id', '=', 'specialties.user_id');
+
+        // Join the locations table
+        $query->leftJoin('locations', 'users.id', '=', 'locations.user_id');
+
         if ($search) {
             $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', "%$search%")
-                    ->orWhere('genre', 'like', "%$search%")
-                    ->orWhere('specialty', 'like', "%$search%");
+                $query->where('users.name', 'like', "%$search%")
+                    ->orWhere('genres.name', 'like', "%$search%")
+                    ->orWhere('specialties.name', 'like', "%$search%")
+                    ->orWhere('locations.county', 'like', "%$search%")
+                    ->orWhere('locations.city', 'like', "%$search%");    
             });
         }
-    
-        $search_genre = $request->genre;
-        if ($search_genre) {
-            $query->where('genre', 'like', "%$search_genre%");
+
+        dump($query->get()); die();
+
+        // Filter by genre
+        $search_genres = array_filter($request->genres);
+        if ($search_genres) {
+            $query->whereIn('genres.name', $search_genres);
         }
 
-        $search_specialty = $request->specialty;
-        if ($search_specialty) {
-            $query->where('specialty', 'like', "%$search_specialty%");
+        // Filter by specialty
+        $search_specialties = array_filter($request->specialties);
+        if ($search_specialties) {
+            $query->whereIn('specialties.name', $search_specialties);
         }
 
-        if ($search) {
-            $query->orWhereHas('locations', function ($query) use ($search) {
-                $query->where('county', 'like', "%$search%")
-                    ->orWhere('city', 'like', "%$search%");
-            });
-        } 
+        // Filter by county if specified
+        $search_counties = array_filter($request->counties);
+        if ($search_counties) {
+            $query->whereIn('locations.county', $search_counties);
+        }
 
         // Get the search results
         $users = $query->get();
@@ -65,15 +82,17 @@ class SearchController extends Controller
         $users = $users->reject(function ($user) use ($currentUserId) {
             return $user->id == $currentUserId;
         });
+
+        // dump($users); die();
         
         // Filter by county if specified
-        $search_county = $request->county;
-        if ($search_county) {
-            $users = $users->filter(function ($user) use ($search_county) {
-                return $user->locations()->where('county', 'like', "%$search_county%")->exists();
-            });
-        }
+        // $search_counties = array_filter($request->counties);
+        // if ($search_counties) {
+        //     $users = $users->filter(function ($user) use ($search_counties) {
+        //         return $user->locations()->whereIn('county', $search_counties)->exists();
+        //     });
+        // }
 
-        return view('search', compact('users', 'search', 'search_genre', 'search_specialty', 'search_county'));
+        return view('search', compact('users', 'search', 'search_genres', 'search_specialties', 'search_counties'));
     }
 }
