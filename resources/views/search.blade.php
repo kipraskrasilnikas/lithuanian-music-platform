@@ -93,7 +93,7 @@
                             <div class="col text-center">
                                 <div class="block-27">
                                     <ul>
-                                        {{$users->onEachSide(1)->links()}}
+                                        {{$users->appends(['search' => $search, 'specialties' => $search_specialties, 'genres' => $search_genres, 'counties' => $search_counties])->onEachSide(1)->links()}}
                                     </ul>
                                 </div>
                             </div>
