@@ -73,13 +73,11 @@ class SearchController extends Controller
             $query->whereIn('locations.county', $search_counties);
         }
 
-        // Get the search results
-        $users = $query->groupBy('id')->get();
+        // Filter out current user
+        $query->where('users.id', '!=', $currentUserId);
 
-        // Filter out the current user from the search results
-        $users = $users->reject(function ($user) use ($currentUserId) {
-            return $user->id == $currentUserId;
-        });
+        // Get the search results
+        $users = $query->groupBy('id')->paginate(10);
 
         return view('search', compact('users', 'search', 'search_genres', 'search_specialties', 'search_counties'));
     }
