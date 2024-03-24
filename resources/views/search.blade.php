@@ -1,10 +1,7 @@
 @extends('layout')
-@section('title', 'Pagrindinis puslapis')
+@section('title', 'Paieškos puslapis')
 @section('content')
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <body>
+    <body class="blog-page" data-bs-spy="scroll" data-bs-target="#navmenu">
         <!-- ======= Header ======= -->
         <header id="header" class="header sticky-top d-flex align-items-center">
             <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -144,6 +141,6 @@
                 </div>
             </div>
         </section>
+        <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     </body>
-    </html>
 @endsection
