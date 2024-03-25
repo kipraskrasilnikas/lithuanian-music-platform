@@ -71,9 +71,9 @@
                                             <div class="img" style="background-image: url(images/person_2.jpg);"></div>
                                             <div class="text pl-md-4">
                                                 @php
-                                                    $counties = $user->locations->pluck('county')->implode(', ');
-                                                    $genres = $user->genres->pluck('name')->implode(', ');
-                                                    $specialties = $user->specialties->pluck('name')->implode(', ');
+                                                    $counties = $user->locations->pluck('county')->sort()->implode(', ');
+                                                    $genres = $user->genres->pluck('name')->sort()->implode(', ');
+                                                    $specialties = $user->specialties->pluck('name')->sort()->implode(', ');
                                                 @endphp
                                                 <span class="location mb-0">{{ $counties }}</span>
                                                 <h2>{{ $user->name }}</h2>
