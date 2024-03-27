@@ -50,7 +50,7 @@
           </div>
           <div class="col-lg-10">
             <form action="/searchPost" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
-              <input type="text" name="search" class="form-control" placeholder="Bendra info (vardas pvz)">
+              <input type="text" name="search" class="form-control" placeholder="Paieška">
 
               <div class="select-wrap">
                 <select name="specialties[]" class="form-control">
