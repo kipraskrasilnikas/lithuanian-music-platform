@@ -26,6 +26,9 @@
 
         <form action="{{ route('profile.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
             @csrf
+            <div class="mb-3" style="font-size: 30px;">
+                <label class="form-label">Bendra informacija</label>
+            </div>
             <div class="mb-3">
                 <label class="form-label">Vardas, Pavardė</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
@@ -41,6 +44,12 @@
             <div class="mb-3">
                 <label for="passwordConfirmationInput" class="form-label">Patvirtinti slaptažodį</label>
                 <input type="password" class="form-control" name="password_confirmation">
+            </div>
+            <div class="mb-3" style="font-size: 30px;">
+                <label class="form-label">Muzikos specifikacija</label>
+            </div>
+            <div class="mb-3" style="font-size: 15px; margin-top: -30px;">
+                <label class="form-label">(Nurodykite specializaciją, kad jus rastų galimi kolaborantai)</label>
             </div>
             <div class="mb-3">
                 <label for="specialtyInput" class="form-label">Specializacija<span style="color: red;">*</span></label>
@@ -98,6 +107,13 @@
                     </td>
                 </tr>
             </table>
+            <div class="mb-3" style="font-size: 30px;">
+                <label class="form-label">Naudotojo statusas</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" name="status" value="1" {{ $user->status == 1 ? 'checked' : '' }}>
+                <label class="form-check-label" for="status">Aktyvus</label>
+            </div>
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-primary">Išsaugoti</button>
             </div>

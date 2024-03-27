@@ -14,6 +14,9 @@ class SearchController extends Controller
         // Filter out current user
         $query->where('users.id', '!=', $currentUserId);
 
+        // Filter inactive users
+        $query->where('status', 1);
+
         // Get the search results
         $users = $query->groupBy('id')->paginate(10);
 
@@ -77,6 +80,9 @@ class SearchController extends Controller
 
         // Filter out current user
         $query->where('users.id', '!=', $currentUserId);
+
+        // Filter inactive users
+        $query->where('status', 1);
 
         // Get the search results
         $users = $query->groupBy('id')->paginate(10);

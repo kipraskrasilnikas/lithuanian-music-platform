@@ -32,7 +32,6 @@ class ProfileController extends Controller
             'email'                 => 'required|email',
             'specialties'           => 'required|array', // Validate that specialties is an array and is required
             'specialties.*'         => 'required',       // Validate each value in specialties array is required
-            'genre'                 => 'nullable',
             'password'              => $request->filled('password') ? 'min:8|confirmed' : '',
             'password_confirmation' => $request->filled('password') ? 'min:8' : '',
             'locations.*.county'    => 'required',
@@ -50,8 +49,7 @@ class ProfileController extends Controller
         // Update user's information based on form input
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->specialty = $request->input('specialty');
-        $user->genre = $request->input('genre');
+        $user->status = $request->input('status');
 
         // Update password only if it's filled
         if ($request->filled('password')) {
