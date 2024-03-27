@@ -149,6 +149,7 @@
                 <button type="submit" class="btn btn-primary">Išsaugoti</button>
             </div>
         </form>
+        <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     </body>
 
     <script>
