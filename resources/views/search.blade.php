@@ -14,9 +14,9 @@
                 <!-- Nav Menu -->
                 <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li><a href="{{ route('home') }}#hero" class="active">Namų puslapis</a></li>
+                        <li><a href="{{ route('home') }}#hero">Namų puslapis</a></li>
                         @auth
-                            <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
+                            <li><a href="{{ route('search') }}" class="active">Muzikantų paieška</a></li>
                             <li><a href="{{ route('profile') }}">Mano profilis</a></li>
                         @endauth
                     </ul>
