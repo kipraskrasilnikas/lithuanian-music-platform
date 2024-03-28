@@ -102,7 +102,7 @@ body {
 .messenger {
   display: inline-flex;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - var(--listView-header-height)); /* Adjust messaging view height */
   font-family: sans-serif;
 }
 .messenger-listView {
