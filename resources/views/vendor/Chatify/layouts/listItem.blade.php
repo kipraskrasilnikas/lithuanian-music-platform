@@ -11,7 +11,7 @@
             {{-- center side --}}
             <td>
                 <p data-id="{{ Auth::user()->id }}" data-type="user">Privačios žinutės<span>Jūs</span></p>
-                <span>Žinutės, saugomos slaptai</span>
+                <span>Susirašinėjimas su savimi</span>
             </td>
         </tr>
     </table>
