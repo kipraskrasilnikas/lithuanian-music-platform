@@ -79,7 +79,7 @@
                                                 <h2>{{ $user->name }}</h2>
                                                 <span class="position">{{ $genres }}</span>
                                                 <p class="mb-2">{{ $specialties }}</p>
-                                                <p><a href="#" class="btn btn-primary">Susisiekti</a></p>
+                                                <p><a href="{{ route('home') }}/chatify/{{ $user->id }}" class="btn btn-primary">Susisiekti</a></p>
                                             </div>
                                         </div>
                                     @endforeach

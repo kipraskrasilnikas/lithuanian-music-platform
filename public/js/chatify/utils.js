@@ -12,15 +12,15 @@ function dateStringToTimeAgo(dateString) {
   const days = Math.floor(hours / 24);
   const weeks = Math.floor(days / 7);
   if (seconds < 60) {
-    return "just now";
+    return "dabar";
   } else if (minutes < 60) {
-    return `${minutes}m ago`;
+    return `prieš ${minutes} minutes(-ę)`;
   } else if (hours < 24) {
-    return `${hours}h ago`;
+    return `prieš ${hours} valandas(-ą)`;
   } else if (days < 7) {
-    return `${days}d ago`;
+    return `prieš ${days} dienas(-ą)`;
   } else {
-    return `${weeks}w ago`;
+    return `prieš ${weeks} savaites(-ę)`;
   }
 }
 /**
