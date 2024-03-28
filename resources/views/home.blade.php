@@ -19,6 +19,7 @@
           @auth
             <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
             <li><a href="{{ route('profile') }}">Mano profilis</a></li>
+            <li><a href="{{ route('home') }}/chatify">Žinutės</a></li>
           @endauth
         </ul>
 

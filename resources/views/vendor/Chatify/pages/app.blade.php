@@ -1,11 +1,47 @@
 @include('Chatify::layouts.headLinks')
+@extends('layout')
+<body class="blog-page" data-bs-spy="scroll" data-bs-target="#navmenu">
+    <!-- ======= Header ======= -->
+    <header id="header" class="header sticky-top d-flex align-items-center">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+
+            <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
+                <h1>Lietuvos muzikos platforma</h1>
+                <span>.</span>
+            </a>
+
+            <!-- Nav Menu -->
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="{{ route('home') }}#hero">Namų puslapis</a></li>
+                    @auth
+                        <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
+                        <li><a href="{{ route('profile') }}">Mano profilis</a></li>
+                        <li><a href="{{ route('home') }}/chatify" class="active">Žinutės</a></li>
+                    @endauth
+                </ul>
+
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav><!-- End Nav Menu -->
+
+            @auth
+                <a class="btn-getstarted" href="{{ route('logout') }}">Atsijungti</a>
+            @else
+                <div class="btn-getstarted-group">
+                    <a class="btn-getstarted" href="{{ route('registration') }}">Registruotis</a>
+                    <a class="btn-getstarted" href="{{ route('login') }}">Prisijungti</a>
+                </div>
+            @endauth
+        </div>
+    </header><!-- End Header -->
+</body>
 <div class="messenger">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
     <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
-                <a href="#"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">ŽINUTĖS</span> </a>
+                <a href="#"><span class="messenger-headTitle">ŽINUTĖS</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#"><i class="fas fa-cog settings-btn"></i></a>
@@ -63,7 +99,6 @@
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="/"><i class="fas fa-home"></i></a>
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>
