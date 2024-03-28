@@ -10,8 +10,8 @@
             </td>
             {{-- center side --}}
             <td>
-                <p data-id="{{ Auth::user()->id }}" data-type="user">Išsaugotos žinutės<span>Jūs</span></p>
-                <span>Išsaugoti žinutes slaptai</span>
+                <p data-id="{{ Auth::user()->id }}" data-type="user">Privačios žinutės<span>Jūs</span></p>
+                <span>Žinutės, saugomos slaptai</span>
             </td>
         </tr>
     </table>
