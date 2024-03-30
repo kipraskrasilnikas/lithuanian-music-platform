@@ -81,7 +81,7 @@
                 <label class="form-label">Muzikos specifikacija</label>
             </div>
             <div class="mb-3" style="font-size: 15px; margin-top: -30px;">
-                <label class="form-label">(Nurodykite specializaciją, kad jus rastų galimi kolaborantai)</label>
+                <label class="form-label">(Nurodykite, kad jus rastų galimi kolaborantai)</label>
             </div>
             <div class="mb-3">
                 <label for="specialtyInput" class="form-label">Specializacija<span style="color: red;">*</span></label>

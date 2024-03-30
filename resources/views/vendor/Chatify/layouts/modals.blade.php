@@ -65,7 +65,7 @@
                   </div>
                   <div class="app-modal-footer">
                       <a href="javascript:void(0)" class="app-btn cancel">Atšaukti</a>
-                      <input type="submit" class="app-btn a-btn-success update" value="Save Changes" />
+                      <input type="submit" class="app-btn a-btn-success update" value="Išsaugoti" />
                   </div>
               </form>
           </div>
