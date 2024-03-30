@@ -1,10 +1,42 @@
 @extends('layout')
-
 @section('title', 'Profilio puslapis')
-
 @section('content')
-    <div class="container">
-        <h1 class="display-4">Profilis</h1>
+    <body class="blog-page" data-bs-spy="scroll" data-bs-target="#navmenu">
+        <!-- ======= Header ======= -->
+        <header id="header" class="header sticky-top d-flex align-items-center">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+
+                <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
+                    <h1>Lietuvos muzikos platforma</h1>
+                    <span>.</span>
+                </a>
+
+                <!-- Nav Menu -->
+                <nav id="navmenu" class="navmenu">
+                    <ul>
+                        <li><a href="{{ route('home') }}#hero" >Namų puslapis</a></li>
+                        @auth
+                            <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
+                            <li><a href="{{ route('profile') }}" class="active">Mano profilis</a></li>
+                            <li><a href="{{ route('home') }}/chatify">Žinutės</a></li>
+                        @endauth
+                    </ul>
+
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav><!-- End Nav Menu -->
+
+                @auth
+                    <a class="btn-getstarted" href="{{ route('logout') }}">Atsijungti</a>
+                @else
+                    <div class="btn-getstarted-group">
+                        <a class="btn-getstarted" href="{{ route('registration') }}">Registruotis</a>
+                        <a class="btn-getstarted" href="{{ route('login') }}">Prisijungti</a>
+                    </div>
+                @endauth
+            </div>
+        </header><!-- End Header -->
+        
+        <h1 class="display-4 text-center">Profilis</h1>
 
         <div class="mt-5">
             @if ($errors->any())
@@ -26,6 +58,9 @@
 
         <form action="{{ route('profile.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
             @csrf
+            <div class="mb-3" style="font-size: 30px;">
+                <label class="form-label">Bendra informacija</label>
+            </div>
             <div class="mb-3">
                 <label class="form-label">Vardas, Pavardė</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
@@ -42,23 +77,37 @@
                 <label for="passwordConfirmationInput" class="form-label">Patvirtinti slaptažodį</label>
                 <input type="password" class="form-control" name="password_confirmation">
             </div>
+            <div class="mb-3" style="font-size: 30px;">
+                <label class="form-label">Muzikos specifikacija</label>
+            </div>
+            <div class="mb-3" style="font-size: 15px; margin-top: -30px;">
+                <label class="form-label">(Nurodykite, kad jus rastų galimi kolaborantai)</label>
+            </div>
             <div class="mb-3">
                 <label for="specialtyInput" class="form-label">Specializacija<span style="color: red;">*</span></label>
-                <select name="specialty" class="form-control">
-                    <option value="">Pasirinkti specializaciją</option>
-                    @foreach ($specialties as $specialty)
-                        <option value="{{ $specialty }}" {{ $user->specialty == $specialty ? 'selected' : '' }} >{{ $specialty }}</option>
-                    @endforeach
-                </select> 
+                <br>
+                @foreach (config('music_config.specialties') as $specialty)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="specialty-{{ $loop->iteration }}" name="specialties[]" value="{{ $specialty }}" 
+                            {{ in_array($specialty, $user_specialties->pluck('name')->toArray()) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="specialty-{{ $loop->iteration }}">
+                            {{ $specialty }}
+                        </label>
+                    </div>
+                @endforeach
             </div>             
             <div class="mb-3">
-                <label for="specialtyInput" class="form-label">Žanras</label>
-                <select name="genre" class="form-control">
-                    <option value="">Pasirinkti žanrą</option>
-                    @foreach ($genres as $genre)
-                        <option value="{{ $genre }}" {{ $user->genre == $genre ? 'selected' : '' }} >{{ $genre }}</option>
-                    @endforeach
-                </select> 
+                <label for="genreInput" class="form-label">Žanras<span style="color: red;">*</span></label>
+                <br>
+                @foreach (config('music_config.genres') as $genre)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="genre-{{ $loop->iteration }}" name="genres[]" value="{{ $genre }}" 
+                            {{ in_array($genre, $user_genres->pluck('name')->toArray()) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="specialty-{{ $loop->iteration }}">
+                            {{ $genre }}
+                        </label>
+                    </div>
+                @endforeach
             </div>                   
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Vietos (galima iki 3-jų)</label>
@@ -74,7 +123,7 @@
                     <td>
                         <select name="locations[0][county]" class="form-control">
                             <option value="">Pasirinkti apskritį </option>
-                            @foreach ($counties as $county)
+                            @foreach (config('music_config.counties') as $county)
                                 <option value="{{ $county }}" {{ $locations[0]->county == $county ? 'selected' : '' }} >{{ $county }}</option>
                             @endforeach
                         </select>                    
@@ -90,11 +139,19 @@
                     </td>
                 </tr>
             </table>
+            <div class="mb-3" style="font-size: 30px;">
+                <label class="form-label">Naudotojo statusas</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" name="status" value="1" {{ $user->status == 1 ? 'checked' : '' }}>
+                <label class="form-check-label" for="status">Aktyvus</label>
+            </div>
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-primary">Išsaugoti</button>
             </div>
         </form>
-    </div>
+        <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    </body>
 
     <script>
 
@@ -129,7 +186,7 @@
                             <td>
                                 <select name="locations[` + form_location_i + `][county]" class="form-control">
                                     <option value="">Pasirinkti apskritį</option>
-                                    @foreach ($counties as $county)
+                                    @foreach (config('music_config.counties') as $county)
                                         <option value="{{ $county }}" ${(locations[form_location_i].county == "{{$county}}") ? 'selected' : '' }>{{ $county }}</option>
                                     @endforeach
                                 </select>
@@ -151,7 +208,7 @@
                             <td>
                                 <select name="locations[` + form_location_i + `][county]" class="form-control">
                                     <option value="">Pasirinkti apskritį</option>
-                                    @foreach ($counties as $county)
+                                    @foreach (config('music_config.counties') as $county)
                                         <option value="{{ $county }}">{{ $county }}</option>
                                     @endforeach
                                 </select>
@@ -170,7 +227,5 @@
             }
         });
     </script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 @endsection

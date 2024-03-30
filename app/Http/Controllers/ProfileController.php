@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Location;
+use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 
 class ProfileController extends Controller
 {
@@ -15,14 +16,11 @@ class ProfileController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
+            $user_specialties = Specialty::Where('user_id', $user->id)->get();
+            $user_genres = Genre::Where('user_id', $user->id)->get();
             $locations = Location::Where('user_id', $user->id)->get();
-
-            $counties = config('music_config.counties');
-            $genres = config('music_config.genres');
-            $specialties = config('music_config.specialties');
-
                         
-            return view('profile', compact('user', 'counties', 'genres', 'specialties', 'locations'));
+            return view('profile', compact('user', 'user_specialties', 'user_genres', 'locations'));
         }
 
         return redirect()->route('home');
@@ -32,8 +30,8 @@ class ProfileController extends Controller
         $request->validate([
             'name'                  => 'required',
             'email'                 => 'required|email',
-            'specialty'             => 'required',
-            'genre'                 => 'nullable',
+            'specialties'           => 'required|array', // Validate that specialties is an array and is required
+            'specialties.*'         => 'required',       // Validate each value in specialties array is required
             'password'              => $request->filled('password') ? 'min:8|confirmed' : '',
             'password_confirmation' => $request->filled('password') ? 'min:8' : '',
             'locations.*.county'    => 'required',
@@ -51,8 +49,7 @@ class ProfileController extends Controller
         // Update user's information based on form input
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->specialty = $request->input('specialty');
-        $user->genre = $request->input('genre');
+        $user->status = $request->input('status');
 
         // Update password only if it's filled
         if ($request->filled('password')) {
@@ -62,10 +59,24 @@ class ProfileController extends Controller
         // Save the updated user information
         $user->save();
 
+        $specialty = new Specialty();
+        $user->specialties()->delete();
+        foreach ($request->specialties as $specialtyName) {
+            $specialty = new Specialty(['name' => $specialtyName]);
+            $specialty->user()->associate($user);
+            $specialty->save();
+        }
+
+        $genre = new Genre();
+        $user->genres()->delete();
+        foreach ($request->genres as $genreName) {
+            $genre = new Genre(['name' => $genreName]);
+            $genre->user()->associate($user);
+            $genre->save();
+        }
+
         $location = new Location();
-
         $user->locations()->delete();
-
         foreach ($request->locations as $locationParameters) {
             $location = new Location($locationParameters);
             $location->user()->associate($user);

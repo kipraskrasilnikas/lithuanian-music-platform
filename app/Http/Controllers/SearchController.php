@@ -7,71 +7,86 @@ use App\Models\User;
 
 class SearchController extends Controller
 {
-    public function index() {
-        $users = User::all();
+    public function search() {
+        $query = User::query();
         $currentUserId = auth()->id();
 
-        // Filter out the current user from the search results
-        $users = $users->reject(function ($user) use ($currentUserId) {
-            return $user->id == $currentUserId;
-        });
+        // Filter out current user
+        $query->where('users.id', '!=', $currentUserId);
+
+        // Filter inactive users
+        $query->where('status', 1);
+
+        // Get the search results
+        $users = $query->groupBy('id')->paginate(10);
 
         $counties = config('music_config.counties');
         $genres = config('music_config.genres');
         $specialties = config('music_config.specialties');
 
-        return view('search', compact('users', 'counties', 'genres', 'specialties'));
+        $search = '';
+        $search_specialties = [];
+        $search_genres = [];
+        $search_counties = [];
+
+        return view('search', compact('users', 'counties', 'genres', 'specialties', 'search', 'search_specialties', 'search_genres', 'search_counties'));
     }
 
-    public function search (Request $request) {
+    public function searchPost (Request $request) {
         $search = $request->search;
         $currentUserId = auth()->id(); // Get the ID of the current authenticated user
 
         $query = User::query();
 
-        if ($search) {
-            $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', "%$search%")
-                    ->orWhere('genre', 'like', "%$search%")
-                    ->orWhere('specialty', 'like', "%$search%");
-            });
-        }
-    
-        $search_genre = $request->genre;
-        if ($search_genre) {
-            $query->where('genre', 'like', "%$search_genre%");
+        // Select statement with aliases
+        $query->select('users.*', 'genres.name as genre', 'specialties.name as specialty', 'locations.county', 'locations.city');
+
+        // Join the genre table
+        $query->leftJoin('genres', 'users.id', '=', 'genres.user_id');
+
+        // Join the specialty table
+        $query->leftJoin('specialties', 'users.id', '=', 'specialties.user_id');
+
+        // Join the locations table
+        $query->leftJoin('locations', 'users.id', '=', 'locations.user_id');
+
+        $query->where(function ($query) use ($search, $request) {
+            if ($search) {
+                $query->where('users.name', 'like', "%$search%")
+                    ->orWhere('genres.name', 'like', "%$search%")
+                    ->orWhere('specialties.name', 'like', "%$search%")
+                    ->orWhere('locations.county', 'like', "%$search%")
+                    ->orWhere('locations.city', 'like', "%$search%");    
+            }
+        });
+
+        // Filter by genre
+        $search_genres = array_filter($request->genres ?? []);
+        if ($search_genres) {
+            $query->whereIn('genres.name', $search_genres);
         }
 
-        $search_specialty = $request->specialty;
-        if ($search_specialty) {
-            $query->where('specialty', 'like', "%$search_specialty%");
+        // Filter by specialty
+        $search_specialties = array_filter($request->specialties ?? []);
+        if ($search_specialties) {
+            $query->whereIn('specialties.name', $search_specialties);
         }
 
-        $county = $request->county;
+        // Filter by county if specified
+        $search_counties = array_filter($request->counties ?? []);
+        if ($search_counties) {
+            $query->whereIn('locations.county', $search_counties);
+        }
 
-        if ($search) {
-            $query->orWhereHas('locations', function ($query) use ($search) {
-                $query->where('county', 'like', "%$search%")
-                    ->orWhere('city', 'like', "%$search%");
-            });
-        } 
+        // Filter out current user
+        $query->where('users.id', '!=', $currentUserId);
+
+        // Filter inactive users
+        $query->where('status', 1);
 
         // Get the search results
-        $users = $query->get();
-    
-        // Filter out the current user from the search results
-        $users = $users->reject(function ($user) use ($currentUserId) {
-            return $user->id == $currentUserId;
-        });
-        
-        // Filter by county if specified
-        $search_county = $request->county;
-        if ($search_county) {
-            $users = $users->filter(function ($user) use ($search_county) {
-                return $user->locations()->where('county', 'like', "%$search_county%")->exists();
-            });
-        }
+        $users = $query->groupBy('id')->paginate(10);
 
-        return view('search', compact('users', 'search', 'search_genre', 'search_specialty', 'search_county'));
+        return view('search', compact('users', 'search', 'search_genres', 'search_specialties', 'search_counties'));
     }
 }

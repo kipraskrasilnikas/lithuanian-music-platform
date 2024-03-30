@@ -42,6 +42,10 @@
                 <input type="password" class="form-control" name="password_confirmation">
             </div>
             <button type="submit" class="btn btn-primary">Registruotis</button>
+            <div class="no-account">
+                <br>
+                <a href="{{ route('login') }}">Esate prisiregistravęs ir turite paskyrą? Prisijunkite</a>
+            </div>
         </form>
     </div>
 

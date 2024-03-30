@@ -123,6 +123,10 @@ h6 {
   background: rgba(var(--accent-color-rgb), 0.85);
 }
 
+.header .btn-getstarted-group {
+  margin-right: 15px; /* Adjust this value as needed */
+}
+
 @media (max-width: 1200px) {
   .header .logo {
     order: 1;
@@ -878,6 +882,27 @@ section,
 
 .hero .sign-up-form input[type=submit]:hover {
   background-color: rgba(var(--accent-color-rgb), 0.9);
+}
+
+.hero .sign-up-form .select-wrap {
+  position: relative;
+  width: 100%; /* Adjust the width as needed */
+}
+
+.hero .sign-up-form select {
+  width: 100%; /* Ensure the select element spans the entire width */
+  padding: 10px; /* Adjust padding as needed */
+  font-size: 16px; /* Adjust font size as needed */
+  color: #626466;
+  border: 1px solid #ced4da; /* Add border to match input field */
+  border-radius: 5px; /* Add border radius to match input field */
+}
+
+.hero .sign-up-form .icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
 }
 
 @media (max-width: 768px) {
@@ -2889,4 +2914,20 @@ section,
 .blog-details .comments .reply-form .btn-primary:hover {
   color: var(--contrast-color);
   background-color: rgba(var(--accent-color-rgb), 0.8);
+}
+
+.no-account a {
+  text-decoration: underline;
+}
+
+.form-check-input[type="checkbox"] {
+  border: 2px solid #45474B; /* Change color and thickness as needed */
+}
+
+.browse-form input[type="text"]{
+  border: 1px solid #45474B; /* Change color and thickness as needed */
+}
+
+.heading-sidebar {
+  padding-top: 10px;
 }
