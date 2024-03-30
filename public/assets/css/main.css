@@ -2927,3 +2927,7 @@ section,
 .browse-form input[type="text"]{
   border: 1px solid #45474B; /* Change color and thickness as needed */
 }
+
+.heading-sidebar {
+  padding-top: 10px;
+}
