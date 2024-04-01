@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Resource;
+use Illuminate\Support\Facades\Auth;
 
 class ResourceController extends Controller
 {
@@ -41,18 +42,20 @@ class ResourceController extends Controller
         // Create resource instance and store it in the database
         $resource = new Resource([
             'name' => $request->name,
-            'address' => $request->address,
             'type' => $request->type,
             'description' => $request->description,
-            'telephone' => $request->telephone,
             'image' => $imageName,
+            'address' => $request->address,
+            'telephone' => $request->telephone,
         ]);
 
-        var_dump($resource); die('akes');
+        // Set the current authenticated user's ID as the user_id for the resource
+        $resource->user_id = Auth::id();
+
         $resource->save();
 
         // Redirect back with a success message
-        return redirect('resources')->with('success', 'Resursas įkeltas sėkmingai!');
+        return redirect('resources')->with('flash_message', 'Resursas įkeltas sėkmingai!');
     }
 
     /**
