@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Resource;
+use Faker\Factory as Faker;
 
 class ResourceSeeder extends Seeder
 {
@@ -19,6 +20,9 @@ class ResourceSeeder extends Seeder
 
         // Get the resource types from the config
         $resourceTypes = config('music_config.resource_types');
+
+        // Create Faker instance
+        $faker = Faker::create('lt_LT');
 
         // Loop to create resources
         for ($i = 0; $i < $numberOfResources; $i++) {
@@ -35,11 +39,21 @@ class ResourceSeeder extends Seeder
                 'address' => 'Adresas ' . ($i + 1),
             ]);
 
+            // Generate random email
+            $email = $faker->unique()->safeEmail;
+
+            // Generate random Lithuanian phone number
+            $telephone = '+3706' . $faker->numberBetween(1000000, 9999999);
+
             // Get a random user to assign as the owner of the resource
             $user = User::inRandomOrder()->first();
 
             // Associate the resource with the user
             $resource->user()->associate($user);
+
+            // Set the email and phone number
+            $resource->email = $email;
+            $resource->telephone = $telephone;
 
             // Save the resource
             $resource->save();
