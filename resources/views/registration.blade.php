@@ -44,7 +44,7 @@
             <button type="submit" class="btn btn-primary">Registruotis</button>
             <div class="no-account">
                 <br>
-                <a href="{{ route('login') }}">Esate prisiregistravęs ir turite paskyrą? Prisijunkite</a>
+                <a href="{{ route('login') }}">Esate prisiregistravęs? Prisijunkite</a>
             </div>
         </form>
     </div>
