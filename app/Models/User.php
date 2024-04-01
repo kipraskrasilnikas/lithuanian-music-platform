@@ -57,4 +57,8 @@ class User extends Authenticatable
     public function specialties() {
         return $this->hasMany(Specialty::class);
     }
+
+    public function resources() {
+        return $this->hasMany(Resource::class);
+    }
 }
