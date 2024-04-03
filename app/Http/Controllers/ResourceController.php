@@ -64,7 +64,8 @@ class ResourceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $resource = Resource::find($id);
+        return view('resources.show')->with('resources', $resource);
     }
 
     /**

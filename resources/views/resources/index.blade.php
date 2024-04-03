@@ -81,8 +81,7 @@
                                             <span class="position">{{ $resource->type }}</span>
                                             <p class="mb-2">{{ $resource->description }}</p>
                                             <p><a href="">Daugiau informacijos</a></p>
-                                            <a href="{{ url('/student/' . $resource->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/student/' . $resource->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/resource/' . $resource->id) }}" title="View Resource"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>Peržiūrėti</button></a>
 
                                             <form method="POST" action="{{ url('/student' . '/' . $resource->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
