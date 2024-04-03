@@ -2931,3 +2931,19 @@ section,
 .heading-sidebar {
   padding-top: 10px;
 }
+
+.position {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.3);
+  color: #fdab44;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  padding: 0 10px;
+  background: #fffaf5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px; 
+}
