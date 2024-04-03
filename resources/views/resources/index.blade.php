@@ -70,7 +70,11 @@
                                 </a>
                                 @foreach ($resources as $resource)
                                     <div class="team d-md-flex p-4 bg-white">
-                                        <div class="img" style="background-image: url('{{ asset('images/' . $resource->image)}}');"></div>
+                                        <div class="img-container">
+                                            <?php if (file_exists('images/' . $resource->image)) { ?>
+                                            <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
+                                            <?php } ?>
+                                        </div>
                                         <div class="text pl-md-4">
                                             <span class="location mb-0"></span>
                                             <h2>{{ $resource->name }}</h2>
