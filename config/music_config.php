@@ -44,5 +44,16 @@ return [
         'Telšiai',
         'Utena',
         'Vilnius'
+    ],
+
+    'resource_types' => [
+        'Įrašų studija',
+        'Repeticijų vieta',
+        'Instrumentų nuoma',
+        'Muzikos mokykla',
+        'Parduotuvė',
+        'Vieta koncertuoti',
+        'Muzikos produkcija',
+        'Internetinis puslapis'
     ]
 ];
