@@ -53,6 +53,7 @@
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
+        <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti</a>
         <input type="submit" value="Įkelti" class="btn btn-success">
     </form>
   </div>

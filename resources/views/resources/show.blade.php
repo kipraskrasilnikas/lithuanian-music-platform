@@ -15,7 +15,7 @@
                 <img src="{{ asset('images/' . $resources->image) }}" alt="{{ $resources->name }}">
             </div>
         <?php } ?>
-        <a href="{{ url()->previous() }}" class="btn btn-primary">Grįžti</a>
+        <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti</a>
     </div>
 </div>
 @stop
