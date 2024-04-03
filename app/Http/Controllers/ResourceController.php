@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Resource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ResourceController extends Controller
 {
@@ -36,7 +37,7 @@ class ResourceController extends Controller
         ]);
         
         // Handle the file upload
-        $imageName = time() . '.' . $request->image->extension();
+        $imageName = Str::slug(pathinfo($request->image->getClientOriginalName(), PATHINFO_FILENAME)) . '_' . time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
         
         // Create resource instance and store it in the database
