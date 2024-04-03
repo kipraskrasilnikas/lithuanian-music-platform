@@ -71,7 +71,7 @@
                                 @foreach ($resources as $resource)
                                     <div class="team d-md-flex p-4 bg-white">
                                         <div class="img-container">
-                                            <?php if (file_exists('images/' . $resource->image)) { ?>
+                                            <?php if ($resource->image && file_exists(public_path('images/' . $resource->image))) { ?>
                                             <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
                                             <?php } ?>
                                         </div>
