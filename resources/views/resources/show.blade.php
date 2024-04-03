@@ -1,5 +1,13 @@
 @extends('layout')
 @section('content')
+
+<!-- Flash Message -->
+@if(session('flash_message'))
+<div class="alert alert-success">
+    {{ session('flash_message') }}
+</div>
+@endif 
+
 <div class="card" style="margin:20px;">
     <div class="card-header">Resurso informacija</div>
     <div class="card-body">
@@ -15,7 +23,8 @@
                 <img src="{{ asset('images/' . $resources->image) }}" alt="{{ $resources->name }}">
             </div>
         <?php } ?>
-        <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti</a>
+        <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti į resursų puslapį</a>
+        <a href="{{ route('resources.edit', $resources->id) }}" class="btn btn-success">Redaguoti dar kartą</a>
     </div>
 </div>
 @stop
