@@ -73,7 +73,8 @@ class ResourceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $resource = Resource::find($id);
+        return view('resources.edit')->with('resources', $resource);
     }
 
     /**
@@ -81,7 +82,10 @@ class ResourceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $resource = Resource::find($id);
+        $input = $request->all();
+        $resource->update($input);
+        return redirect(route('resources.show', $id))->with('flash_message', 'Resursas atnaujintas sėkmingai!');
     }
 
     /**

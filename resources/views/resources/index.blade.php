@@ -38,13 +38,6 @@
             </div>
         </header><!-- End Header -->
 
-            <!-- Flash Message -->
-        @if(session('flash_message'))
-            <div class="alert alert-success">
-                {{ session('flash_message') }}
-            </div>
-        @endif
-
         <div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');"
             data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
@@ -58,6 +51,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- Flash Message -->
+        @if(session('flash_message'))
+            <div class="alert alert-success">
+                {{ session('flash_message') }}
+            </div>
+        @endif    
 
         <section class="ftco-section ftco-candidates ftco-candidates-2 bg-light">
             <div class="container">
@@ -82,6 +82,7 @@
                                             <p class="mb-2">{{ $resource->description }}</p>
                                             <p><a href="">Daugiau informacijos</a></p>
                                             <a href="{{ url('/resource/' . $resource->id) }}" title="View Resource"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>Peržiūrėti</button></a>
+                                            <a href="{{ url('/resource/' . $resource->id . '/edit') }}" title="Edit Resource"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Redaguoti</button></a>
 
                                             <form method="POST" action="{{ url('/student' . '/' . $resource->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}

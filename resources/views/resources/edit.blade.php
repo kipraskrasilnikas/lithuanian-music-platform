@@ -3,8 +3,9 @@
 <div class="card" style="margin:20px;">
   <div class="card-header">Resurso redagavimas</div>
   <div class="card-body">
-    <form action="{{ route('resources.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('resources.update', $resources->id) }}" method="post" enctype="multipart/form-data">
         @csrf
+        @method("POST")
 
         <label>Pavadinimas</label><br>
         <input type="text" name="name" id="name" class="form-control" value="{{ $resources->name }}" required>
@@ -15,7 +16,7 @@
         <label>Resurso tipas</label><br>
         <select name="type" id="type" class="form-control" required>
             @foreach(config('music_config.resource_types') as $type)
-                <option value="{{ $type }}" {{ old('type') == $type ? 'selected' : '' }}>{{ $type }}</option>
+                <option value="{{ $type }}" {{ $resources->type == $type ? 'selected' : '' }}>{{ $type }}</option>
             @endforeach
         </select>
         @error('type')
@@ -23,39 +24,43 @@
         @enderror
     
         <label>Aprašymas</label><br>
-        <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+        <textarea name="description" id="description" class="form-control">{{ $resources->description }}</textarea>
         @error('description')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     
         <label>Paveikslėlis</label>
         <input type="file" name="image" id="image" class="form-control">
-        <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
+        @if ($resources->image)
+            <img id="preview_image" src="{{ asset('images/' . $resources->image) }}" alt="Preview" style="width: 100px; height: 100px;"><br>
+        @else
+            <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
+        @endif
         @error('image')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     
         <label>Adresas</label><br>
-        <input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}">
+        <input type="text" name="address" id="address" class="form-control" value="{{ $resources->address }}">
         @error('address')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     
         <label>Telefono numeris</label><br>
-        <input type="tel" name="telephone" id="telephone" class="form-control" pattern="^\+?[0-9]{9,}$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" value="{{ old('telephone') }}">
+        <input type="tel" name="telephone" id="telephone" class="form-control" pattern="^\+?[0-9]{9,}$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" value="{{ $resources->telephone }}">
         @error('telephone')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     
         <label>Elektroninis paštas</label><br>
-        <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
+        <input type="email" name="email" id="email" class="form-control" value="{{ $resources->email }}">
         @error('email')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
-        <input type="submit" value="Įkelti" class="btn btn-success">
+        <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti į resursų puslapį</a>
+        <input type="submit" value="Atnaujinti" class="btn btn-success">
     </form>
-  </div>
 </div>
 
 <script>
