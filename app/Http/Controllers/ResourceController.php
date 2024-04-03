@@ -82,10 +82,40 @@ class ResourceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $resource = Resource::find($id);
-        $input = $request->all();
-        $resource->update($input);
-        return redirect(route('resources.show', $id))->with('flash_message', 'Resursas atnaujintas sėkmingai!');
+
+        // Validate the updated data
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+        ]);
+        
+        // Find the resource to update
+        $resource = Resource::findOrFail($id);
+        
+        // Handle the file upload if a new image is provided
+        if ($request->hasFile('image')) {
+            // Delete the old image file if it exists
+            if ($resource->image && file_exists(public_path('images/' . $resource->image))) {
+                unlink(public_path('images/' . $resource->image));
+            }
+            
+            // Upload and store the new image
+            $imageName = Str::slug(pathinfo($request->image->getClientOriginalName(), PATHINFO_FILENAME)) . '_' . time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $resource->image = $imageName;
+        }
+        
+        // Update other fields
+        $resource->name = $request->input('name');
+        $resource->type = $request->input('type');
+        $resource->description = $request->input('description');
+        $resource->address = $request->input('address');
+        $resource->telephone = $request->input('telephone');
+        
+        // Save the updated resource
+        $resource->save();
+
+        // Redirect back with a success message
+        return redirect()->route('resources.show', $id)->with('flash_message', 'Resursas atnaujintas sėkmingai!');
     }
 
     /**
