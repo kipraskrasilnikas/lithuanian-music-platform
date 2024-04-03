@@ -24,7 +24,7 @@
             </div>
         <?php } ?>
         <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti į resursų puslapį</a>
-        <a href="{{ route('resources.edit', $resources->id) }}" class="btn btn-success">Redaguoti dar kartą</a>
+        <a href="{{ route('resources.edit', $resources->id) }}" class="btn btn-success">Redaguoti</a>
     </div>
 </div>
 @stop
