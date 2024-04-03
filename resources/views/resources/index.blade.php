@@ -15,7 +15,7 @@
                 <nav id="navmenu" class="navmenu">
                     <ul>
                         <li><a href="{{ route('home') }}#hero">Namų puslapis</a></li>
-                        <li><a href="{{ route('search') }}" >Muzikantų paieška</a></li>
+                        <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
                         <li><a href="{{ route('resource') }}" class="active">Ištekliai</a></li>
 
                         @auth
@@ -38,6 +38,13 @@
             </div>
         </header><!-- End Header -->
 
+            <!-- Flash Message -->
+        @if(session('flash_message'))
+            <div class="alert alert-success">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+
         <div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');"
             data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
@@ -58,6 +65,30 @@
                     <div class="col-lg-8 pr-lg-4">
                         <div class="row">
                             <div class="col-md-12">
+                                <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm" title="Pridėti naują resursą">
+                                    Pridėti naują resursą
+                                </a>
+                                @foreach ($resources as $resource)
+                                    <div class="team d-md-flex p-4 bg-white">
+                                        <div class="img" style="background-image: url('{{ asset('images/' . $resource->image)}}');"></div>
+                                        <div class="text pl-md-4">
+                                            <span class="location mb-0"></span>
+                                            <h2>{{ $resource->name }}</h2>
+                                            <span class="position">{{ $resource->type }}</span>
+                                            <p class="mb-2">{{ $resource->description }}</p>
+                                            <p><a href="">Daugiau informacijos</a></p>
+                                            <a href="{{ url('/student/' . $resource->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/student/' . $resource->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+
+                                            <form method="POST" action="{{ url('/student' . '/' . $resource->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                {{ method_field('DELETE') }}
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Student" onclick="return confirm("Confirm delete?")"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endforeach
+
                                 {{-- @if ($users->isEmpty())
                                     <div class="container">
                                         <div class="row">
