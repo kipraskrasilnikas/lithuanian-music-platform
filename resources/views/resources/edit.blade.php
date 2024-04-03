@@ -31,7 +31,7 @@
     
         <label>Paveikslėlis</label>
         <input type="file" name="image" id="image" class="form-control">
-        @if ($resources->image)
+        @if ($resources->image && file_exists(public_path('images/' . $resources->image)))
             <img id="preview_image" src="{{ asset('images/' . $resources->image) }}" alt="Preview" style="width: 100px; height: 100px;"><br>
         @else
             <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>

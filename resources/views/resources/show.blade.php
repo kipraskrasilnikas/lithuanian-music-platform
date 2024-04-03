@@ -17,7 +17,7 @@
         <p class="card-text">Adresas: {{ $resources->address}} </p>
         <p class="card-text">Telefono numeris: {{ $resources->telephone}} </p>
         <p class="card-text">El. paštas: {{ $resources->email}} </p>
-        <?php if (file_exists('images/' . $resources->image)) { ?>
+        <?php if ($resources->image && file_exists(public_path('images/' . $resources->image))) { ?>
             <p class="card-text">Paveikslėlis:</p>
             <div class="img-container">
                 <img src="{{ asset('images/' . $resources->image) }}" alt="{{ $resources->name }}">
