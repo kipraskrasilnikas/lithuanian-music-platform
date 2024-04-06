@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ResourceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,3 +39,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::get('/searchPost', [SearchController::class, 'searchPost'])->name('search.post');
 });
+
+Route::get("/resources", [ResourceController::class, 'index'])->name('resource');
+
+// insert
+Route::get("/resources/create", [ResourceController::class, 'create'])->name('resources.create');
+Route::post("/resources", [ResourceController::class, 'store'])->name('resources.store');
+
+// show
+Route::get("/resource/{id}", [ResourceController::class, 'show'])->name('resources.show');
+
+// edit
+Route::get("/resource/{id}/edit", [ResourceController::class, 'edit'])->name('resources.edit');
+Route::post("/resource/{id}", [ResourceController::class, 'update'])->name('resources.update');
+
+// delete
+
+Route::delete("resource/{id}", [ResourceController::class, 'destroy'])->name('resources.delete');
