@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 /*
 * This is the main app route [Chatify Messenger]
 */
-Route::get('/', 'MessagesController@index')->name(config('chatify.routes.prefix'));
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', 'MessagesController@index')->name(config('chatify.routes.prefix'));
+});
 
 /**
  *  Fetch info for specific id [user/group]

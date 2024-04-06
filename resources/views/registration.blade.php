@@ -22,7 +22,7 @@
 
                         @auth
                             <li><a href="{{ route('profile') }}">Mano profilis</a></li>
-                            <li><a href="{{ route('home') }}/chatify">Žinutės</a></li>
+                            <li><a href="{{ route('chatify') }}">Žinutės</a></li>
                         @endauth
                     </ul>
 

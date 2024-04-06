@@ -20,7 +20,7 @@
           <li><a href="{{ route('resource') }}">Ištekliai</a></li>
 
           @auth
-            <li><a href="{{ route('home') }}/chatify">Žinutės</a></li>
+            <li><a href="{{ route('chatify') }}">Žinutės</a></li>
             <li><a href="{{ route('profile') }}">Mano profilis</a></li>            
           @endauth
         </ul>

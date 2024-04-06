@@ -30,29 +30,26 @@ Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('re
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
-    // sito viduje tiesiog, jei noriu, kad butu prisijunge zmones, kad prieitu
-
-    // ir sita atidarys, tik kai ispildysi autha. cia pvz kai prisijungsi
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'profilePost'])->name('profile.post');
-
-    Route::get('/search', [SearchController::class, 'search'])->name('search');
-    Route::get('/searchPost', [SearchController::class, 'searchPost'])->name('search.post');
 });
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+Route::get('/searchPost', [SearchController::class, 'searchPost'])->name('search.post');
 
 Route::get("/resources", [ResourceController::class, 'index'])->name('resource');
 
-// insert
+// Resources CRUD
+// create
 Route::get("/resources/create", [ResourceController::class, 'create'])->name('resources.create');
 Route::post("/resources", [ResourceController::class, 'store'])->name('resources.store');
 
-// show
+// read
 Route::get("/resource/{id}", [ResourceController::class, 'show'])->name('resources.show');
 
-// edit
+// update
 Route::get("/resource/{id}/edit", [ResourceController::class, 'edit'])->name('resources.edit');
 Route::post("/resource/{id}", [ResourceController::class, 'update'])->name('resources.update');
 
 // delete
-
 Route::delete("resource/{id}", [ResourceController::class, 'destroy'])->name('resources.delete');

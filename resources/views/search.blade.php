@@ -20,7 +20,7 @@
 
                         @auth
                             <li><a href="{{ route('profile') }}">Mano profilis</a></li>
-                            <li><a href="{{ route('home') }}/chatify">Žinutės</a></li>
+                            <li><a href="{{ route('chatify') }}">Žinutės</a></li>
                         @endauth
                     </ul>
 
@@ -82,7 +82,7 @@
                                                 <h2>{{ $user->name }}</h2>
                                                 <span class="position">{{ $genres }}</span>
                                                 <p class="mb-2 position">{{ $specialties }}</p>
-                                                <p><a href="{{ route('home') }}/chatify/{{ $user->id }}" class="btn btn-primary">Susisiekti</a></p>
+                                                <p><a href="{{ route('user', $user->id) }}" class="btn btn-primary">Susisiekti</a></p>
                                             </div>
                                         </div>
                                     @endforeach
