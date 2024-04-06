@@ -1,3 +1,4 @@
+@extends('layout')
 <title>{{ config('chatify.name') }}</title>
 
 {{-- Meta tags --}}

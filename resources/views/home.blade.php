@@ -2,6 +2,7 @@
 @section('title', 'Pagrindinis puslapis')
 @section('content')
 
+@section('header')
 <body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -38,7 +39,10 @@
       @endauth
     </div>
   </header><!-- End Header -->
+</body>
+@endsection
 
+<body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
   <main id="main">
 
     <!-- Hero Section - Home Page -->
