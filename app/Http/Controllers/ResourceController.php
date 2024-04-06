@@ -123,6 +123,7 @@ class ResourceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Resource::destroy($id);
+        return redirect()->route('resource')->with('flash_message', 'Resursas ištrintas sėkmingai!');
     }
 }
