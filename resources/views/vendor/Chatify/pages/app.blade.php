@@ -14,8 +14,10 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{ route('home') }}#hero">Namų puslapis</a></li>
+                    <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
+                    <li><a href="{{ route('resource') }}">Ištekliai</a></li>
+
                     @auth
-                        <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
                         <li><a href="{{ route('profile') }}">Mano profilis</a></li>
                         <li><a href="{{ route('home') }}/chatify" class="active">Žinutės</a></li>
                     @endauth

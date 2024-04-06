@@ -3,7 +3,6 @@
 @section('title', 'Registracijos puslapis')
 
 @section('content')
-
     <body class="blog-page" data-bs-spy="scroll" data-bs-target="#navmenu">
         <!-- ======= Header ======= -->
         <header id="header" class="header sticky-top d-flex align-items-center">
@@ -18,8 +17,10 @@
                 <nav id="navmenu" class="navmenu">
                     <ul>
                         <li><a href="{{ route('home') }}#hero" >Namų puslapis</a></li>
+                        <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
+                        <li><a href="{{ route('resource') }}">Ištekliai</a></li>
+
                         @auth
-                            <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
                             <li><a href="{{ route('profile') }}">Mano profilis</a></li>
                             <li><a href="{{ route('home') }}/chatify">Žinutės</a></li>
                         @endauth

@@ -15,8 +15,10 @@
                 <nav id="navmenu" class="navmenu">
                     <ul>
                         <li><a href="{{ route('home') }}#hero">Namų puslapis</a></li>
+                        <li><a href="{{ route('search') }}" class="active">Muzikantų paieška</a></li>
+                        <li><a href="{{ route('resource') }}">Ištekliai</a></li>
+
                         @auth
-                            <li><a href="{{ route('search') }}" class="active">Muzikantų paieška</a></li>
                             <li><a href="{{ route('profile') }}">Mano profilis</a></li>
                             <li><a href="{{ route('home') }}/chatify">Žinutės</a></li>
                         @endauth
@@ -79,7 +81,7 @@
                                                 <span class="location mb-0">{{ $counties }}</span>
                                                 <h2>{{ $user->name }}</h2>
                                                 <span class="position">{{ $genres }}</span>
-                                                <p class="mb-2">{{ $specialties }}</p>
+                                                <p class="mb-2 position">{{ $specialties }}</p>
                                                 <p><a href="{{ route('home') }}/chatify/{{ $user->id }}" class="btn btn-primary">Susisiekti</a></p>
                                             </div>
                                         </div>
