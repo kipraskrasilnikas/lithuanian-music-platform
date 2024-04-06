@@ -29,7 +29,7 @@
                     <div class="col-lg-8 pr-lg-4">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm" title="Pridėti naują resursą">
+                                <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm" title="Pridėti naują išteklį">
                                     Pridėti naują resursą
                                 </a>
                                 @foreach ($resources as $resource)
