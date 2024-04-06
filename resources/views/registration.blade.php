@@ -3,6 +3,43 @@
 @section('title', 'Registracijos puslapis')
 
 @section('content')
+
+    <body class="blog-page" data-bs-spy="scroll" data-bs-target="#navmenu">
+        <!-- ======= Header ======= -->
+        <header id="header" class="header sticky-top d-flex align-items-center">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+
+                <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
+                    <h1>Lietuvos muzikos platforma</h1>
+                    <span>.</span>
+                </a>
+
+                <!-- Nav Menu -->
+                <nav id="navmenu" class="navmenu">
+                    <ul>
+                        <li><a href="{{ route('home') }}#hero" >Namų puslapis</a></li>
+                        @auth
+                            <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
+                            <li><a href="{{ route('profile') }}">Mano profilis</a></li>
+                            <li><a href="{{ route('home') }}/chatify">Žinutės</a></li>
+                        @endauth
+                    </ul>
+
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav><!-- End Nav Menu -->
+
+                @auth
+                    <a class="btn-getstarted" href="{{ route('logout') }}">Atsijungti</a>
+                @else
+                    <div class="btn-getstarted-group">
+                        <a class="btn-getstarted" href="{{ route('registration') }}">Registruotis</a>
+                        <a class="btn-getstarted" href="{{ route('login') }}">Prisijungti</a>
+                    </div>
+                @endauth
+            </div>
+        </header><!-- End Header -->
+    </body>
+
     <div class="container">
         <h1 class="display-4">Registracija</h1>
         <div class="mt-5">
