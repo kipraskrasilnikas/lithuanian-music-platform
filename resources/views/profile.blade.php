@@ -46,6 +46,7 @@
             <div class="mb-3">
                 <label for="description" class="form-label">Aprašymas</label>
                 <textarea class="form-control" id="description" name="description" rows="3">{{ $user->description }}</textarea>
+                <div id="description-counter" class="form-text text-muted">Characters left: <span id="description-count">{{ 500 - strlen($user->description) }}</span></div>
             </div>
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Muzikos specifikacija</label>
@@ -126,6 +127,17 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", function() {
+            // ------Update description characters-----
+            var descriptionInput = document.getElementById('description');
+            var descriptionCounter = document.getElementById('description-count');
+
+            // Update character count on input
+            descriptionInput.addEventListener('input', function() {
+                var remainingChars = 500 - this.value.length;
+                descriptionCounter.textContent = remainingChars;
+            });
+            // -----------------------------------------
+
             var form_location_i = 0;
             var limit = 2;
             var locations = {!! json_encode($locations) !!};
