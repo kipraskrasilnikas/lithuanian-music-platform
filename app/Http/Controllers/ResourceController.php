@@ -48,6 +48,7 @@ class ResourceController extends Controller
             'image' => $imageName,
             'address' => $request->address,
             'telephone' => $request->telephone,
+            'email'     => $request->email
         ]);
 
         // Set the current authenticated user's ID as the user_id for the resource
@@ -82,7 +83,6 @@ class ResourceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
         // Validate the updated data
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
@@ -110,7 +110,8 @@ class ResourceController extends Controller
         $resource->description = $request->input('description');
         $resource->address = $request->input('address');
         $resource->telephone = $request->input('telephone');
-        
+        $resource->email = $request->input('email');
+
         // Save the updated resource
         $resource->save();
 
