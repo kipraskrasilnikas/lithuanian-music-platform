@@ -50,6 +50,7 @@ class ProfileController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->status = $request->input('status');
+        $user->description = $request->input('description');
 
         // Update password only if it's filled
         if ($request->filled('password')) {

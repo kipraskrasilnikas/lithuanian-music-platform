@@ -22,17 +22,17 @@
             @endif
         </div>
 
-        <form action="{{ route('profile.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
+        <form action="{{ route('profile.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 700px">
             @csrf
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Bendra informacija</label>
             </div>
             <div class="mb-3">
-                <label class="form-label">Vardas, Pavardė</label>
+                <label class="form-label">Vardas, Pavardė<span style="color: red;">*</span></label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
             </div>
             <div class="mb-3">
-                <label for="loginEmailInput">El. pašto adresas</label>
+                <label for="loginEmailInput">El. pašto adresas<span style="color: red;">*</span></label>
                 <input type="email" class="form-control" id="loginEmailInput" name="email" value="{{ $user->email }}">
             </div>
             <div class="mb-3">
@@ -42,6 +42,10 @@
             <div class="mb-3">
                 <label for="passwordConfirmationInput" class="form-label">Patvirtinti slaptažodį</label>
                 <input type="password" class="form-control" name="password_confirmation">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Aprašymas</label>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ $user->description }}</textarea>
             </div>
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Muzikos specifikacija</label>
