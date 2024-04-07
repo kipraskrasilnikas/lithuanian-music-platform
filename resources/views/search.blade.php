@@ -49,8 +49,10 @@
                                                 @foreach ($user->specialties as $specialty)
                                                     <p class="mb-2 position position-darker">{{ $specialty->name }}</p>
                                                 @endforeach
-                                                <p class="description">{{ $user->description }}</p>
-                                                <p><a href="{{ route('user', $user->id) }}" class="btn btn-primary">Susisiekti</a></p>
+                                                @if ($user->description)
+                                                    <p class="description">{{ $user->description }}</p>
+                                                @endif
+                                                <p><a href="{{ route('user', $user->id) }}" class="btn red-button">Susisiekti</a></p>
                                             </div>
                                         </div>
                                     @endforeach

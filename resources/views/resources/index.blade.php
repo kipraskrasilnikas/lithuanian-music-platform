@@ -33,7 +33,7 @@
                                     Pridėti naują išteklį
                                 </a>
                                 @foreach ($resources as $resource)
-                                    <div class="team d-md-flex p-4 bg-white">
+                                    <div class="team d-md-flex p-md-4">
                                         <div class="img-container">
                                             <?php if ($resource->image && file_exists(public_path('images/' . $resource->image))) { ?>
                                             <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
