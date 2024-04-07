@@ -34,12 +34,12 @@
                                 </a>
                                 @foreach ($resources as $resource)
                                     <div class="team d-md-flex p-md-4">
-                                        <div class="img-container">
+                                        <div class="description img-container">
                                             <?php if ($resource->image && file_exists(public_path('images/' . $resource->image))) { ?>
-                                            <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
+                                                <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
                                             <?php } ?>
                                         </div>
-                                        <div class="text pl-md-4">
+                                        <div class="description text pl-md-4" style="max-width: 600px;">
                                             <span class="location mb-0"></span>
                                             <h2>{{ $resource->name }}</h2>
                                             <span class="position">{{ $resource->type }}</span>
