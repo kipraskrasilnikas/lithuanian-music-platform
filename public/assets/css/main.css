@@ -2935,8 +2935,8 @@ section,
 .position {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.3);
   color: #fdab44;
+  color: #e84545;
   display: inline-block;
   margin-bottom: 10px;
   text-transform: capitalize;
@@ -2946,7 +2946,20 @@ section,
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   border-radius: 5px; 
+
+  /* background-color: #353535; */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.138);
+  transition: transform 0.3s ease-in-out;
 }
+
+.position-darker {
+  color: #7c1a1a;
+}
+
+.position:hover, .position-darker:hover {
+  transform: translateY(-3px);
+}
+
 
 .img-container {
   width: 200px; /* Adjust this value to fit your container width */
@@ -2958,4 +2971,9 @@ section,
   width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+.description {
+  padding: 10px;
+  color: rgba(42, 41, 41, 0.805);
 }

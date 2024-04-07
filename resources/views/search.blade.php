@@ -39,13 +39,17 @@
                                             <div class="text pl-md-4">
                                                 @php
                                                     $counties = $user->locations->pluck('county')->sort()->implode(', ');
-                                                    $genres = $user->genres->pluck('name')->sort()->implode(', ');
-                                                    $specialties = $user->specialties->pluck('name')->sort()->implode(', ');
                                                 @endphp
                                                 <span class="location mb-0">{{ $counties }}</span>
                                                 <h2>{{ $user->name }}</h2>
-                                                <span class="position">{{ $genres }}</span>
-                                                <p class="mb-2 position">{{ $specialties }}</p>
+                                                @foreach ($user->genres as $genre)
+                                                    <span class="position">{{ $genre->name }}</span>
+                                                @endforeach
+                                                <br>
+                                                @foreach ($user->specialties as $specialty)
+                                                    <p class="mb-2 position position-darker">{{ $specialty->name }}</p>
+                                                @endforeach
+                                                <p class="description">{{ $user->description }}</p>
                                                 <p><a href="{{ route('user', $user->id) }}" class="btn btn-primary">Susisiekti</a></p>
                                             </div>
                                         </div>
