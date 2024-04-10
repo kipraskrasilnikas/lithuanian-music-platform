@@ -19,7 +19,7 @@
         <p class="card-text">El. paštas: {{ $resources->email}} </p>
         <?php if ($resources->image && file_exists(public_path('images/' . $resources->image))) { ?>
             <p class="card-text">Paveikslėlis:</p>
-            <div class="img-container">
+            <div class="img-container pb-4">
                 <img src="{{ asset('images/' . $resources->image) }}" alt="{{ $resources->name }}">
             </div>
         <?php } ?>
