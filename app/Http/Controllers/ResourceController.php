@@ -33,7 +33,10 @@ class ResourceController extends Controller
     {
         // Validate the uploaded file
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+            'image'     => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+            'address'   => 'required',
+            'telephone' => 'required',
+            'email'   => 'required'
         ]);
         
         // Handle the file upload
@@ -85,7 +88,10 @@ class ResourceController extends Controller
     {
         // Validate the updated data
         $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+            'image'     => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+            'address'   => 'required',
+            'telephone' => 'required',
+            'email'     => 'required'
         ]);
         
         // Find the resource to update
