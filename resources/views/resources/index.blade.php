@@ -44,8 +44,7 @@
                                             <h2>{{ $resource->name }}</h2>
                                             <span class="position">{{ $resource->type }}</span>
                                             <p class="mb-2">{{ $resource->description }}</p>
-                                            <p><a href="">Daugiau informacijos</a></p>
-                                            <a href="{{ url('/resource/' . $resource->id) }}" title="View Resource"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>Peržiūrėti</button></a>
+                                            <p><a href="{{ url('/resource/' . $resource->id) }}">Daugiau informacijos</a></p>
                                             <a href="{{ url('/resource/' . $resource->id . '/edit') }}" title="Edit Resource"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Redaguoti</button></a>
 
                                             <form method="POST" action="{{ route('resources.delete', $resource->id) }}" accept-charset="UTF-8" style="display:inline">
