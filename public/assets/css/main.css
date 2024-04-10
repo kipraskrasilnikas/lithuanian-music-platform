@@ -2982,3 +2982,10 @@ section,
   background-color: #e84545;
   color: white;
 }
+
+.add-resource-button {
+  padding: 12px 24px; /* Adjust padding to make the button bigger */
+  font-size: 16px; /* Adjust font size to make the text bigger */
+  background-color: #e84545;
+  color: white;
+}

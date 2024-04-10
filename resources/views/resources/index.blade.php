@@ -29,9 +29,11 @@
                     <div class="col-lg-8 pr-lg-4">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm" title="Pridėti naują išteklį">
-                                    Pridėti naują išteklį
-                                </a>
+                                <div class="px-4 pb-4">
+                                    <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm add-resource-button" title="Pridėti naują išteklį">
+                                        Pridėti naują išteklį
+                                    </a>
+                                </div>
                                 @foreach ($resources as $resource)
                                     <div class="team d-md-flex p-md-4">
                                         <div class="img-container">
