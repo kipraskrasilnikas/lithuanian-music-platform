@@ -37,6 +37,7 @@
     
         <label>Paveikslėlis</label>
         <input type="file" name="image" id="image" class="form-control">
+        <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
         <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
         @error('image')
             <div class="alert alert-danger">{{ $message }}</div>

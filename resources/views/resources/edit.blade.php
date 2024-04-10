@@ -32,6 +32,7 @@
     
         <label>Paveikslėlis</label>
         <input type="file" name="image" id="image" class="form-control">
+        <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
         @if ($resources->image && file_exists(public_path('images/' . $resources->image)))
             <img id="preview_image" src="{{ asset('images/' . $resources->image) }}" alt="Preview" style="width: 100px; height: 100px;"><br>
         @else
