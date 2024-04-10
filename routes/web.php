@@ -32,6 +32,11 @@ Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'profilePost'])->name('profile.post');
+
+    // Resources CRUD
+    // create
+    Route::post("/resources", [ResourceController::class, 'store'])->name('resources.store');
+    Route::get("/resources/create", [ResourceController::class, 'create'])->name('resources.create');
 });
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
@@ -39,10 +44,6 @@ Route::get('/searchPost', [SearchController::class, 'searchPost'])->name('search
 
 Route::get("/resources", [ResourceController::class, 'index'])->name('resource');
 
-// Resources CRUD
-// create
-Route::get("/resources/create", [ResourceController::class, 'create'])->name('resources.create');
-Route::post("/resources", [ResourceController::class, 'store'])->name('resources.store');
 
 // read
 Route::get("/resource/{id}", [ResourceController::class, 'show'])->name('resources.show');
