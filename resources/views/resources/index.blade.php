@@ -34,12 +34,12 @@
                                 </a>
                                 @foreach ($resources as $resource)
                                     <div class="team d-md-flex p-md-4">
-                                        <div class="description img-container">
+                                        <div class="img-container">
                                             <?php if ($resource->image && file_exists(public_path('images/' . $resource->image))) { ?>
                                                 <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
                                             <?php } ?>
                                         </div>
-                                        <div class="description text pl-md-4" style="max-width: 600px;">
+                                        <div class="description text pl-md-4">
                                             <span class="location mb-0"></span>
                                             <h2>{{ $resource->name }}</h2>
                                             <span class="position">{{ $resource->type }}</span>
@@ -145,4 +145,12 @@
         </section>
         <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     </body>
+
+    {{-- <script>
+        function confirmDelete(resourceName, deleteUrl) {
+            if (confirm('Ar tikrai norite ištrinti ' + resourceName + '?')) {
+                window.location.href = deleteUrl;
+            }
+        }
+    </script> --}}
 @endsection
