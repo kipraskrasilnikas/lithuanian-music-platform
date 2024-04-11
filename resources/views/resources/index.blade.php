@@ -18,7 +18,7 @@
 
         <!-- Flash Message -->
         @if(session('flash_message'))
-            <div class="alert alert-success">
+            <div class="alert alert-{{ session('flash_type', 'success') }}">
                 {{ session('flash_message') }}
             </div>
         @endif    
@@ -47,13 +47,16 @@
                                             <span class="position">{{ $resource->type }}</span>
                                             <p class="mb-2">{{ $resource->description }}</p>
                                             <p><a href="{{ url('/resource/' . $resource->id) }}">Daugiau informacijos</a></p>
-                                            <a href="{{ url('/resource/' . $resource->id . '/edit') }}" title="Edit Resource"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Redaguoti</button></a>
 
-                                            <form method="POST" action="{{ route('resources.delete', $resource->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Ištrinti resursą" onclick="return confirm('Ar tikrai norite ištrinti {{ $resource->name }}?')"><i class="fa fa-trash-o" aria-hidden="true"></i>Trinti</button>
-                                            </form>
+                                            @can('updateOrDelete', $resource)
+                                                <a href="{{ url('/resource/' . $resource->id . '/edit') }}" title="Edit Resource"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Redaguoti</button></a>
+
+                                                <form method="POST" action="{{ route('resources.delete', $resource->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Ištrinti resursą" onclick="return confirm('Ar tikrai norite ištrinti {{ $resource->name }}?')"><i class="fa fa-trash-o" aria-hidden="true"></i>Trinti</button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </div>
                                 @endforeach

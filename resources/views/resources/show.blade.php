@@ -24,7 +24,9 @@
             </div>
         <?php } ?>
         <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti į resursų puslapį</a>
-        <a href="{{ route('resources.edit', $resources->id) }}" class="btn btn-success">Redaguoti</a>
+        @can('updateOrDelete', $resources)
+            <a href="{{ route('resources.edit', $resources->id) }}" class="btn btn-success">Redaguoti</a>
+        @endcan
     </div>
 </div>
 @stop

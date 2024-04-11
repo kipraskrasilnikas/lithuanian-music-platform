@@ -44,7 +44,6 @@ Route::get('/searchPost', [SearchController::class, 'searchPost'])->name('search
 
 Route::get("/resources", [ResourceController::class, 'index'])->name('resource');
 
-
 // read
 Route::get("/resource/{id}", [ResourceController::class, 'show'])->name('resources.show');
 

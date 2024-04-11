@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Resource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ResourceController extends Controller
 {
@@ -78,6 +79,13 @@ class ResourceController extends Controller
     public function edit(string $id)
     {
         $resource = Resource::find($id);
+
+        try {
+            $this->authorize('updateOrDelete', $resource);
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('resource')->with('flash_message', 'Redaguoti gali tik resurso autorius ar administratorius. Jei tai jūsų resursas, prisijunkite.')->with('flash_type', 'danger');
+        }
+        
         return view('resources.edit')->with('resources', $resource);
     }
 
@@ -130,6 +138,13 @@ class ResourceController extends Controller
      */
     public function destroy(string $id)
     {
+        try {
+            $resource = Resource::findOrFail($id);
+            $this->authorize('updateOrDelete', $resource);
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('resource')->with('flash_message', 'Trinti gali tik resurso autorius ar administratorius. Jei tai jūsų resursas, prisijunkite.')->with('flash_type', 'danger');
+        }
+
         Resource::destroy($id);
         return redirect()->route('resource')->with('flash_message', 'Resursas ištrintas sėkmingai!');
     }
