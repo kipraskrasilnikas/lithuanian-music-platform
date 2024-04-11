@@ -11,6 +11,9 @@
                         <p class="breadcrumbs mb-0"><span class="mr-3"><a href="">Resursų<i
                                         class="ion-ios-arrow-forward"></i></a></span> <span>puslapis</span></p>
                         <h1 class="mb-3 bread">Raskite resursų jūsų muzikos veiklai</h1>
+                        @if($user && $user->admin)
+                            <small class="text-muted">Jūs esate administratorius</small><br>
+                        @endif
                     </div>
                 </div>
             </div>

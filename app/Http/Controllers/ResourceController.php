@@ -16,7 +16,9 @@ class ResourceController extends Controller
     public function index()
     {
         $resources = Resource::all();
-        return view ('resources.index')->with('resources', $resources);
+        $user = Auth::user();
+
+        return view ('resources.index')->with('resources', $resources)->with('user', $user);
     }
 
     /**

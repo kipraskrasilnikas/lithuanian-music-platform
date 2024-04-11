@@ -13,6 +13,6 @@ class ResourcePolicy
      */
     public function updateOrDelete(User $user, Resource $resource): bool
     {
-        return $user->id === $resource->user_id;
+        return $user->id === $resource->user_id || $user->admin;
     }
 }
