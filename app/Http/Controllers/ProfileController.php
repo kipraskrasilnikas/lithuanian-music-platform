@@ -39,8 +39,15 @@ class ProfileController extends Controller
             'locations.*.address'   => 'nullable',
         ],
         [
-            'locations.*.county' => 'The County field is required!',
-            'locations.*.city' => 'The City field is required!',
+            'name.required'                   => 'Vardas yra privalomas!',
+            'email.required'                  => 'El. paštas yra privalomas!',
+            'email.email'                     => 'Neteisingas el. pašto formatas!',
+            'specialties.required'            => 'Specialybė(-s) yra privaloma(-os)!',
+            'specialties.*.required'          => 'Kiekviena specialybė yra privaloma!',
+            'password.min'                    => 'Slaptažodis turi būti bent 8 simbolių ilgio!',
+            'password.confirmed'              => 'Slaptažodžiai turi sutapti!',
+            'locations.*.county.required'     => 'Apskritis yra privaloma!',
+            'locations.*.city.required'       => 'Miestas yra privalomas!',
         ]);
 
         // Retrieve the authenticated user
@@ -62,29 +69,36 @@ class ProfileController extends Controller
 
         $specialty = new Specialty();
         $user->specialties()->delete();
-        foreach ($request->specialties as $specialtyName) {
-            $specialty = new Specialty(['name' => $specialtyName]);
-            $specialty->user()->associate($user);
-            $specialty->save();
+        if ($request->specialties) {
+            foreach ($request->specialties as $specialtyName) {
+                $specialty = new Specialty(['name' => $specialtyName]);
+                $specialty->user()->associate($user);
+                $specialty->save();
+            }
         }
 
         $genre = new Genre();
         $user->genres()->delete();
-        foreach ($request->genres as $genreName) {
-            $genre = new Genre(['name' => $genreName]);
-            $genre->user()->associate($user);
-            $genre->save();
+        if ($request->genres) {
+            foreach ($request->genres as $genreName) {
+                $genre = new Genre(['name' => $genreName]);
+                $genre->user()->associate($user);
+                $genre->save();
+            }
         }
+        
 
         $location = new Location();
         $user->locations()->delete();
-        foreach ($request->locations as $locationParameters) {
-            $location = new Location($locationParameters);
-            $location->user()->associate($user);
-            $location->save();
+        if ($request->locations) {
+            foreach ($request->locations as $locationParameters) {
+                $location = new Location($locationParameters);
+                $location->user()->associate($user);
+                $location->save();
+            }
         }
 
         // Redirect with success message
-        return redirect()->route('profile')->with("success", "Profile updated successfully!");
+        return redirect()->route('profile')->with("success", "Profilis sėkmingai atnaujintas!");
     }
 }

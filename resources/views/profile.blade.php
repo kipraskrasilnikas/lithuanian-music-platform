@@ -30,14 +30,23 @@
             <div class="mb-3">
                 <label class="form-label">Vardas, Pavardė<span style="color: red;">*</span></label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
+                @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="loginEmailInput">El. pašto adresas<span style="color: red;">*</span></label>
                 <input type="email" class="form-control" id="loginEmailInput" name="email" value="{{ $user->email }}">
+                @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="passwordInput" class="form-label">Slaptažodis</label>
                 <input type="password" class="form-control" name="password">
+                @error('password')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="passwordConfirmationInput" class="form-label">Patvirtinti slaptažodį</label>
@@ -66,6 +75,9 @@
                         </label>
                     </div>
                 @endforeach
+                @error('specialties')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>             
             <div class="mb-3">
                 <label for="genreInput" class="form-label">Žanras<span style="color: red;">*</span></label>
@@ -110,6 +122,12 @@
                     </td>
                 </tr>
             </table>
+            @error('locations.*.county')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            @error('locations.*.city')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Naudotojo statusas</label>
             </div>

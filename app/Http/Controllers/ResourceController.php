@@ -40,6 +40,16 @@ class ResourceController extends Controller
             'address'   => 'required',
             'telephone' => 'required',
             'email'   => 'required'
+        ],
+        [
+            'image.required' => 'Paveikslėlis yra privalomas.',
+            'image.image' => 'Paveikslėlio failas turi būti paveikslėlis.',
+            'image.mimes' => 'Paveikslėlio formatas turi būti jpeg, png, jpg arba gif.',
+            'image.max' => 'Paveikslėlio dydis negali viršyti 2048 kilobaitų.',
+            'address.required' => 'Adresas yra privalomas.',
+            'telephone.required' => 'Telefono numeris yra privalomas.',
+            'email.required' => 'El. paštas yra privalomas.',
+            'image.uploaded' => 'Nepavyko įkelti paveikslėlio.'
         ]);
         
         // Handle the file upload
@@ -102,6 +112,16 @@ class ResourceController extends Controller
             'address'   => 'required',
             'telephone' => 'required',
             'email'     => 'required'
+        ],
+        [
+            'image.required' => 'Paveikslėlis yra privalomas.',
+            'image.image' => 'Paveikslėlio failas turi būti paveikslėlis.',
+            'image.mimes' => 'Paveikslėlio formatas turi būti jpeg, png, jpg arba gif.',
+            'image.max' => 'Paveikslėlio dydis negali viršyti 2048 kilobaitų.',
+            'address.required' => 'Adresas yra privalomas.',
+            'telephone.required' => 'Telefono numeris yra privalomas.',
+            'email.required' => 'El. paštas yra privalomas.',
+            'image.uploaded' => 'Nepavyko įkelti paveikslėlio.'
         ]);
         
         // Find the resource to update

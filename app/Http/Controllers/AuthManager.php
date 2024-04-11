@@ -31,14 +31,19 @@ class AuthManager extends Controller
         $request->validate([
             'email'     => 'required|email',
             'password'  => 'required'
+        ],
+        [
+            'email.required'                 => 'El. paštas yra privalomas!',
+            'email.email'                    => 'Neteisingas el. pašto formatas!',
+            'password.required'              => 'Slaptažodis yra privalomas!',
         ]);
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended(route('home'))->with("success", "Login Successful!");
+            return redirect()->intended(route('home'))->with("success", "Prisijungimas sėkmingas!");
         } 
         
-        return redirect()->back()->withInput()->with("error", "Login details are not valid!");
+        return redirect()->back()->withInput()->with("error", "Prisijungimo duomenys neteisingi!");
     }
 
     function registrationPost(Request $request) {
@@ -47,6 +52,17 @@ class AuthManager extends Controller
             'email'     => 'required|email|unique:users',
             'password'  => 'required|min:8|confirmed',
             'password_confirmation'  => 'required|min:8'
+        ],
+        [
+            'name.required'                  => 'Vardas yra privalomas!',
+            'email.required'                 => 'El. paštas yra privalomas!',
+            'email.email'                    => 'Neteisingas el. pašto formatas!',
+            'email.unique'                   => 'Toks el. paštas jau egzistuoja!',
+            'password.required'              => 'Slaptažodis yra privalomas!',
+            'password.min'                   => 'Slaptažodis turi būti bent 8 simbolių ilgio!',
+            'password.confirmed'             => 'Slaptažodžiai turi sutapti!',
+            'password_confirmation.required' => 'Slaptažodžio patvirtinimas yra privalomas!',
+            'password_confirmation.min'      => 'Slaptažodžio patvirtinimo laukas turi būti bent 8 simbolių ilgio!',
         ]);
 
         $data['name'] = $request->name;
@@ -56,10 +72,10 @@ class AuthManager extends Controller
         $user = User::create($data);
 
         if(!$user) {
-            return redirect(route('registration'))->with("error", "Registration failed, try again.");
+            return redirect(route('registration'))->with("error", "Registracija nepavyko. Bandykite iš naujo.");
         }
 
-        return redirect(route('login'))->with("success", "Registration successful, login to access the app."); 
+        return redirect(route('login'))->with("success", "Registraciją sėkminga! Prisijunkite, kad pasiekti platformą."); 
     }
 
     function logout() {
