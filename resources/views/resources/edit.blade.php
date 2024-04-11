@@ -8,28 +8,34 @@
         @csrf
         @method("POST")
 
-        <label>Pavadinimas</label><br>
-        <input type="text" name="name" id="name" class="form-control" value="{{ $resources->name }}" required>
-        @error('name')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    
-        <label>Resurso tipas</label><br>
-        <select name="type" id="type" class="form-control" required>
-            @foreach(config('music_config.resource_types') as $type)
-                <option value="{{ $type }}" {{ $resources->type == $type ? 'selected' : '' }}>{{ $type }}</option>
-            @endforeach
-        </select>
-        @error('type')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    
-        <label>Aprašymas</label><br>
-        <textarea name="description" id="description" class="form-control">{{ $resources->description }}</textarea>
-        @error('description')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    
+        <div class="mb-3">
+            <label>Pavadinimas</label><br>
+            <input type="text" name="name" id="name" class="form-control" value="{{ $resources->name }}" required>
+            @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label>Resurso tipas</label><br>
+            <select name="type" id="type" class="form-control" required>
+                @foreach(config('music_config.resource_types') as $type)
+                    <option value="{{ $type }}" {{ $resources->type == $type ? 'selected' : '' }}>{{ $type }}</option>
+                @endforeach
+            </select>
+            @error('type')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label>Aprašymas</label><br>
+            <textarea name="description" id="description" class="form-control">{{ $resources->description }}</textarea>
+            @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
         <label>Paveikslėlis</label>
         <input type="file" name="image" id="image" class="form-control">
         <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
@@ -42,23 +48,29 @@
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     
-        <label>Adresas</label><br>
-        <input type="text" name="address" id="address" class="form-control" value="{{ $resources->address }}">
-        @error('address')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    
-        <label>Telefono numeris</label><br>
-        <input type="tel" name="telephone" id="telephone" class="form-control" pattern="^\+?[0-9]{9,}$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" value="{{ $resources->telephone }}">
-        @error('telephone')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    
-        <label>Elektroninis paštas</label><br>
-        <input type="email" name="email" id="email" class="form-control" value="{{ $resources->email }}">
-        @error('email')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+        <div class="mb-3">
+            <label>Adresas</label><br>
+            <input type="text" name="address" id="address" class="form-control" value="{{ $resources->address }}">
+            @error('address')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label>Telefono numeris</label><br>
+            <input type="tel" name="telephone" id="telephone" class="form-control" pattern="^\+?[0-9]{9,}$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" value="{{ $resources->telephone }}">
+            @error('telephone')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="mb-3">
+            <label>Elektroninis paštas</label><br>
+            <input type="email" name="email" id="email" class="form-control" value="{{ $resources->email }}">
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
         <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti į resursų puslapį</a>
         <input type="submit" value="Atnaujinti" class="btn btn-success">
