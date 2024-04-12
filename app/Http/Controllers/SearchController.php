@@ -22,16 +22,7 @@ class SearchController extends Controller
         // Get the search results
         $users = $query->groupBy('id')->paginate(10);
 
-        $counties = config('music_config.counties');
-        $genres = config('music_config.genres');
-        $specialties = config('music_config.specialties');
-
-        $search = '';
-        $search_specialties = [];
-        $search_genres = [];
-        $search_counties = [];
-
-        return view('search', compact('users', 'counties', 'genres', 'specialties', 'search', 'search_specialties', 'search_genres', 'search_counties'));
+        return view('search', compact('users'));
     }
 
     public function searchPost (Request $request) {

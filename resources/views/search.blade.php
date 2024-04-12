@@ -63,8 +63,12 @@
                             <div class="col text-center">
                                 <div class="block-27">
                                     <ul>
-                                        {{$users->appends(['search' => $search, 'specialties' => $search_specialties, 'genres' => $search_genres, 'counties' => $search_counties])->onEachSide(1)->links()}}
-                                    </ul>
+                                        {{$users->appends([
+                                            'search' => isset($search) ? $search : null,
+                                            'specialties' => isset($search_specialties) ? $search_specialties : null,
+                                            'genres' => isset($search_genres) ? $search_genres : null,
+                                            'counties' => isset($search_counties) ? $search_counties : null
+                                        ])->onEachSide(1)->links()}}                                                                            </ul>
                                 </div>
                             </div>
                         </div>
