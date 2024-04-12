@@ -91,6 +91,9 @@
                         </label>
                     </div>
                 @endforeach
+                @error('genres')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>                   
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Vietos (galima iki 3-jų)</label>

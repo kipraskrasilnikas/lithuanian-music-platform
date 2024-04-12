@@ -32,6 +32,8 @@ class ProfileController extends Controller
             'email'                 => 'required|email',
             'specialties'           => 'required|array', // Validate that specialties is an array and is required
             'specialties.*'         => 'required',       // Validate each value in specialties array is required
+            'genres'                => 'required|array', // Validate that specialties is an array and is required
+            'genres.*'              => 'required',       // Validate each value in specialties array is required
             'password'              => $request->filled('password') ? 'min:8|confirmed' : '',
             'password_confirmation' => $request->filled('password') ? 'min:8' : '',
             'locations.*.county'    => 'required',
@@ -39,15 +41,17 @@ class ProfileController extends Controller
             'locations.*.address'   => 'nullable',
         ],
         [
-            'name.required'                   => 'Vardas yra privalomas!',
-            'email.required'                  => 'El. paštas yra privalomas!',
-            'email.email'                     => 'Neteisingas el. pašto formatas!',
-            'specialties.required'            => 'Specialybė(-s) yra privaloma(-os)!',
-            'specialties.*.required'          => 'Kiekviena specialybė yra privaloma!',
-            'password.min'                    => 'Slaptažodis turi būti bent 8 simbolių ilgio!',
-            'password.confirmed'              => 'Slaptažodžiai turi sutapti!',
-            'locations.*.county.required'     => 'Apskritis yra privaloma!',
-            'locations.*.city.required'       => 'Miestas yra privalomas!',
+            'name.required'             => 'Vardas yra privalomas!',
+            'email.required'            => 'El. paštas yra privalomas!',
+            'email.email'               => 'Neteisingas el. pašto formatas!',
+            'specialties.required'      => 'Specialybė(-s) yra privaloma(-os)!',
+            'specialties.*.required'    => 'Kiekviena specialybė yra privaloma!',
+            'genres.required'           => 'Žanras(-ai) yra privalomas(-i)!',
+            'genres.*.required'         => 'Kiekvienas žanras yra privaloma!',
+            'password.min'              => 'Slaptažodis turi būti bent 8 simbolių ilgio!',
+            'password.confirmed'        => 'Slaptažodžiai turi sutapti!',
+            'locations.*.county.required'=> 'Apskritis yra privaloma!',
+            'locations.*.city.required' => 'Miestas yra privalomas!',
         ]);
 
         // Retrieve the authenticated user
