@@ -81,7 +81,7 @@
                             <div class="col text-center">
                                 <div class="block-27">
                                     <ul>
-                                        {{-- {{$users->appends(['search' => $search, 'specialties' => $search_specialties, 'genres' => $search_genres, 'counties' => $search_counties])->onEachSide(1)->links()}} --}}
+                                        {{$resources->appends(['search' => isset($search) ? $search : '', 'types' => isset($search_types) ? $search_types : '', 'counties' => isset($search_counties) ? $search_counties : ''])->onEachSide(1)->links()}}
                                     </ul>
                                 </div>
                             </div>

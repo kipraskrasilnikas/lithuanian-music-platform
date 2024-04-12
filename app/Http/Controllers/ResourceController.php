@@ -15,7 +15,8 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        $resources = Resource::orderBy('id', 'desc')->get();
+        $query = Resource::query();
+        $resources = $query->orderBy('id', 'desc')->paginate(10);
         $user = Auth::user();
 
         return view ('resources.index')->with('resources', $resources)->with('user', $user);
