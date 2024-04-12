@@ -35,16 +35,31 @@
             @enderror
         </div>
     
-        <label>Paveikslėlis<span style="color: red;">*</span></label>
-        <input type="file" name="image" id="image" class="form-control">
-        <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
-        <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
-        @error('image')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+        <div class="mb-3">
+            <label>Paveikslėlis<span style="color: red;">*</span></label>
+            <input type="file" name="image" id="image" class="form-control">
+            <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
+            <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
+            @error('image')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
     
         <div class="mb-3">
-            <label>Adresas</label><br>
+            <label>Apskritis<span style="color: red;">*</span></label>
+            <select name="county" class="form-control">
+                <option value="">Pasirinkti apskritį</option>
+                @foreach (config('music_config.counties') as $county)
+                    <option value="{{ $county }}" {{ old('county') == $county ? 'selected' : '' }}>{{ $county }}</option>
+                @endforeach
+            </select>
+            @error('county')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label>Adresas<span style="color: red;">*</span></label><br>
             <input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}">
             @error('address')
                 <div class="alert alert-danger">{{ $message }}</div>

@@ -15,7 +15,7 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        $resources = Resource::all();
+        $resources = Resource::orderBy('id', 'desc')->get();
         $user = Auth::user();
 
         return view ('resources.index')->with('resources', $resources)->with('user', $user);
@@ -39,17 +39,19 @@ class ResourceController extends Controller
             'image'     => 'required|image|mimes:jpeg,png,jpg,gif|max:4096', // Adjust validation rules as needed
             'address'   => 'required',
             'telephone' => 'required',
-            'email'   => 'required'
+            'email'     => 'required',
+            'county'    => 'required'
         ],
         [
-            'image.required' => 'Paveikslėlis yra privalomas.',
-            'image.image' => 'Paveikslėlio failas turi būti paveikslėlis.',
-            'image.mimes' => 'Paveikslėlio formatas turi būti jpeg, png, jpg arba gif.',
-            'image.max' => 'Paveikslėlio dydis negali viršyti 2048 kilobaitų.',
-            'address.required' => 'Adresas yra privalomas.',
-            'telephone.required' => 'Telefono numeris yra privalomas.',
-            'email.required' => 'El. paštas yra privalomas.',
-            'image.uploaded' => 'Nepavyko įkelti paveikslėlio.'
+            'image.required'        => 'Paveikslėlis yra privalomas.',
+            'image.image'           => 'Paveikslėlio failas turi būti paveikslėlis.',
+            'image.mimes'           => 'Paveikslėlio formatas turi būti jpeg, png, jpg arba gif.',
+            'image.max'             => 'Paveikslėlio dydis negali viršyti 2048 kilobaitų.',
+            'address.required'      => 'Adresas yra privalomas.',
+            'telephone.required'    => 'Telefono numeris yra privalomas.',
+            'email.required'        => 'El. paštas yra privalomas.',
+            'image.uploaded'        => 'Nepavyko įkelti paveikslėlio.',
+            'county.required'       => 'Apskritį pasirinkti privaloma.'
         ]);
         
         // Handle the file upload
@@ -58,13 +60,14 @@ class ResourceController extends Controller
         
         // Create resource instance and store it in the database
         $resource = new Resource([
-            'name' => $request->name,
-            'type' => $request->type,
+            'name'      => $request->name,
+            'type'      => $request->type,
             'description' => $request->description,
-            'image' => $imageName,
-            'address' => $request->address,
+            'image'     => $imageName,
+            'address'   => $request->address,
             'telephone' => $request->telephone,
-            'email'     => $request->email
+            'email'     => $request->email,
+            'county'    => $request->county
         ]);
 
         // Set the current authenticated user's ID as the user_id for the resource
@@ -111,17 +114,19 @@ class ResourceController extends Controller
             'image'     => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
             'address'   => 'required',
             'telephone' => 'required',
-            'email'     => 'required'
+            'email'     => 'required',
+            'county'    => 'required',
         ],
         [
-            'image.required' => 'Paveikslėlis yra privalomas.',
-            'image.image' => 'Paveikslėlio failas turi būti paveikslėlis.',
-            'image.mimes' => 'Paveikslėlio formatas turi būti jpeg, png, jpg arba gif.',
-            'image.max' => 'Paveikslėlio dydis negali viršyti 2048 kilobaitų.',
-            'address.required' => 'Adresas yra privalomas.',
-            'telephone.required' => 'Telefono numeris yra privalomas.',
-            'email.required' => 'El. paštas yra privalomas.',
-            'image.uploaded' => 'Nepavyko įkelti paveikslėlio.'
+            'image.required'        => 'Paveikslėlis yra privalomas.',
+            'image.image'           => 'Paveikslėlio failas turi būti paveikslėlis.',
+            'image.mimes'           => 'Paveikslėlio formatas turi būti jpeg, png, jpg arba gif.',
+            'image.max'             => 'Paveikslėlio dydis negali viršyti 2048 kilobaitų.',
+            'address.required'      => 'Adresas yra privalomas.',
+            'telephone.required'    => 'Telefono numeris yra privalomas.',
+            'email.required'        => 'El. paštas yra privalomas.',
+            'image.uploaded'        => 'Nepavyko įkelti paveikslėlio.',
+            'county.required'       => 'Apskritį pasirinkti privaloma.'
         ]);
         
         // Find the resource to update
@@ -147,6 +152,7 @@ class ResourceController extends Controller
         $resource->address = $request->input('address');
         $resource->telephone = $request->input('telephone');
         $resource->email = $request->input('email');
+        $resource->county = $request->input('county');
 
         // Save the updated resource
         $resource->save();

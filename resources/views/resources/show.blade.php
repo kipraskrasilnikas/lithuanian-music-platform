@@ -14,6 +14,7 @@
         <h5 class="card-title">Pavadinimas: {{ $resources->name}} </h5>
         <p class="card-text">Tipas: {{ $resources->type}} </p>
         <p class="card-text">Aprašymas: {{ $resources->description}} </p>
+        <p class="card-text">Apskritis: {{ $resources->county}} </p>
         <p class="card-text">Adresas: {{ $resources->address}} </p>
         <p class="card-text">Telefono numeris: {{ $resources->telephone}} </p>
         <p class="card-text">El. paštas: {{ $resources->email}} </p>

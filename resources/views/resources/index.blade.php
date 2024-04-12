@@ -45,7 +45,7 @@
                                             <?php } ?>
                                         </div>
                                         <div class="description text pl-md-4">
-                                            <span class="location mb-0"></span>
+                                            <span class="location">{{ $resource->county }}</span>
                                             <h2>{{ $resource->name }}</h2>
                                             <span class="position">{{ $resource->type }}</span>
                                             <p class="mb-2">{{ $resource->description }}</p>
