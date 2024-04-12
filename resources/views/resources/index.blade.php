@@ -37,62 +37,44 @@
                                         Pridėti naują išteklį
                                     </a>
                                 </div>
-                                @foreach ($resources as $resource)
-                                    <div class="team d-md-flex p-md-4">
-                                        <div class="img-container">
-                                            <?php if ($resource->image && file_exists(public_path('images/' . $resource->image))) { ?>
-                                                <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
-                                            <?php } ?>
-                                        </div>
-                                        <div class="description text pl-md-4">
-                                            <span class="location">{{ $resource->county ? ($resource->county . ', ') : '' }} {{ $resource->address }}</span>
-                                            <h2>{{ $resource->name }}</h2>
-                                            <span class="position">{{ $resource->type }}</span>
-                                            <p class="mb-2">{{ $resource->description }}</p>
-                                            <p><a href="{{ url('/resource/' . $resource->id) }}">Daugiau informacijos</a></p>
-
-                                            @can('updateOrDelete', $resource)
-                                                <a href="{{ url('/resource/' . $resource->id . '/edit') }}" title="Edit Resource"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Redaguoti</button></a>
-
-                                                <form method="POST" action="{{ route('resources.delete', $resource->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" title="Ištrinti resursą" onclick="return confirm('Ar tikrai norite ištrinti {{ $resource->name }}?')"><i class="fa fa-trash-o" aria-hidden="true"></i>Trinti</button>
-                                                </form>
-                                            @endcan
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                {{-- @if ($users->isEmpty())
+                                @if ($resources->isEmpty())
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="alert alert-danger" role="alert">
-                                                    Pagal nurodytus paieškos kriterijus, muzikantų nerasta.
+                                                    Resursų nerasta. Pabandykite pakeisti paieškos kriterijus.
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                @else --}}
-                                    {{-- @foreach ($users as $user)
-                                        <div class="team d-md-flex p-4 bg-white">
-                                            <div class="img" style="background-image: url(images/person_2.jpg);"></div>
-                                            <div class="text pl-md-4">
-                                                @php
-                                                    $counties = $user->locations->pluck('county')->sort()->implode(', ');
-                                                    $genres = $user->genres->pluck('name')->sort()->implode(', ');
-                                                    $specialties = $user->specialties->pluck('name')->sort()->implode(', ');
-                                                @endphp
-                                                <span class="location mb-0">{{ $counties }}</span>
-                                                <h2>{{ $user->name }}</h2>
-                                                <span class="position">{{ $genres }}</span>
-                                                <p class="mb-2 position">{{ $specialties }}</p>
-                                                <p><a href="{{ route('home') }}/chatify/{{ $user->id }}" class="btn btn-primary">Susisiekti</a></p>
+                                @else
+                                    @foreach ($resources as $resource)
+                                        <div class="team d-md-flex p-md-4">
+                                            <div class="img-container">
+                                                <?php if ($resource->image && file_exists(public_path('images/' . $resource->image))) { ?>
+                                                    <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
+                                                <?php } ?>
+                                            </div>
+                                            <div class="description text pl-md-4">
+                                                <span class="location">{{ $resource->county ? ($resource->county . ', ') : '' }} {{ $resource->address }}</span>
+                                                <h2>{{ $resource->name }}</h2>
+                                                <span class="position">{{ $resource->type }}</span>
+                                                <p class="mb-2">{{ $resource->description }}</p>
+                                                <p><a href="{{ url('/resource/' . $resource->id) }}">Daugiau informacijos</a></p>
+
+                                                @can('updateOrDelete', $resource)
+                                                    <a href="{{ url('/resource/' . $resource->id . '/edit') }}" title="Edit Resource"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Redaguoti</button></a>
+
+                                                    <form method="POST" action="{{ route('resources.delete', $resource->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm" title="Ištrinti resursą" onclick="return confirm('Ar tikrai norite ištrinti {{ $resource->name }}?')"><i class="fa fa-trash-o" aria-hidden="true"></i>Trinti</button>
+                                                    </form>
+                                                @endcan
                                             </div>
                                         </div>
-                                    @endforeach --}}
-                                {{-- @endif --}}
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="row mt-5">
