@@ -36,7 +36,7 @@ class ResourceController extends Controller
     {
         // Validate the uploaded file
         $request->validate([
-            'image'     => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+            'image'     => 'required|image|mimes:jpeg,png,jpg,gif|max:4096', // Adjust validation rules as needed
             'address'   => 'required',
             'telephone' => 'required',
             'email'   => 'required'
