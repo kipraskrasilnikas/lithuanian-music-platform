@@ -8,7 +8,7 @@
         @csrf
 
         <div class="mb-3">
-            <label>Pavadinimas</label><br>
+            <label>Pavadinimas<span style="color: red;">*</span></label><br>
             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
             @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -35,7 +35,7 @@
             @enderror
         </div>
     
-        <label>Paveikslėlis</label>
+        <label>Paveikslėlis<span style="color: red;">*</span></label>
         <input type="file" name="image" id="image" class="form-control">
         <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
         <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
@@ -52,7 +52,7 @@
         </div>
         
         <div class="mb-3">
-            <label>Telefono numeris</label><br>
+            <label>Telefono numeris<span style="color: red;">*</span></label><br>
             <input type="tel" name="telephone" id="telephone" class="form-control" pattern="^\+?[0-9]{9,}$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" value="{{ old('telephone') }}">
             @error('telephone')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="mb-3">
-            <label>Elektroninis paštas</label><br>
+            <label>Elektroninis paštas<span style="color: red;">*</span></label><br>
             <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
             @error('email')
                 <div class="alert alert-danger">{{ $message }}</div>
