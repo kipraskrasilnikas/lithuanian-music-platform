@@ -98,7 +98,7 @@ class ResourceController extends Controller
         try {
             $this->authorize('updateOrDelete', $resource);
         } catch (AuthorizationException $exception) {
-            return redirect()->route('resource')->with('flash_message', 'Redaguoti gali tik resurso autorius ar administratorius. Jei tai jūsų resursas, prisijunkite.')->with('flash_type', 'danger');
+            return redirect()->route('resources')->with('flash_message', 'Redaguoti gali tik resurso autorius ar administratorius. Jei tai jūsų resursas, prisijunkite.')->with('flash_type', 'danger');
         }
         
         return view('resources.edit')->with('resources', $resource);
@@ -170,10 +170,10 @@ class ResourceController extends Controller
             $resource = Resource::findOrFail($id);
             $this->authorize('updateOrDelete', $resource);
         } catch (AuthorizationException $exception) {
-            return redirect()->route('resource')->with('flash_message', 'Trinti gali tik resurso autorius ar administratorius. Jei tai jūsų resursas, prisijunkite.')->with('flash_type', 'danger');
+            return redirect()->route('resources')->with('flash_message', 'Trinti gali tik resurso autorius ar administratorius. Jei tai jūsų resursas, prisijunkite.')->with('flash_type', 'danger');
         }
 
         Resource::destroy($id);
-        return redirect()->route('resource')->with('flash_message', 'Resursas ištrintas sėkmingai!');
+        return redirect()->route('resources')->with('flash_message', 'Resursas ištrintas sėkmingai!');
     }
 }

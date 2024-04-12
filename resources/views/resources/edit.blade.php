@@ -87,7 +87,7 @@
             @enderror
         </div>
 
-        <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti į resursų puslapį</a>
+        <a href="{{ route('resources') }}" class="btn btn-primary">Grįžti į resursų puslapį</a>
         <input type="submit" value="Atnaujinti" class="btn btn-success">
     </form>
 </div>

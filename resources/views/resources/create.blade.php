@@ -82,7 +82,7 @@
             @enderror
         </div>
 
-        <a href="{{ route('resource') }}" class="btn btn-primary">Grįžti</a>
+        <a href="{{ route('resources') }}" class="btn btn-primary">Grįžti</a>
         <input type="submit" value="Įkelti" class="btn btn-success">
     </form>
   </div>

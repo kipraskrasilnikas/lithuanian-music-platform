@@ -58,7 +58,7 @@
                 <ul>
                     <li><a href="{{ route('home') }}#hero" class="{{ request()->is('/') ? 'active' : '' }}">Namų puslapis</a></li>
                     <li><a href="{{ route('search') }}" class="{{ request()->is('search') ? 'active' : '' }}">Muzikantų paieška</a></li>
-                    <li><a href="{{ route('resource') }}" class="{{ request()->is('resources') || request()->is('resource*') ? 'active' : '' }}">Ištekliai</a></li>
+                    <li><a href="{{ route('resources') }}" class="{{ request()->is('resources') || request()->is('resource*') ? 'active' : '' }}">Ištekliai</a></li>
 
                     @auth
                       <li><a href="{{ route('chatify') }}" class="{{ request()->is('chatify') ? 'active' : '' }}">Žinutės</a></li>
