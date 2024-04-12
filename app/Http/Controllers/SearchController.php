@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Resource;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
@@ -88,5 +90,43 @@ class SearchController extends Controller
         $users = $query->groupBy('id')->paginate(10);
 
         return view('search', compact('users', 'search', 'search_genres', 'search_specialties', 'search_counties'));
+    }
+
+    public function searchResource(Request $request) {
+        $search = $request->search;
+
+        $query = Resource::query();
+
+        // Select statement with aliases
+        $query->select('resources.*');
+
+        $query->where(function ($query) use ($search, $request) {
+            if ($search) {
+                $query->where('resources.name', 'like', "%$search%")
+                    ->orWhere('resources.description', 'like', "%$search%")
+                    ->orWhere('resources.type', 'like', "%$search%")
+                    ->orWhere('resources.county', 'like', "%$search%")
+                    ->orWhere('resources.address', 'like', "%$search%");
+            }
+        });
+
+        // Filter by specialty
+        $search_types = array_filter($request->types ?? []);
+        if ($search_types) {
+            $query->whereIn('resources.type', $search_types);
+        }
+
+        // Filter by county if specified
+        $search_counties = array_filter($request->counties ?? []);
+        if ($search_counties) {
+            $query->whereIn('resources.county', $search_counties);
+        }
+
+        // Get the search results
+        $resources = $query->groupBy('id')->paginate(10);
+
+        $user = Auth::user();
+
+        return view('resources.index', compact('resources', 'search', 'search_types', 'search_counties', 'user'));
     }
 }

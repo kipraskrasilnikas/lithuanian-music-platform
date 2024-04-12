@@ -45,7 +45,7 @@
                                             <?php } ?>
                                         </div>
                                         <div class="description text pl-md-4">
-                                            <span class="location">{{ $resource->county }}</span>
+                                            <span class="location">{{ $resource->county ? ($resource->county . ', ') : '' }} {{ $resource->address }}</span>
                                             <h2>{{ $resource->name }}</h2>
                                             <span class="position">{{ $resource->type }}</span>
                                             <p class="mb-2">{{ $resource->description }}</p>
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 sidebar">
-                        {{-- <form action="/searchPost" method="GET" class="browse-form">
+                        <form action="/searchResource" method="GET" class="browse-form">
                             <div class="sidebar-box bg-white p-4 ftco-animate">
                                 <h3 class="heading-sidebar">Ieškokite pagal raktažodį</h3>
                                 <div class="form-group">
@@ -114,20 +114,11 @@
                                     <input type="text" value="{{ request('search') }}" name="search" class="form-control" placeholder="Search...">
                                 </div>
 
-                                <h3 class="heading-sidebar">Pagal specializaciją</h3>
-                                @foreach (config('music_config.specialties') as $specialty)
+                                <h3 class="heading-sidebar">Pagal resurso tipą</h3>
+                                @foreach (config('music_config.resource_types') as $type)
                                     <label for="option-{{ $loop->iteration }}">
-                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="specialties[]" value="{{ $specialty }}" {{ in_array($specialty, (isset($search_specialties) ? $search_specialties : [])) ? 'checked' : '' }}>
-                                        {{ $specialty }}
-                                    </label>
-                                    <br>
-                                @endforeach
-
-                                <h3 class="heading-sidebar">Pagal žanrą</h3>
-                                @foreach (config('music_config.genres') as $genre)
-                                    <label for="option-{{ $loop->iteration }}">
-                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="genres[]" value="{{ $genre }}" {{ in_array($genre, (isset($search_genres) ? $search_genres : [])) ? 'checked' : '' }}>
-                                        {{ $genre }}
+                                        <input type="checkbox" id="option-{{ $loop->iteration }}" name="types[]" value="{{ $type }}" {{ in_array($type, (isset($search_types) ? $search_types : [])) ? 'checked' : '' }}>
+                                        {{ $type }}
                                     </label>
                                     <br>
                                 @endforeach
@@ -145,7 +136,7 @@
                                     <button type="submit" class="btn btn-primary">Ieškoti</button>
                                 </div>
                             </div>
-                        </form> --}}
+                        </form>
                     </div>
                 </div>
             </div>

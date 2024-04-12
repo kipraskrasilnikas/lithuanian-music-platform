@@ -33,7 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'profilePost'])->name('profile.post');
 
-    // Resources CRUD
     // create
     Route::post("/resources", [ResourceController::class, 'store'])->name('resources.store');
     Route::get("/resources/create", [ResourceController::class, 'create'])->name('resources.create');
@@ -42,7 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/searchPost', [SearchController::class, 'searchPost'])->name('search.post');
 
-Route::get("/resources", [ResourceController::class, 'index'])->name('resource');
+// Resources CRUD
+Route::get("/resources", [ResourceController::class, 'index'])->name('resources');
 
 // read
 Route::get("/resource/{id}", [ResourceController::class, 'show'])->name('resources.show');
@@ -53,3 +53,6 @@ Route::post("/resource/{id}", [ResourceController::class, 'update'])->name('reso
 
 // delete
 Route::delete("resource/{id}", [ResourceController::class, 'destroy'])->name('resources.delete');
+
+// search
+Route::get('/searchResource', [SearchController::class, 'searchResource'])->name('search.resource');
