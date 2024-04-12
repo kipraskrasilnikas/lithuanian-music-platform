@@ -41,7 +41,6 @@ class ResourceSeeder extends Seeder
                 'rating'        => rand(1, 5), // Random rating between 1 and 5
                 'type'          => $randomType,
                 'description'   => 'Įdomus muzikos išteklius, praturtintas skirtingų stilių, talentų ir idėjų, kviečia į paslaptingą muzikinį pasaulį. Šis unikalus šaltinis suteikia platų muzikinės kūrybos spektrą, leidžiantį keliauti į įvairias garso ir ritmo dimensijas. Čia susitinka įvairios muzikos formos ir kūrybiniai metodai, kurie skatina atradimus ir kūrybinę paiešką. Šio resurso garsai skamba įvairiuose žanruose ir stiliuose, atverdami duris į įvairiapusį muzikinį kraštovaizdį. Pasinėrimas į šį muzikinį šaltinį žada įkvepiančią kelionę, kurioje kiekvienas gali atrasti naują muzikos pasaulio kampelį.',
-                'image'         => 'image_url_' . ($i + 1) . '.jpg', // Replace with actual image URLs
                 'address'       => $faker->streetAddress,
                 'county'        => $randomCounty
             ]);

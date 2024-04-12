@@ -53,6 +53,8 @@
                                             <div class="img-container">
                                                 <?php if ($resource->image && file_exists(public_path('images/' . $resource->image))) { ?>
                                                     <img src="{{ asset('images/' . $resource->image) }}" alt="{{ $resource->name }}">
+                                                <?php } else { ?>
+                                                    <img src="{{ asset('images/no_image.jpg') }}" alt="{{ $resource->name }}">
                                                 <?php } ?>
                                             </div>
                                             <div class="description text pl-md-4">
