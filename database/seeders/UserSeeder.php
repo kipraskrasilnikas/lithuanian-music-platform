@@ -34,11 +34,13 @@ class UserSeeder extends Seeder
         $password = $name . '123'; // Password is the name plus '123'
 
         return DB::table('users')->insertGetId([
-            'name' => $name,
-            'email' => strtolower($name) . '_' . substr(Str::uuid(), 5) . '@example.com', // Generate email based on name
-            'email_verified_at' => now(),
-            'password' => Hash::make($password),
-            'remember_token' => Str::random(10),
+            'name'                  => $name,
+            'email'                 => strtolower($name) . '_' . substr(Str::uuid(), 5) . '@example.com', // Generate email based on name
+            'email_verified_at'     => now(),
+            'description'           => 'Versatile session musician with 5 years of experience in studio recordings and live performances. Worked in a variety of styles and with diverse clients. Proficient in multiple specialties, whichever are applicable.',
+            'status'                => 1,        
+            'password'              => Hash::make($password),
+            'remember_token'        => Str::random(10),
         ]);
     }
 
