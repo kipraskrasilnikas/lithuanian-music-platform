@@ -49,9 +49,8 @@ return [
     'resource_types' => [
         'Įrašų studija',
         'Repeticijų vieta',
-        'Instrumentų nuoma',
         'Muzikos mokykla',
-        'Parduotuvė',
+        'Parduotuvė ir įrangos nuoma',
         'Vieta koncertuoti',
         'Muzikos produkcija',
         'Internetinis puslapis'
