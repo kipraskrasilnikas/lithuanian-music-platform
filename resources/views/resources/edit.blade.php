@@ -37,7 +37,7 @@
         </div>
 
         <div class="mb-3">
-            <label>Paveikslėlis<span style="color: red;">*</span></label>
+            <label>Paveikslėlis</label>
             <input type="file" name="image" id="image" class="form-control">
             <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
             @if ($resources->image && file_exists(public_path('images/' . $resources->image)))

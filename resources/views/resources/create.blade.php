@@ -36,7 +36,7 @@
         </div>
     
         <div class="mb-3">
-            <label>Paveikslėlis<span style="color: red;">*</span></label>
+            <label>Paveikslėlis</label>
             <input type="file" name="image" id="image" class="form-control">
             <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
             <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
