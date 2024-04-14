@@ -54,10 +54,14 @@ class ResourceController extends Controller
             'image.uploaded'        => 'Nepavyko įkelti paveikslėlio.',
             'county.required'       => 'Apskritį pasirinkti privaloma.'
         ]);
+
+        $imageName = '';
         
-        // Handle the file upload
-        $imageName = Str::slug(pathinfo($request->image->getClientOriginalName(), PATHINFO_FILENAME)) . '_' . time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        if ($request->hasFile('image') && $request->image) {
+            // Handle the file upload
+            $imageName = Str::slug(pathinfo($request->image->getClientOriginalName(), PATHINFO_FILENAME)) . '_' . time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+        }
         
         // Create resource instance and store it in the database
         $resource = new Resource([
