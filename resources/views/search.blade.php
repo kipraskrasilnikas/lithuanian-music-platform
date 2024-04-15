@@ -110,7 +110,7 @@
                                 @endforeach
 
                                 <div class="mb-3 text-center">
-                                    <button type="submit" class="btn btn-primary">Ieškoti</button>
+                                    <button type="submit" class="btn red-button">Ieškoti</button>
                                 </div>
                             </div>
                         </form>
