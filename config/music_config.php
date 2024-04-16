@@ -54,5 +54,48 @@ return [
         'Vieta koncertuoti',
         'Muzikos produkcija',
         'Internetinis puslapis'
+    ],
+
+    'mood_colors' => [
+        'Laiminga' => [
+            'Ekscentriška',
+            'Elegantiška',
+            'Euforiška',
+            'Žavi/kerinti',
+            'Laiminga',
+            'Viltinga',
+            'Romantiška',
+            'Seksuali',
+        ],
+
+        'Liūdna' => [
+            'Tamsi',
+            'Baiminga',
+            'Sunki/priverčianti susimąstyti',
+            'Nerimąstinga',
+            'Liūdna',
+            'Sentimentali',
+        ],
+        
+        'Rami' => [
+            'Pasakiška',
+            'Klajojanti',
+            'Atsipūtusi',
+            'Mistiška',
+            'Taikinga/rami',
+            'Atpalaiduojanti',
+            'Sklandi',
+        ],
+
+        'Energinga' => [
+            'Pikta',
+            'Perkrauta ir pašėlusi',
+            'Besikeičiančio tempo',
+            'Epinė ir didinga',
+            'Išdaigi',
+            'Bėgiojimo',
+            'Įtampa',
+            'Keista',
+        ]
     ]
 ];
