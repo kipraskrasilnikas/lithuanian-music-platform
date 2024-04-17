@@ -117,6 +117,25 @@
                                     <br>
                                 @endforeach
 
+                                <h3 class="heading-sidebar">Pagal kuriamos muzikos nuotaiką</h3>
+                                @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
+                                    <li style="list-style-type: none;">
+                                        <div class="form-check" style="color: {{ $mood_details['color_hex'] }}">
+                                            <input class="form-check-input mood-category" type="checkbox" id="mood-category-{{ $loop->iteration}}">{{ $mood_category }}</label>
+                                        </div>
+                                        <ul style="list-style-type: none;">
+                                            @foreach ($mood_details['moods'] as $mood)
+                                            <li style="list-style-type: none;">
+                                                <div class="form-check" style="color: {{ $mood_details['color_hex'] }}">
+                                                    <input class="form-check-input subOption" type="checkbox" id="mood-{{ $loop->iteration }}" name="moods[]" value="{{ $mood }}" {{ in_array($mood, (isset($search_moods) ? $search_moods : [])) ? 'checked' : '' }}>
+                                                    {{ $mood }}
+                                                </div>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+
                                 <div class="mb-3 text-center">
                                     <button type="submit" class="btn red-button">Ieškoti</button>
                                 </div>
@@ -128,4 +147,12 @@
         </section>
         <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     </body>
+
+    <script>
+        // Check all nested checkboxes
+        $('.mood-category').change( function(){
+            $(this).parent().siblings().find(':checkbox').attr('checked', this.checked);
+        }); 
+    </script>
+
 @endsection

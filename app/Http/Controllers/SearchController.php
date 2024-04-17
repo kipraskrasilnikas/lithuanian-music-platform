@@ -46,13 +46,17 @@ class SearchController extends Controller
         // Join the locations table
         $query->leftJoin('locations', 'users.id', '=', 'locations.user_id');
 
+        // Join the artist moods table
+        $query->leftJoin('artist_moods', 'users.id', '=', 'artist_moods.user_id');
+
         $query->where(function ($query) use ($search, $request) {
             if ($search) {
                 $query->where('users.name', 'like', "%$search%")
                     ->orWhere('genres.name', 'like', "%$search%")
                     ->orWhere('specialties.name', 'like', "%$search%")
                     ->orWhere('locations.county', 'like', "%$search%")
-                    ->orWhere('locations.city', 'like', "%$search%");    
+                    ->orWhere('locations.city', 'like', "%$search%")   
+                    ->orWhere('artist_moods.mood', 'like', "%$search%");    
             }
         });
 
@@ -74,16 +78,27 @@ class SearchController extends Controller
             $query->whereIn('locations.county', $search_counties);
         }
 
+        // Filter by artist moods if specified
+        $search_moods = array_filter($request->moods ?? []);
+        if ($search_moods) {
+            $query->whereHas('artistMoods', function ($query) use ($search_moods) {
+                $query->whereIn('mood', $search_moods);
+            }, '=', count($search_moods));
+        }
+
         // Filter out current user
         $query->where('users.id', '!=', $currentUserId);
 
         // Filter inactive users
         $query->where('status', 1);
 
+        // Sort by id in descending order
+        $query->orderByDesc('id');
+        
         // Get the search results
         $users = $query->groupBy('id')->paginate(10);
 
-        return view('search', compact('users', 'search', 'search_genres', 'search_specialties', 'search_counties'));
+        return view('search', compact('users', 'search', 'search_genres', 'search_specialties', 'search_moods', 'search_counties'));
     }
 
     public function searchResource(Request $request) {
