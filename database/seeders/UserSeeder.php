@@ -20,12 +20,14 @@ class UserSeeder extends Seeder
         $genres = config('music_config.genres');
         $specialties = config('music_config.specialties');
         $counties = config('music_config.counties');
+        $moods = config('music_config.music_moods');
 
         foreach($names as $name) {
             $user = $this->createUser($name);
             $this->createLocations($user, $counties);
             $this->createGenres($user, $genres);
             $this->createSpecialties($user, $specialties);
+            $this->createMoods($user, $moods);
         }
     }
 
@@ -90,6 +92,24 @@ class UserSeeder extends Seeder
                 'user_id' => $userId,
                 'name' => $specialty,
             ]);
+        }
+    }
+    private function createMoods($userId, $moods)
+    {
+        shuffle($moods);
+
+        foreach ($moods as $mood) {
+            $categoryMoods = $mood['moods'];
+            $moodCount = rand(0, min(count($categoryMoods), 2)); // Random number of moods between 1 and 5
+
+            $uniqueMoods = array_slice($categoryMoods, 0, $moodCount); // Get a slice of unique moods
+
+            foreach ($uniqueMoods as $mood) {
+                DB::table('artist_moods')->insert([
+                    'user_id' => $userId,
+                    'mood' => $mood,
+                ]);
+            }
         }
     }
 }
