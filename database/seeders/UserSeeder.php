@@ -100,6 +100,8 @@ class UserSeeder extends Seeder
 
         foreach ($moods as $mood) {
             $categoryMoods = $mood['moods'];
+            shuffle($categoryMoods);
+
             $moodCount = rand(0, min(count($categoryMoods), 2)); // Random number of moods between 1 and 5
 
             $uniqueMoods = array_slice($categoryMoods, 0, $moodCount); // Get a slice of unique moods
