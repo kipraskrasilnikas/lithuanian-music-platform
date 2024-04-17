@@ -56,46 +56,58 @@ return [
         'Internetinis puslapis'
     ],
 
-    'mood_colors' => [
+    'music_moods' => [
         'Laiminga' => [
-            'Ekscentriška',
-            'Elegantiška',
-            'Euforiška',
-            'Žavi/kerinti',
-            'Laiminga',
-            'Viltinga',
-            'Romantiška',
-            'Seksuali',
+            'color_hex' => '#FFA600', // Gold color
+            'moods' => [
+                'Ekscentriška',
+                'Elegantiška',
+                'Euforiška',
+                'Žavi/kerinti',
+                'Laiminga',
+                'Viltinga',
+                'Romantiška',
+                'Seksuali',
+            ]
         ],
 
         'Liūdna' => [
-            'Tamsi',
-            'Baiminga',
-            'Sunki/priverčianti susimąstyti',
-            'Nerimąstinga',
-            'Liūdna',
-            'Sentimentali',
+            'color_hex' => '#808080', // Gray color
+            'moods' => [
+                'Tamsi',
+                'Baiminga',
+                'Sunki/priverčianti susimąstyti',
+                'Nerimąstinga',
+                'Liūdna',
+                'Sentimentali',
+            ]
         ],
         
         'Rami' => [
-            'Pasakiška',
-            'Klajojanti',
-            'Atsipūtusi',
-            'Mistiška',
-            'Taikinga/rami',
-            'Atpalaiduojanti',
-            'Sklandi',
+            'color_hex' => '#00FF00', // Green color
+            'moods' => [
+                'Pasakiška',
+                'Klajojanti',
+                'Atsipūtusi',
+                'Mistiška',
+                'Taikinga/rami',
+                'Atpalaiduojanti',
+                'Sklandi',
+            ]
         ],
 
         'Energinga' => [
-            'Pikta',
-            'Perkrauta ir pašėlusi',
-            'Besikeičiančio tempo',
-            'Epinė ir didinga',
-            'Išdaigi',
-            'Bėgiojimo',
-            'Įtampa',
-            'Keista',
+            'color_hex' => '#FF0000', // Red color
+            'moods' => [
+                'Pikta',
+                'Perkrauta ir pašėlusi',
+                'Besikeičiančio tempo',
+                'Epinė ir didinga',
+                'Išdaigi',
+                'Bėgiojimo',
+                'Įtampa',
+                'Keista',
+            ]
         ]
     ]
 ];

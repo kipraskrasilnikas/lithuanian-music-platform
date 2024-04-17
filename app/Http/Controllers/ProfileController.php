@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Location;
 use App\Models\Genre;
+use App\Models\ArtistMood;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,9 +19,10 @@ class ProfileController extends Controller
 
             $user_specialties = Specialty::Where('user_id', $user->id)->get();
             $user_genres = Genre::Where('user_id', $user->id)->get();
+            $user_moods = ArtistMood::Where('user_id', $user->id)->get();
             $locations = Location::Where('user_id', $user->id)->get();
                         
-            return view('profile', compact('user', 'user_specialties', 'user_genres', 'locations'));
+            return view('profile', compact('user', 'user_specialties', 'user_genres', 'user_moods', 'locations'));
         }
 
         return redirect()->route('home');
@@ -99,6 +101,17 @@ class ProfileController extends Controller
                 $location = new Location($locationParameters);
                 $location->user()->associate($user);
                 $location->save();
+            }
+        }
+
+        $artist_mood = new ArtistMood();
+        $user->artistMoods()->delete();
+
+        if ($request->moods) {
+            foreach ($request->moods as $moodParameters) {
+                $artist_mood = new ArtistMood(['mood' => $moodParameters]);
+                $artist_mood->user()->associate($user);
+                $artist_mood->save();
             }
         }
 

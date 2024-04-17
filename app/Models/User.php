@@ -61,4 +61,12 @@ class User extends Authenticatable
     public function resources() {
         return $this->hasMany(Resource::class);
     }
+
+    /**
+     * Get the artist moods associated with the user.
+     */
+    public function artistMoods()
+    {
+        return $this->hasMany(ArtistMood::class);
+    }
 }

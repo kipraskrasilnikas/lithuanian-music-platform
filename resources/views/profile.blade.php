@@ -94,6 +94,34 @@
                 @error('genres')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+            </div>
+            <div class="mb-3">
+                <label for="moodInput" class="form-label">Jūsų muzikos nuotaikos</label>
+                <br>
+                @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
+                    <li style="list-style-type: none;">
+                        <div class="form-check" style="color: {{ $mood_details['color_hex'] }}">
+                            <input class="form-check-input mood-category" type="checkbox" id="mood-category-{{ $loop->iteration}}">{{ $mood_category }}</label>
+                        </div>
+                        <ul style="list-style-type: none;">
+                            @foreach ($mood_details['moods'] as $mood)
+                            <li style="list-style-type: none;">
+                                <div class="form-check" style="color: {{ $mood_details['color_hex'] }}">
+                                    <input class="form-check-input subOption" type="checkbox" id="mood-{{ $loop->iteration }}" name="moods[]" value="{{ $mood }}" 
+                                        {{ in_array($mood, $user_moods->pluck('mood')->toArray()) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="mood-{{ $loop->iteration }}">
+                                        {{ $mood }}
+                                    </label>
+                                </div>
+                            </li>
+
+                            @endforeach
+                        </ul>
+                    </li>
+                @endforeach
+                @error('moods')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>                   
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Vietos (galima iki 3-jų)</label>
@@ -229,6 +257,11 @@
                 }
             }
         });
+
+        // Check all nested checkboxes
+        $('.mood-category').change( function(){
+            $(this).parent().siblings().find(':checkbox').attr('checked', this.checked);
+        }); 
     </script>
 
 @endsection
