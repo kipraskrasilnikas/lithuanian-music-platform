@@ -84,7 +84,7 @@ return [
         ],
         
         'Rami' => [
-            'color_hex' => '#00FF00', // Green color
+            'color_hex' => '#106f2e', // Green color
             'moods' => [
                 'Pasakiška',
                 'Klajojanti',
