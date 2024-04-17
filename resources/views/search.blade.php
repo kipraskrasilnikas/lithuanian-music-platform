@@ -49,6 +49,14 @@
                                                 @foreach ($user->specialties as $specialty)
                                                     <p class="mb-2 position position-darker">{{ $specialty->name }}</p>
                                                 @endforeach
+                                                <br>
+                                                @foreach ($user->artistMoods as $mood)
+                                                    @php
+                                                        $escapedMood = str_replace(['/', ' '], '_', $mood->mood);
+                                                    @endphp
+                                        
+                                                    <p class="mb-2 position mood-color-{{ $escapedMood }}">{{ $mood->mood }}</p>
+                                                @endforeach
                                                 @if ($user->description)
                                                     <p class="description">{{ $user->description }}</p>
                                                 @endif

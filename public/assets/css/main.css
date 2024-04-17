@@ -2989,3 +2989,46 @@ section,
   background-color: #e84545;
   color: white;
 }
+
+/* Music mood colors */
+
+.mood-color-Ekscentriška,
+.mood-color-Elegantiška,
+.mood-color-Euforiška,
+.mood-color-Žavi_kerinti,
+.mood-color-Laiminga,
+.mood-color-Viltinga,
+.mood-color-Romantiška,
+.mood-color-Seksuali {
+  color: #FFA600; /* Apply the same color to classes starting with 'mood-color-' */
+}
+
+.mood-color-Tamsi,
+.mood-color-Baiminga,
+.mood-color-Sunki_priverčianti_susimąstyti,
+.mood-color-Nerimąstinga,
+.mood-color-Liūdna,
+.mood-color-Sentimentali {
+  color: #808080;
+}
+
+.mood-color-Pasakiška,
+.mood-color-Klajojanti,
+.mood-color-Atsipūtusi,
+.mood-color-Mistiška,
+.mood-color-Taikinga_rami,
+.mood-color-Atpalaiduojanti,
+.mood-color-Sklandi {
+  color: #00FF00;
+}
+
+.mood-color-Pikta,
+.mood-color-Perkrauta_ir_pašėlusi,
+.mood-color-Besikeičiančio_tempo,
+.mood-color-Epinė_ir_didinga,
+.mood-color-Išdaigi,
+.mood-color-Bėgiojimo,
+.mood-color-Įtampa,
+.mood-color-Keista {
+  color: #FF0000;
+}
