@@ -19,6 +19,9 @@ class SearchController extends Controller
         // Filter inactive users
         $query->where('status', 1);
 
+        // Sort by id in descending order
+        $query->orderByDesc('id');
+
         // Get the search results
         $users = $query->groupBy('id')->paginate(10);
 
