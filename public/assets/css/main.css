@@ -3032,3 +3032,24 @@ section,
 .mood-color-Keista {
   color: #FF0000;
 }
+
+.mood-filter {
+  cursor: pointer;
+}
+
+.pagination .page-item .page-link {
+  color: #e84545; /* Change the text color */
+  background-color: transparent; /* Make the background transparent */
+  border-color: #e84545; /* Change the border color */
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #e84545; /* Change the background color on hover */
+  color: white; /* Change the text color on hover */
+}
+
+.pagination .page-item.active .page-link {
+  color: white;
+  background-color: #e84545; /* Change the background color of the active page */
+  border-color: #e84545; /* Change the border color of the active page */
+}
