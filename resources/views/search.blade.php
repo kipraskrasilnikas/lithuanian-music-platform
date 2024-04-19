@@ -55,7 +55,7 @@
                                                         $escapedMood = str_replace(['/', ' '], '_', $mood->mood);
                                                     @endphp
                                         
-                                                    <p class="mb-2 position mood-color-{{ $escapedMood }}">{{ $mood->mood }}</p>
+                                                    <p class="mb-2 position mood-color-{{ $escapedMood }} mood-filter" data-mood="{{ $mood->mood }}">{{ $mood->mood }}</p>
                                                 @endforeach
                                                 @if ($user->description)
                                                     <p class="description">{{ $user->description }}</p>
@@ -76,7 +76,8 @@
                                             'specialties' => isset($search_specialties) ? $search_specialties : null,
                                             'genres' => isset($search_genres) ? $search_genres : null,
                                             'counties' => isset($search_counties) ? $search_counties : null
-                                        ])->onEachSide(1)->links()}}                                                                            </ul>
+                                        ])->onEachSide(1)->links()}}                                                                            
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -153,6 +154,19 @@
         $('.mood-category').change( function(){
             $(this).parent().siblings().find(':checkbox').attr('checked', this.checked);
         }); 
+
+        $(document).ready(function() {
+            $('.mood-filter').click(function() {
+                var mood = $(this).data('mood');
+
+                // Trigger form submission with mood filter
+                var form = $('.browse-form');
+                form.find('input[name="moods[]"]').prop('checked', false); // Clear previously selected moods
+                form.find('input[name="moods[]"][value="' + mood + '"]').prop('checked', true); // Set the mood filter
+                form.submit(); // Submit the form
+            });
+        });
+
     </script>
 
 @endsection
