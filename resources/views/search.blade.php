@@ -156,33 +156,31 @@
         }); 
 
         $(document).ready(function() {
-            $('.mood-filter').click(function() {
+            $('.mood-filter, .specialty-filter, .genre-filter').click(function() {
+                // Clear all filters
+                $('.mood-filter, .specialty-filter, .genre-filter').removeClass('active');
+                // Set current filter as active
+                $(this).addClass('active');
+                
                 var mood = $(this).data('mood');
-
-                // Trigger form submission with mood filter
-                var form = $('.browse-form');
-                form.find('input[name="moods[]"]').prop('checked', false); // Clear previously selected moods
-                form.find('input[name="moods[]"][value="' + mood + '"]').prop('checked', true); // Set the mood filter
-                form.submit(); // Submit the form
-            });
-
-            $('.specialty-filter').click(function() {
                 var specialty = $(this).data('specialty');
-
-                // Trigger form submission with mood filter
-                var form = $('.browse-form');
-                form.find('input[name="specialties[]"]').prop('checked', false); // Clear previously selected moods
-                form.find('input[name="specialties[]"][value="' + specialty + '"]').prop('checked', true); // Set the mood filter
-                form.submit(); // Submit the form
-            });
-
-            $('.genre-filter').click(function() {
                 var genre = $(this).data('genre');
 
-                // Trigger form submission with mood filter
+                // Trigger form submission with the selected filter
                 var form = $('.browse-form');
-                form.find('input[name="genres[]"]').prop('checked', false); // Clear previously selected moods
-                form.find('input[name="genres[]"][value="' + genre + '"]').prop('checked', true); // Set the mood filter
+                form.find('input[name="moods[]"]').prop('checked', false); // Clear mood filters
+                form.find('input[name="specialties[]"]').prop('checked', false); // Clear specialty filters
+                form.find('input[name="genres[]"]').prop('checked', false); // Clear genre filters
+                
+                // Set the corresponding filter
+                if (mood) {
+                    form.find('input[name="moods[]"][value="' + mood + '"]').prop('checked', true);
+                } else if (specialty) {
+                    form.find('input[name="specialties[]"][value="' + specialty + '"]').prop('checked', true);
+                } else if (genre) {
+                    form.find('input[name="genres[]"][value="' + genre + '"]').prop('checked', true);
+                }
+
                 form.submit(); // Submit the form
             });
         });
