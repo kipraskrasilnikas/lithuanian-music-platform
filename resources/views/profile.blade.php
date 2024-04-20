@@ -262,6 +262,7 @@
 
             $(document).on('click', '.remove-table-row', function() {
                 $(this).parents('tr').remove();
+                form_location_i--;
             });
 
             function addLocationRow(isFromDB) {
@@ -315,8 +316,8 @@
         });
 
         // Check all nested checkboxes
-        $('.mood-category').change( function(){
-            $(this).parent().siblings().find(':checkbox').attr('checked', this.checked);
+        $('.mood-category').change( function() {
+            $(this).closest('div').next('ul').find(':checkbox').prop('checked', this.checked);
         }); 
     </script>
 
