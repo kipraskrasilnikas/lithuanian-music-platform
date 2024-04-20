@@ -42,12 +42,12 @@
                                                 @endphp
                                                 <span class="location mb-0">{{ $counties }}</span>
                                                 <h2>{{ $user->name }}</h2>
-                                                @foreach ($user->genres as $genre)
+                                                @foreach ($user->genres->sortBy('name') as $genre)
                                                     <span class="position">{{ $genre->name }}</span>
                                                 @endforeach
                                                 <br>
-                                                @foreach ($user->specialties as $specialty)
-                                                    <p class="mb-2 position position-darker">{{ $specialty->name }}</p>
+                                                @foreach ($user->specialties->sortBy('name') as $specialty)
+                                                    <p class="mb-2 position position-darker specialty-filter" data-specialty="{{ $specialty->name }}">{{ $specialty->name }}</p>
                                                 @endforeach
                                                 <br>
                                                 @foreach ($user->artistMoods as $mood)
@@ -163,6 +163,16 @@
                 var form = $('.browse-form');
                 form.find('input[name="moods[]"]').prop('checked', false); // Clear previously selected moods
                 form.find('input[name="moods[]"][value="' + mood + '"]').prop('checked', true); // Set the mood filter
+                form.submit(); // Submit the form
+            });
+
+            $('.specialty-filter').click(function() {
+                var specialty = $(this).data('specialty');
+
+                // Trigger form submission with mood filter
+                var form = $('.browse-form');
+                form.find('input[name="specialties[]"]').prop('checked', false); // Clear previously selected moods
+                form.find('input[name="specialties[]"][value="' + specialty + '"]').prop('checked', true); // Set the mood filter
                 form.submit(); // Submit the form
             });
         });
