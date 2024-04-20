@@ -3050,6 +3050,6 @@ section,
   border-color: #e84545; /* Change the border color of the active page */
 }
 
-.mood-filter, .specialty-filter {
+.mood-filter, .specialty-filter, .genre-filter {
   cursor: pointer;
 }

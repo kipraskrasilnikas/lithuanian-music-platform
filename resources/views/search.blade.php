@@ -43,7 +43,7 @@
                                                 <span class="location mb-0">{{ $counties }}</span>
                                                 <h2>{{ $user->name }}</h2>
                                                 @foreach ($user->genres->sortBy('name') as $genre)
-                                                    <span class="position">{{ $genre->name }}</span>
+                                                    <span class="position genre-filter" data-genre="{{ $genre->name }}">{{ $genre->name }}</span>
                                                 @endforeach
                                                 <br>
                                                 @foreach ($user->specialties->sortBy('name') as $specialty)
@@ -173,6 +173,16 @@
                 var form = $('.browse-form');
                 form.find('input[name="specialties[]"]').prop('checked', false); // Clear previously selected moods
                 form.find('input[name="specialties[]"][value="' + specialty + '"]').prop('checked', true); // Set the mood filter
+                form.submit(); // Submit the form
+            });
+
+            $('.genre-filter').click(function() {
+                var genre = $(this).data('genre');
+
+                // Trigger form submission with mood filter
+                var form = $('.browse-form');
+                form.find('input[name="genres[]"]').prop('checked', false); // Clear previously selected moods
+                form.find('input[name="genres[]"][value="' + genre + '"]').prop('checked', true); // Set the mood filter
                 form.submit(); // Submit the form
             });
         });
