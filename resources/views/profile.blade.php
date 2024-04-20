@@ -102,7 +102,7 @@
                     <br>
                     @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
                         <li style="list-style-type: none;">
-                            <div class="form-check" style="color: {{ $mood_details['color_hex'] }}; display: flex; align-items: center;">
+                            <div class="form-check checkboxes" style="color: {{ $mood_details['color_hex'] }}; ">
                                 <label class="form check-label">
                                     <input class="form-check-input mood-category" type="checkbox" id="mood-category-{{ $loop->iteration}}">
                                     <span>{{ $mood_category }}</span>
