@@ -131,6 +131,9 @@ class SearchController extends Controller
             $query->whereIn('resources.county', $search_counties);
         }
 
+        // Sort by id in descending order
+        $query->orderByDesc('id');
+
         // Get the search results
         $resources = $query->groupBy('id')->paginate(10);
 
