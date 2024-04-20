@@ -60,7 +60,7 @@
                                             <div class="description text pl-md-4">
                                                 <span class="location">{{ $resource->county ? ($resource->county . ', ') : '' }} {{ $resource->address }}</span>
                                                 <h2>{{ $resource->name }}</h2>
-                                                <span class="position">{{ $resource->type }}</span>
+                                                <span class="position type-filter" data-type="{{ $resource->type }}">{{ $resource->type }}</span>
                                                 <p class="mb-2">{{ $resource->description }}</p>
                                                 <p><a href="{{ url('/resource/' . $resource->id) }}">Daugiau informacijos</a></p>
 
@@ -128,11 +128,23 @@
         <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     </body>
 
-    {{-- <script>
-        function confirmDelete(resourceName, deleteUrl) {
-            if (confirm('Ar tikrai norite ištrinti ' + resourceName + '?')) {
-                window.location.href = deleteUrl;
-            }
-        }
-    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('.type-filter').click(function() {
+                // Set current filter as active
+                $(this).addClass('active');
+                
+                var type = $(this).data('type');
+
+                // Trigger form submission with the selected filter
+                var form = $('.browse-form');
+
+                form.find('input[name="types[]"]').prop('checked', false); // Clear mood filters
+                form.find('input[name="types[]"][value="' + type + '"]').prop('checked', true);
+
+                form.submit(); // Submit the form
+            });
+        });
+
+    </script>
 @endsection
