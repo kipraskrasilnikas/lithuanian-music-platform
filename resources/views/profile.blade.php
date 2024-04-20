@@ -125,7 +125,7 @@
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Vietos (galima iki 3-jų)</label>
             </div>
-            <table class="table table-bordered" id="table">
+            <table class="table table-bordered" id="location_table">
                 <tr>
                     <th>Apskritis<span style="color: red;">*</span></th>
                     <th>Miestas<span style="color: red;">*</span></th>
@@ -148,7 +148,7 @@
                         <input type="text" name="locations[0][address]" value="{{ $locations[0]->address }}" placeholder="Įveskite adresą" class="form-control">
                     </td>
                     <td>
-                        <button type="button" name="add" id="add" class="btn btn-success">Pridėti daugiau</button>
+                        <button type="button" name="add" id="add_location" class="btn btn-success">Pridėti daugiau</button>
                     </td>
                 </tr>
             </table>
@@ -158,6 +158,49 @@
             @error('locations.*.city')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+            <div class="mb-3" style="font-size: 30px;">
+                <label class="form-label">Jūsų dainos (galima iki 7-ių)</label>
+            </div>
+            <div class="d-flex justify-content-center" style="width: 150%;">
+                <table class="table table-bordered" id="song_table">
+                    <tr>
+                        <th>Pavadinimas<span style="color: red;">*</span></th>
+                        <th>Nuoroda<span style="color: red;">*</span></th>
+                        <th>Muzikos žanrai<span style="color: red;">*</span></th>
+                        <th>Muzikos nuotaikos<span style="color: red;">*</span></th>
+                        <th>Veiksmas</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="songs[0][title]" placeholder="Įveskite pavadinimą" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="songs[0][link]" placeholder="Įveskite nuorodą" class="form-control">
+                        </td>
+                        <td>
+                            <select class="form-select" name="songs[0][genres][]" multiple>
+                                @foreach (config('music_config.genres') as $genre)
+                                    <option value="{{ $genre }}">{{ $genre }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-select" name="songs[0][moods][]" multiple>
+                                @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
+                                    <optgroup label="{{ $mood_category }}">
+                                        @foreach ($mood_details['moods'] as $mood)
+                                            <option value="{{ $mood }}">{{ $mood }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <button type="button" name="add" id="add_song" class="btn btn-success">Pridėti daugiau</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div class="mb-3" style="font-size: 30px;">
                 <label class="form-label">Naudotojo statusas</label>
             </div>
@@ -195,7 +238,7 @@
                 addLocationRow(true);
             }
 
-            $('#add').click(function() {
+            $('#add_location').click(function() {
                 if (form_location_i < limit) {
                     addLocationRow();
                 } else {
@@ -211,7 +254,7 @@
                 ++form_location_i;
 
                 if (isFromDB) {
-                    $('#table').append(
+                    $('#location_table').append(
                         `<tr>
                             <td>
                                 <select name="locations[` + form_location_i + `][county]" class="form-control">
@@ -233,7 +276,7 @@
                         </tr>`);
 
                 } else {
-                    $('#table').append(
+                    $('#location_table').append(
                         `<tr>
                             <td>
                                 <select name="locations[` + form_location_i + `][county]" class="form-control">
