@@ -159,14 +159,16 @@
                     </tr>
                 </table>
             </div>
-            @error('locations.*.county')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            @error('locations.*.city')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            <div class="mb-3" style="font-size: 30px; text-align: center;">
-                <label class="form-label">Jūsų dainos (galima iki 7-ių)</label>
+            <div style="text-align: center;">
+                @error('locations.*.county')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                @error('locations.*.city')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <div class="mb-3" style="font-size: 30px; text-align: center;">
+                    <label class="form-label">Jūsų dainos (galima iki 7-ių)</label>
+                </div>
             </div>
             <div class="d-flex justify-content-center">
                 <table class="table table-bordered" id="songs_table">
