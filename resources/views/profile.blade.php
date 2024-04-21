@@ -331,6 +331,7 @@
                         </td>
                         <td>
                             <input type="text" name="songs[` + form_song_i + `][song_url]" value="${isFromDB ? (songs[form_song_i].song_url ?? '') : ''}" placeholder="Įveskite nuorodą" class="form-control">
+                            <div class="youtube-preview" style="display: none;"></div> <!-- Add this div here -->
                         </td>
                         <td>
                             <select class="form-select" name="songs[` + form_song_i + `][genres][]" multiple>
@@ -356,9 +357,44 @@
                     </tr>
                 `);
                 
+                console.log(songs[form_song_i]?.song_url);
+
+                // Check if the link is a YouTube link and display preview
+                if (isFromDB && songs[form_song_i]?.song_url.includes('youtube.com') || songs[form_song_i]?.song_url.includes('youtu.be')) {
+                    let videoId = extractYouTubeVideoId(songs[form_song_i]?.song_url);
+                    if (videoId !== null) {
+                        displayYouTubePreview(form_song_i, videoId);
+                    }
+                }
             }
             // Song table logic END
         });
+
+        function extractYouTubeVideoId(url) {
+            let videoId = null;
+            if (url.includes('youtube.com')) {
+                videoId = url.split('v=')[1];
+                if (videoId.includes('&')) {
+                    videoId = videoId.split('&')[0];
+                }
+            } else if (url.includes('youtu.be')) {
+                videoId = url.split('youtu.be/')[1];
+                if (videoId.includes('?')) {
+                    videoId = videoId.split('?')[0];
+                }
+            }
+            return videoId;
+        }
+
+        function displayYouTubePreview(index, videoID) {
+            // Create YouTube preview image element
+            var previewImage = $('<img>').attr('src', 'https://img.youtube.com/vi/' + videoID + '/0.jpg').attr('width', '100%').attr('height', '100');
+
+            console.log('https://img.youtube.com/vi/' + videoID + '/mqdefault.jpg');
+
+            // Append the preview image to the corresponding table cell
+            $(`#songs_table tbody tr:nth-child(${index + 1}) td .youtube-preview`).append(previewImage).show();
+        }
 
         // Check all nested checkboxes
         $('.mood-category').change( function() {
