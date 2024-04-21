@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Models\Location;
 use App\Models\Genre;
 use App\Models\ArtistMood;
+use App\Models\Song;
+use App\Models\SongGenre;
+use App\Models\SongMood;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,8 +24,15 @@ class ProfileController extends Controller
             $user_genres = Genre::Where('user_id', $user->id)->get();
             $user_moods = ArtistMood::Where('user_id', $user->id)->get();
             $locations = Location::Where('user_id', $user->id)->get();
-                        
-            return view('profile', compact('user', 'user_specialties', 'user_genres', 'user_moods', 'locations'));
+            $songs = Song::Where('user_id', $user->id)->get();
+
+            // Associate genres and moods with each song
+            foreach ($songs as $song) {
+                $song->genres = $song->genres()->pluck('genre')->toArray();
+                $song->moods = $song->moods()->pluck('mood')->toArray();
+            }    
+
+            return view('profile', compact('user', 'user_specialties', 'user_genres', 'user_moods', 'locations', 'songs'));
         }
 
         return redirect()->route('home');
@@ -73,7 +83,6 @@ class ProfileController extends Controller
         // Save the updated user information
         $user->save();
 
-        $specialty = new Specialty();
         $user->specialties()->delete();
         if ($request->specialties) {
             foreach ($request->specialties as $specialtyName) {
@@ -83,7 +92,6 @@ class ProfileController extends Controller
             }
         }
 
-        $genre = new Genre();
         $user->genres()->delete();
         if ($request->genres) {
             foreach ($request->genres as $genreName) {
@@ -94,7 +102,6 @@ class ProfileController extends Controller
         }
         
 
-        $location = new Location();
         $user->locations()->delete();
         if ($request->locations) {
             foreach ($request->locations as $locationParameters) {
@@ -104,7 +111,6 @@ class ProfileController extends Controller
             }
         }
 
-        $artist_mood = new ArtistMood();
         $user->artistMoods()->delete();
 
         if ($request->moods) {
@@ -112,6 +118,31 @@ class ProfileController extends Controller
                 $artist_mood = new ArtistMood(['mood' => $moodParameters]);
                 $artist_mood->user()->associate($user);
                 $artist_mood->save();
+            }
+        }
+
+        $user->songs()->delete();
+        if ($request->songs) {
+            foreach ($request->songs as $songParameters) {
+                $song = new Song([
+                    'title' => $songParameters['title'],
+                    'song_url'  => $songParameters['song_url'],
+                ]);
+
+                $song->user()->associate($user);
+                $song->save();
+
+                foreach ($songParameters['genres'] as $genre) {
+                    $genre = new SongGenre(['genre' => $genre]);
+                    $genre->song()->associate($song);
+                    $genre->save();
+                }
+
+                foreach ($songParameters['moods'] as $mood) {
+                    $mood = new SongMood(['mood' => $mood]);
+                    $mood->song()->associate($song);
+                    $mood->save();
+                }
             }
         }
 

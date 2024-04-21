@@ -181,15 +181,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="songs[0][title]" placeholder="Įveskite pavadinimą" class="form-control">
+                            <input type="text" name="songs[0][title]" placeholder="Įveskite pavadinimą" class="form-control" value="{{ $songs[0]->title }}">
                         </td>
                         <td>
-                            <input type="text" name="songs[0][link]" placeholder="Įveskite nuorodą" class="form-control">
+                            <input type="text" name="songs[0][song_url]" placeholder="Įveskite nuorodą" class="form-control" value="{{ $songs[0]->song_url }}">
                         </td>
                         <td>
                             <select class="form-select" name="songs[0][genres][]" multiple>
                                 @foreach (config('music_config.genres') as $genre)
-                                    <option value="{{ $genre }}">{{ $genre }}</option>
+                                    <option value="{{ $genre }}" {{ in_array($genre, $songs[0]->genres) ? 'selected' : ''}}>{{ $genre }}</option>
                                 @endforeach
                             </select>
                         </td>
@@ -198,7 +198,7 @@
                                 @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
                                     <optgroup label="{{ $mood_category }}">
                                         @foreach ($mood_details['moods'] as $mood)
-                                            <option value="{{ $mood }}">{{ $mood }}</option>
+                                            <option value="{{ $mood }}" {{ in_array($mood, $songs[0]->moods) ? 'selected' : '' }}>{{ $mood }}</option>
                                         @endforeach
                                     </optgroup>
                                 @endforeach
@@ -245,24 +245,25 @@
             });
             // -----------------------------------------
 
+            // Location table logic
             var form_location_i = 0;
-            var limit = 2;
+            var location_limit = 2;
             var locations = {!! json_encode($locations) !!};
             var dbLocationCount = Object.keys(locations).length;
 
-            while (form_location_i < limit && form_location_i < dbLocationCount - 1) {
+            while (form_location_i < location_limit && form_location_i < dbLocationCount - 1) {
                 addLocationRow(true);
             }
 
             $('#add_location').click(function() {
-                if (form_location_i < limit) {
+                if (form_location_i < location_limit) {
                     addLocationRow();
                 } else {
                     alert('Maksimalus vietų skaičius yra 3!');
                 }
             });
 
-            $(document).on('click', '.remove-table-row', function() {
+            $(document).on('click', '.remove-location-table-row', function() {
                 $(this).parents('tr').remove();
                 form_location_i--;
             });
@@ -270,51 +271,93 @@
             function addLocationRow(isFromDB) {
                 ++form_location_i;
 
-                if (isFromDB) {
-                    $('#location_table').append(
-                        `<tr>
-                            <td>
-                                <select name="locations[` + form_location_i + `][county]" class="form-control">
-                                    <option value="">Pasirinkti apskritį</option>
-                                    @foreach (config('music_config.counties') as $county)
-                                        <option value="{{ $county }}" ${(locations[form_location_i].county == "{{$county}}") ? 'selected' : '' }>{{ $county }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" name="locations[` + form_location_i + `][city]" value="${locations[form_location_i].city}" placeholder="Įveskite miestą" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="locations[` + form_location_i + `][address]" value="${(locations[form_location_i].address) ? locations[form_location_i].address : ''}" placeholder="Įveskite adresą" class="form-control">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger remove-table-row">Pašalinti</button>
-                            </td>
-                        </tr>`);
-
-                } else {
-                    $('#location_table').append(
-                        `<tr>
-                            <td>
-                                <select name="locations[` + form_location_i + `][county]" class="form-control">
-                                    <option value="">Pasirinkti apskritį</option>
-                                    @foreach (config('music_config.counties') as $county)
-                                        <option value="{{ $county }}">{{ $county }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" name="locations[` + form_location_i + `][city]" placeholder="Įveskite miestą" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="locations[` + form_location_i + `][address]" placeholder="Įveskite adresą" class="form-control">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger remove-table-row">Pašalinti</button>
-                            </td>
-                        </tr>`);
-                }
+                $('#location_table tbody').append(`
+                    <tr>
+                        <td>
+                            <select name="locations[` + form_location_i + `][county]" class="form-control">
+                                <option value="">Pasirinkti apskritį</option>
+                                @foreach (config('music_config.counties') as $county)
+                                    <option value="{{ $county }}" ${(isFromDB && locations[form_location_i].county === "{{ $county }}") ? 'selected' : ''}>{{ $county }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" name="locations[` + form_location_i + `][city]" value="${isFromDB ? (locations[form_location_i].city ?? '') : ''}" placeholder="Įveskite miestą" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="locations[` + form_location_i + `][address]" value="${isFromDB ? (locations[form_location_i].address ?? '') : ''}" placeholder="Įveskite adresą" class="form-control">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger remove-location-table-row">Pašalinti</button>
+                        </td>
+                    </tr>
+                `);
             }
+            // Location table logic END
+
+            // Song table logic
+            var form_song_i = 0;
+            var song_limit = 6;
+            var songs = {!! json_encode($songs) !!};
+            var dbSongCount = Object.keys(songs).length;
+
+            while (form_song_i < song_limit && form_song_i < dbSongCount - 1) {
+                addSongRow(true);
+            }
+
+            $('#add_song').click(function() {
+                console.log('paspaustas add song');
+                console.log(form_song_i, song_limit);
+                if (form_song_i < song_limit) {
+                    addSongRow();
+                } else {
+                    alert('Galima ikelti iki 7 dainų!');
+                }
+            });
+
+            // cia selectoriu reik pakeist
+            $(document).on('click', '.remove-song-table-row', function() {
+                $(this).parents('tr').remove();
+                form_song_i--;
+            });
+
+            function addSongRow(isFromDB) {
+                ++form_song_i;
+
+                $('#songs_table tbody').append(
+                    `<tr>
+                        <td>
+                            <input type="text" name="songs[` + form_song_i + `][title]" value="${isFromDB ? (songs[form_song_i].title ?? '') : ''}" placeholder="Įveskite pavadinimą" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="songs[` + form_song_i + `][song_url]" value="${isFromDB ? (songs[form_song_i].song_url ?? '') : ''}" placeholder="Įveskite nuorodą" class="form-control">
+                        </td>
+                        <td>
+                            <select class="form-select" name="songs[` + form_song_i + `][genres][]" multiple>
+                                @foreach (config('music_config.genres') as $genre)
+                                    <option value="{{ $genre }}" ${( isFromDB && (songs[form_song_i].genres.includes("{{ $genre }}") ? 'selected' : ''))}>{{ $genre }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-select" name="songs[` + form_song_i + `][moods][]" multiple>
+                                @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
+                                    <optgroup label="{{ $mood_category }}">
+                                        @foreach ($mood_details['moods'] as $mood)
+                                            <option value="{{ $mood }}" ${( isFromDB && (songs[form_song_i].moods.includes("{{ $mood }}") ? 'selected' : ''))}>{{ $mood }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger remove-song-table-row">Pašalinti</button>
+                        </td>
+                    </tr>
+                `);
+                
+            }
+            // Song table logic END
         });
 
         // Check all nested checkboxes
