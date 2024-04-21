@@ -52,7 +52,7 @@ class ProfileController extends Controller
             'locations.*.city'      => 'required',
             'locations.*.address'   => 'nullable',
             'songs.*.title'         => 'required',
-            'songs.*.song_url'      => 'required'
+            'songs.*.original_url'      => 'required'
         ],
         [
             'name.required'             => 'Vardas yra privalomas!',
@@ -67,7 +67,7 @@ class ProfileController extends Controller
             'locations.*.county.required'=> 'Apskritis yra privaloma!',
             'locations.*.city.required' => 'Miestas yra privalomas!',
             'songs.*.title.required'    => 'Pavadinimas yra privalomas!',
-            'songs.*.song_url.required' => 'Nuoroda yra privaloma!',
+            'songs.*.original_url.required' => 'Nuoroda yra privaloma!',
         ]);
 
         // Retrieve the authenticated user
@@ -128,9 +128,18 @@ class ProfileController extends Controller
         $user->songs()->delete();
         if ($request->songs) {
             foreach ($request->songs as $songParameters) {
+                $videoId = $this->extractYouTubeVideoId($songParameters['original_url']);
+
+                // Create the embedded URL if a valid video ID is found
+                $embeddedUrl = null;
+                if ($videoId !== null) {
+                    $embeddedUrl = "https://www.youtube.com/embed/{$videoId}";
+                }
+
                 $song = new Song([
                     'title' => $songParameters['title'],
-                    'song_url'  => $songParameters['song_url'],
+                    'original_url'  => $songParameters['original_url'],
+                    'embedded_url'  => $embeddedUrl
                 ]);
 
                 $song->user()->associate($user);
@@ -152,5 +161,23 @@ class ProfileController extends Controller
 
         // Redirect with success message
         return redirect()->route('profile')->with("success", "Profilis sėkmingai atnaujintas!");
+    }
+
+    private function extractYouTubeVideoId($url) {
+        $videoId = null;
+        if (strpos($url, 'youtube.com') !== false) {
+            $query = parse_url($url, PHP_URL_QUERY);
+            parse_str($query, $params);
+            if (isset($params['v'])) {
+                $videoId = $params['v'];
+            }
+        } elseif (strpos($url, 'youtu.be') !== false) {
+            $path = parse_url($url, PHP_URL_PATH);
+            $videoId = ltrim($path, '/');
+            if (strpos($videoId, '?') !== false) {
+                $videoId = substr($videoId, 0, strpos($videoId, '?'));
+            }
+        }
+        return $videoId;
     }
 }

@@ -11,7 +11,7 @@ class Song extends Model
     
     protected $table = 'songs';
     protected $primaryKey = 'id';
-    protected $fillable = ['title', 'song_url'];
+    protected $fillable = ['title', 'original_url', 'embedded_url'];
 
     public function user() {
         return $this->belongsTo(User::class);

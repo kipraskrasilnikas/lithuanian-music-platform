@@ -141,22 +141,22 @@
                     <tr>
                         <td>
                             <select name="locations[0][county]" class="form-control">
-                                <option value="">Pasirinkti apskritį </option>
+                                <option value="">Pasirinkti apskritį</option>
                                 @foreach (config('music_config.counties') as $county)
-                                    <option value="{{ $county }}" {{ $locations[0]->county == $county ? 'selected' : '' }} >{{ $county }}</option>
+                                    <option value="{{ $county }}" {{ isset($locations[0]) && $locations[0]->county == $county ? 'selected' : '' }}>{{ $county }}</option>
                                 @endforeach
-                            </select>                    
+                            </select>
                         </td>
                         <td>
-                            <input type="text" name="locations[0][city]" value="{{ $locations[0]->city }}" placeholder="Įveskite miestą" class="form-control">
+                            <input type="text" name="locations[0][city]" value="{{ isset($locations[0]) ? $locations[0]->city : '' }}" placeholder="Įveskite miestą" class="form-control">
                         </td>
                         <td>
-                            <input type="text" name="locations[0][address]" value="{{ $locations[0]->address }}" placeholder="Įveskite adresą" class="form-control">
+                            <input type="text" name="locations[0][address]" value="{{ isset($locations[0]) ? $locations[0]->address : '' }}" placeholder="Įveskite adresą" class="form-control">
                         </td>
                         <td>
                             <button type="button" name="add" id="add_location" class="btn btn-success">Pridėti daugiau</button>
                         </td>
-                    </tr>
+                    </tr>                    
                 </table>
             </div>
             <div style="text-align: center;">
@@ -181,16 +181,20 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="songs[0][title]" placeholder="Įveskite pavadinimą" class="form-control" value="{{ $songs[0]->title }}">
+                            <input type="text" name="songs[0][title]" placeholder="Įveskite pavadinimą" class="form-control" value="{{ $songs[0]->title ?? '' }}">
                         </td>
                         <td>
-                            <input type="text" name="songs[0][song_url]" placeholder="Įveskite nuorodą" class="form-control" value="{{ $songs[0]->song_url }}">
-                            <div class="youtube-preview" style="padding: 10px;"></div>
+                            <input type="text" name="songs[0][original_url]" placeholder="Įveskite nuorodą" class="form-control" value="{{ $songs[0]->original_url ?? '' }}">
+                            @if(isset($songs[0]) && $songs[0]->embedded_url)
+                                <div class="youtube-preview" style="padding: 10px;">
+                                    <iframe width="280" height="160" src="{{ $songs[0]->embedded_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            @endif
                         </td>
                         <td>
                             <select class="form-select" name="songs[0][genres][]" multiple>
                                 @foreach (config('music_config.genres') as $genre)
-                                    <option value="{{ $genre }}" {{ in_array($genre, $songs[0]->genres) ? 'selected' : ''}}>{{ $genre }}</option>
+                                    <option value="{{ $genre }}" {{ in_array($genre, $songs[0]->genres ?? []) ? 'selected' : ''}}>{{ $genre }}</option>
                                 @endforeach
                             </select>
                         </td>
@@ -199,7 +203,7 @@
                                 @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
                                     <optgroup label="{{ $mood_category }}">
                                         @foreach ($mood_details['moods'] as $mood)
-                                            <option value="{{ $mood }}" {{ in_array($mood, $songs[0]->moods) ? 'selected' : '' }}>{{ $mood }}</option>
+                                            <option value="{{ $mood }}" {{ in_array($mood, $songs[0]->moods ?? []) ? 'selected' : '' }}>{{ $mood }}</option>
                                         @endforeach
                                     </optgroup>
                                 @endforeach
@@ -215,7 +219,7 @@
                 @error('songs.*.title')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                @error('songs.*.song_url')
+                @error('songs.*.original_url')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
@@ -331,14 +335,22 @@
             function addSongRow(isFromDB) {
                 ++form_song_i;
 
+                var youtubePreview = ''; // Initialize youtubePreview variable
+
+                if (isFromDB && songs[form_song_i]?.embedded_url) {
+                    youtubePreview = `<div class="youtube-preview" style="padding: 10px;">
+                                        <iframe width="280" height="160" src="${songs[form_song_i].embedded_url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>`;
+                }
+
                 $('#songs_table tbody').append(
                     `<tr>
                         <td>
                             <input type="text" name="songs[` + form_song_i + `][title]" value="${isFromDB ? (songs[form_song_i].title ?? '') : ''}" placeholder="Įveskite pavadinimą" class="form-control">
                         </td>
                         <td>
-                            <input type="text" name="songs[` + form_song_i + `][song_url]" value="${isFromDB ? (songs[form_song_i].song_url ?? '') : ''}" placeholder="Įveskite nuorodą" class="form-control">
-                            <div class="youtube-preview" style="padding: 10px;"></div>
+                            <input type="text" name="songs[` + form_song_i + `][original_url]" value="${isFromDB ? (songs[form_song_i].original_url ?? '') : ''}" placeholder="Įveskite nuorodą" class="form-control">
+                            ${youtubePreview}
                         </td>
                         <td style="vertical-align: top;">
                             <select class="form-select" name="songs[` + form_song_i + `][genres][]" multiple style="height: 210px;">
@@ -363,50 +375,9 @@
                         </td>
                     </tr>
                 `);
-                
-                // Check if the link is a YouTube link and display preview
-                if (isFromDB && songs[form_song_i]?.song_url.includes('youtube.com') || songs[form_song_i]?.song_url.includes('youtu.be')) {
-                    let videoId = extractYouTubeVideoId(songs[form_song_i]?.song_url);
-                    if (videoId !== null) {
-                        embedYouTubeVideo(form_song_i+1, videoId);
-                    }
-                }
             }
             // Song table logic END
-
-            // Fill youtube-preview div with embedded YouTube video for the first song
-            var videoUrl = $('input[name="songs[0][song_url]"]').val();
-
-            if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
-                var videoId = extractYouTubeVideoId(videoUrl);
-
-                if (videoId !== null) {
-                    embedYouTubeVideo(1, videoId); // Assuming the first song has index 0, add 1 to skip the column names row
-                }
-            }
         });
-
-        function extractYouTubeVideoId(url) {
-            let videoId = null;
-            if (url.includes('youtube.com')) {
-                videoId = url.split('v=')[1];
-                if (videoId.includes('&')) {
-                    videoId = videoId.split('&')[0];
-                }
-            } else if (url.includes('youtu.be')) {
-                videoId = url.split('youtu.be/')[1];
-                if (videoId.includes('?')) {
-                    videoId = videoId.split('?')[0];
-                }
-            }
-            return videoId;
-        }
-
-        function embedYouTubeVideo(form_song_i, videoId) {
-            $(`#songs_table tbody tr:nth-child(${form_song_i + 1}) .youtube-preview`).html(`
-                <iframe width="280" height="160" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            `);
-        }
 
         // Check all nested checkboxes
         $('.mood-category').change( function() {

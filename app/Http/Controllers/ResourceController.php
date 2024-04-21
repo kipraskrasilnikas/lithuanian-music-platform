@@ -19,7 +19,7 @@ class ResourceController extends Controller
         $resources = $query->orderBy('id', 'desc')->paginate(10);
         $user = Auth::user();
 
-        return view ('resources.index')->with('resources', $resources)->with('user', $user);
+        return view('resources.index')->with('resources', $resources)->with('user', $user);
     }
 
     /**
