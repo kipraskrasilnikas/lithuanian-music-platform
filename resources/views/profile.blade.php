@@ -1,7 +1,7 @@
 @extends('layout')
 @section('title', 'Profilio puslapis')
 @section('content')
-    <body class="blog-page" data-bs-spy="scroll" data-bs-target="#navmenu"> 
+    <body class="profile-page" data-bs-spy="scroll" data-bs-target="#navmenu"> 
         <h1 class="display-4 text-center">Profilis</h1>
 
         <div class="mt-5">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Vardas, Pavardė<span style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}" style="width: 30%; margin-right" align="center">
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
                     @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

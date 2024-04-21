@@ -3054,32 +3054,32 @@ section,
   cursor: pointer;
 }
 
-.blog-page input:not([type="checkbox"]):not(table input),
-.blog-page textarea {
+.profile-page input:not([type="checkbox"]):not(table input),
+.profile-page textarea {
   margin: auto;
   width: 30%;
   margin-right: auto;
   margin-left: auto;
 }
 
-.blog-page input[type="checkbox"] {
+.profile-page input[type="checkbox"] {
   margin: auto;
   margin-right: auto;
   margin-left: auto;
   text-align: center;
 }
 
-.blog-page .checkboxes,
-.blog-page .checkboxes label {
+.profile-page .checkboxes,
+.profile-page .checkboxes label {
   display: flex;
   align-items: center;
 }
 
-.blog-page .checkboxes input {
+.profile-page .checkboxes input {
   margin-right: 5px;
 }
 
-.blog-page .table th,
+.profile-page .table th,
 .table td {
     text-align: left; /* Adjust alignment to left */
 }

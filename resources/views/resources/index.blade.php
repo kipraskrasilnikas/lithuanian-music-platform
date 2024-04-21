@@ -1,7 +1,7 @@
 @extends('layout')
 @section('title', 'Paieškos puslapis')
 @section('content')
-    <body class="blog-page" data-bs-spy="scroll" data-bs-target="#navmenu">
+    <body class="resource-page" data-bs-spy="scroll" data-bs-target="#navmenu">
         <div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');"
             data-stellar-background-ratio="0.5">
             <div class="overlay"></div>

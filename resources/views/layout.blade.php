@@ -43,7 +43,6 @@
     @include('include.header')
 
     @section('header')
-    <body class="blog-page" data-bs-spy="scroll" data-bs-target="#navmenu">
       <!-- ======= Header ======= -->
       <header id="header" class="header sticky-top d-flex align-items-center">
         <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -79,7 +78,6 @@
             @endauth
         </div>
       </header><!-- End Header -->
-    </body>
     @show
 
     @yield('content')
