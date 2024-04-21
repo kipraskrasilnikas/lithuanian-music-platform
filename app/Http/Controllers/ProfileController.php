@@ -51,6 +51,8 @@ class ProfileController extends Controller
             'locations.*.county'    => 'required',
             'locations.*.city'      => 'required',
             'locations.*.address'   => 'nullable',
+            'songs.*.title'         => 'required',
+            'songs.*.song_url'      => 'required'
         ],
         [
             'name.required'             => 'Vardas yra privalomas!',
@@ -64,6 +66,8 @@ class ProfileController extends Controller
             'password.confirmed'        => 'Slaptažodžiai turi sutapti!',
             'locations.*.county.required'=> 'Apskritis yra privaloma!',
             'locations.*.city.required' => 'Miestas yra privalomas!',
+            'songs.*.title.required'    => 'Pavadinimas yra privalomas!',
+            'songs.*.song_url.required' => 'Nuoroda yra privaloma!',
         ]);
 
         // Retrieve the authenticated user

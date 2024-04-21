@@ -211,10 +211,17 @@
                     </tr>
                 </table>
             </div>
+            <div style="text-align: center;">
+                @error('songs.*.title')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                @error('songs.*.song_url')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
             <div class="mb-3" style="font-size: 30px; text-align: center;">
                 <label class="form-label">Naudotojo statusas</label>
             </div>
-
             <div style="margin: auto; width: 10%">
                 <div class="mb-5">
                     <div class="form-check checkboxes">
@@ -233,7 +240,6 @@
     </body>
 
     <script>
-
         document.addEventListener("DOMContentLoaded", function() {
             // ------Update description characters-----
             var descriptionInput = document.getElementById('description');
