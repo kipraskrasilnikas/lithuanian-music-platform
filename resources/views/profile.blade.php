@@ -185,6 +185,7 @@
                         </td>
                         <td>
                             <input type="text" name="songs[0][song_url]" placeholder="Įveskite nuorodą" class="form-control" value="{{ $songs[0]->song_url }}">
+                            <div class="youtube-preview" style="padding: 10px;"></div>
                         </td>
                         <td>
                             <select class="form-select" name="songs[0][genres][]" multiple>
@@ -331,17 +332,17 @@
                         </td>
                         <td>
                             <input type="text" name="songs[` + form_song_i + `][song_url]" value="${isFromDB ? (songs[form_song_i].song_url ?? '') : ''}" placeholder="Įveskite nuorodą" class="form-control">
-                            <div class="youtube-preview" style="display: none;"></div> <!-- Add this div here -->
+                            <div class="youtube-preview" style="padding: 10px;"></div>
                         </td>
-                        <td>
-                            <select class="form-select" name="songs[` + form_song_i + `][genres][]" multiple>
+                        <td style="vertical-align: top;">
+                            <select class="form-select" name="songs[` + form_song_i + `][genres][]" multiple style="height: 210px;">
                                 @foreach (config('music_config.genres') as $genre)
                                     <option value="{{ $genre }}" ${( isFromDB && (songs[form_song_i].genres.includes("{{ $genre }}") ? 'selected' : ''))}>{{ $genre }}</option>
                                 @endforeach
                             </select>
                         </td>
-                        <td>
-                            <select class="form-select" name="songs[` + form_song_i + `][moods][]" multiple>
+                        <td style="vertical-align: top;">
+                            <select class="form-select" name="songs[` + form_song_i + `][moods][]" multiple style="height: 210px;">
                                 @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
                                     <optgroup label="{{ $mood_category }}">
                                         @foreach ($mood_details['moods'] as $mood)
@@ -357,17 +358,26 @@
                     </tr>
                 `);
                 
-                console.log(songs[form_song_i]?.song_url);
-
                 // Check if the link is a YouTube link and display preview
                 if (isFromDB && songs[form_song_i]?.song_url.includes('youtube.com') || songs[form_song_i]?.song_url.includes('youtu.be')) {
                     let videoId = extractYouTubeVideoId(songs[form_song_i]?.song_url);
                     if (videoId !== null) {
-                        displayYouTubePreview(form_song_i, videoId);
+                        embedYouTubeVideo(form_song_i+1, videoId);
                     }
                 }
             }
             // Song table logic END
+
+            // Fill youtube-preview div with embedded YouTube video for the first song
+            var videoUrl = $('input[name="songs[0][song_url]"]').val();
+
+            if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+                var videoId = extractYouTubeVideoId(videoUrl);
+
+                if (videoId !== null) {
+                    embedYouTubeVideo(1, videoId); // Assuming the first song has index 0, add 1 to skip the column names row
+                }
+            }
         });
 
         function extractYouTubeVideoId(url) {
@@ -386,14 +396,10 @@
             return videoId;
         }
 
-        function displayYouTubePreview(index, videoID) {
-            // Create YouTube preview image element
-            var previewImage = $('<img>').attr('src', 'https://img.youtube.com/vi/' + videoID + '/0.jpg').attr('width', '100%').attr('height', '100');
-
-            console.log('https://img.youtube.com/vi/' + videoID + '/mqdefault.jpg');
-
-            // Append the preview image to the corresponding table cell
-            $(`#songs_table tbody tr:nth-child(${index + 1}) td .youtube-preview`).append(previewImage).show();
+        function embedYouTubeVideo(form_song_i, videoId) {
+            $(`#songs_table tbody tr:nth-child(${form_song_i + 1}) .youtube-preview`).html(`
+                <iframe width="280" height="160" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            `);
         }
 
         // Check all nested checkboxes
