@@ -45,14 +45,9 @@
                 <div class="mb-3">
                     <label for="loginEmailInput">Profilio nuotrauka<span style="color: red;">*</span></label>
                     <input type="file" class="form-control mb-2" name="avatar" id="image-input" accept="image/*">
-                    <div id="image-preview">
-                        <?php dump(public_path("images/" . $user->avatar)); ?>
-                        @if ($user->avatar && file_exists(public_path("images/" . $user->avatar)))
-                            <img src="{{ public_path("images/" . $user->avatar) }}" alt="Avatar" style="max-width: 200px; max-height: 200px;">
-                        @endif
-                    </div>
+                    <div id="image-preview"></div>
                     <input type="hidden" name="base64_image" id="base64-image">
-                    <button type="button" id="image-submit">Įkelti paveiksliuką</button>
+                    <button type="button" id="image-submit">Išsaugoti paveiksliuką</button>
 
                     <div id="success-message" class="alert alert-success" style="display: none;">Paveiksliukas įkeltas sėkmingai!</div>
                     <div id="no-image-message" class="alert alert-danger" style="display: none;">Įkelkite paveiksliuką prieš išsaugant!</div>
@@ -401,7 +396,6 @@
     </script>
 
     <script>
-        // image upload with crop
         $(document).ready(function() {
             var preview = new Croppie($('#image-preview')[0], {
                 viewport: {
@@ -417,6 +411,17 @@
                 enableExif: true,
             });
 
+            var avatarSrc = "{{ $user->avatar && file_exists(public_path('images/' . $user->avatar)) ? asset('images/' . $user->avatar) : '' }}";
+            if (avatarSrc) {
+                preview.bind({
+                    url: avatarSrc
+                }).then(function() {
+                    console.log('Avatar loaded');
+                }).catch(function(error) {
+                    console.error('Error loading avatar:', error);
+                });
+            }
+
             $('#image-input').on('change', function(e) {
                 var file = e.target.files[0];
                 var reader = new FileReader();
@@ -429,6 +434,9 @@
                         url: base64data
                     }).then(function() {
                         console.log('Croppie bind complete');
+                        preview.result('base64').then(function(result) {
+                            $('#base64-image').val(result);
+                        });
                     });
                 }
 

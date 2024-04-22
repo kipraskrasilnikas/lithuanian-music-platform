@@ -52,7 +52,7 @@ class ProfileController extends Controller
             'locations.*.city'      => 'required',
             'locations.*.address'   => 'nullable',
             'songs.*.title'         => 'required',
-            'songs.*.original_url'      => 'required'
+            'songs.*.original_url'  => 'required'
         ],
         [
             'name.required'             => 'Vardas yra privalomas!',
@@ -83,6 +83,16 @@ class ProfileController extends Controller
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
+
+        $base64_image       = $request->base64_image;
+        list($type, $data)  = explode(';', $base64_image);
+        list(, $data)       = explode(',', $data);
+        $data               = base64_decode($data);
+        $thumb_name         = "thumb_".date('YmdHis').'.png';
+        $thumb_path         = public_path("images/" . $thumb_name);
+        file_put_contents($thumb_path, $data);
+
+        $user->avatar = $thumb_name;
 
         // Save the updated user information
         $user->save();
