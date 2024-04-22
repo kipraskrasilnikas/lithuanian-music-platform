@@ -43,6 +43,21 @@
                     @enderror
                 </div>
                 <div class="mb-3">
+                    <label for="loginEmailInput">Profilio nuotrauka<span style="color: red;">*</span></label>
+                    <input type="file" class="form-control mb-2" name="avatar" id="image-input" accept="image/*">
+                    <div id="image-preview">
+                        <?php dump(public_path("images/" . $user->avatar)); ?>
+                        @if ($user->avatar && file_exists(public_path("images/" . $user->avatar)))
+                            <img src="{{ public_path("images/" . $user->avatar) }}" alt="Avatar" style="max-width: 200px; max-height: 200px;">
+                        @endif
+                    </div>
+                    <input type="hidden" name="base64_image" id="base64-image">
+                    <button type="button" id="image-submit">Įkelti paveiksliuką</button>
+
+                    <div id="success-message" class="alert alert-success" style="display: none;">Paveiksliukas įkeltas sėkmingai!</div>
+                    <div id="no-image-message" class="alert alert-danger" style="display: none;">Įkelkite paveiksliuką prieš išsaugant!</div>
+                </div>
+                <div class="mb-3">
                     <label for="passwordInput" class="form-label">Slaptažodis</label>
                     <input type="password" class="form-control" name="password">
                     @error('password')
@@ -385,4 +400,51 @@
         }); 
     </script>
 
+    <script>
+        // image upload with crop
+        $(document).ready(function() {
+            var preview = new Croppie($('#image-preview')[0], {
+                viewport: {
+                    width: 200,
+                    height: 200,
+                    type: 'circle',
+                },
+                boundary: {
+                    width: 200,
+                    height: 200
+                },
+                enableOrientation: true,
+                enableExif: true,
+            });
+
+            $('#image-input').on('change', function(e) {
+                var file = e.target.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function() {
+                    var base64data = reader.result;
+                    $('#base64-image').val(base64data);
+
+                    preview.bind({
+                        url: base64data
+                    }).then(function() {
+                        console.log('Croppie bind complete');
+                    });
+                }
+
+                reader.readAsDataURL(file);
+            });
+
+            $('#image-submit').on('click', function() {
+                if ($('#base64-image').val() === '') {
+                    $('#no-image-message').fadeIn().delay(8000).fadeOut(); // Show no image message
+                } else {
+                    preview.result('base64').then(function(result) {
+                        $('#base64-image').val(result);
+                        $('#success-message').fadeIn().delay(8000).fadeOut(); // Show success message
+                    });
+                }
+            });
+        });
+    </script>
 @endsection
