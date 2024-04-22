@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\MusicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,3 +57,6 @@ Route::delete("resource/{id}", [ResourceController::class, 'destroy'])->name('re
 
 // search
 Route::get('/searchResource', [SearchController::class, 'searchResource'])->name('search.resource');
+
+Route::get('/music', [MusicController::class, 'music'])->name('music');
+// Route::get('/songsPost', [SearchController::class, 'searchSongs'])->name('songs.post');

@@ -17,6 +17,7 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="{{ route('home') }}#hero" class="active">Namų puslapis</a></li>
+          <li><a href="{{ route('music') }}" class="{{ request()->is('/music') ? 'active' : '' }}">Atraskite muziką</a></li>
           <li><a href="{{ route('search') }}">Muzikantų paieška</a></li>
           <li><a href="{{ route('resources') }}">Ištekliai</a></li>
 
