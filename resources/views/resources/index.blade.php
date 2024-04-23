@@ -61,11 +61,11 @@
                                                 <span class="location">{{ $resource->county ? ($resource->county . ', ') : '' }} {{ $resource->address }}</span>
                                                 <h2>{{ $resource->name }}</h2>
                                                 <span class="position type-filter" data-type="{{ $resource->type }}">{{ $resource->type }}</span>
-                                                <p class="mb-2">{{ $resource->description }}</p>
-                                                <p><a href="{{ url('/resource/' . $resource->id) }}">Daugiau informacijos</a></p>
+                                                <p class="mb-2">{{ Str::limit($resource->description, 250) }}</p>
+                                                <p><a href="{{ route('resources.show', $resource->id) }}">Daugiau informacijos</a></p>
 
                                                 @can('updateOrDelete', $resource)
-                                                    <a href="{{ url('/resource/' . $resource->id . '/edit') }}" title="Edit Resource"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Redaguoti</button></a>
+                                                    <a href="{{ route('resources.edit', $resource->id) }}" title="Edit Resource"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Redaguoti</button></a>
 
                                                     <form method="POST" action="{{ route('resources.delete', $resource->id) }}" accept-charset="UTF-8" style="display:inline">
                                                         @csrf
