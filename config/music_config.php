@@ -105,7 +105,7 @@ return [
                 'Epinė ir didinga',
                 'Išdaigi',
                 'Bėgiojimo',
-                'Įtampa',
+                'Įtempta',
                 'Keista',
             ]
         ]
