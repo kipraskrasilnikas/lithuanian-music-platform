@@ -59,4 +59,6 @@ Route::delete("resource/{id}", [ResourceController::class, 'destroy'])->name('re
 Route::get('/searchResource', [SearchController::class, 'searchResource'])->name('search.resource');
 
 Route::get('/music', [MusicController::class, 'music'])->name('music');
+
+Route::get('/search/{id}', [ProfileController::class, 'show'])->name('search.show');
 // Route::get('/songsPost', [SearchController::class, 'searchSongs'])->name('songs.post');

@@ -11,49 +11,40 @@
 <div class="card" style="margin:20px;">
     <div class="card-header">Muzikanto informacija</div>
     <div class="card-body">
-        <h5 class="card-title">Vardas: {{ $user->name}} </h5>
+        <h3 class="card-title mb-3">{{ $user->name}} </h3>
 
-        <p class="card-text">Vietos:</p>
+        <p class="card-text"><strong>Vietos:</strong></p>
         @foreach ($user->locations->sortBy('county') as $location)
             <p class="card-text"> {{ (isset($location->county) ? ($location->county . ', ') : '') . (isset($location->city) ? $location->city  : '') . (isset($location->address) ? (', ' . $location->address)  : '') }} </p>
         @endforeach
-        <br>
 
-        <p class="card-text">Žanrai:</p>
+        <p class="card-text"><strong>Žanrai:</strong></p>
         @foreach ($user->genres->sortBy('name') as $genre)
-            <span class="position genre-filter" data-genre="{{ $genre->name }}">{{ $genre->name }}</span>
+            <span class="position genre-filter" data-genre="{{ $genre->name }}"><strong>{{ $genre->name }}</strong></span>
         @endforeach
-        <br>
 
-        <p class="card-text">Specializacijos:</p>
+        <p class="card-text"><strong>Specializacijos:</strong></p>
         @foreach ($user->specialties->sortBy('name') as $specialty)
-            <p class="mb-2 position position-darker specialty-filter" data-specialty="{{ $specialty->name }}">{{ $specialty->name }}</p>
+            <p class="position position-darker specialty-filter" data-specialty="{{ $specialty->name }}"><strong>{{ $specialty->name }}</strong></p>
         @endforeach
-        <br>
 
-        <p class="card-text">Atliekamos muzikos nuotaikos:</p>
+        <p class="card-text"><strong>Atliekamos muzikos nuotaikos:</strong></p>
         @foreach ($user->artistMoods as $mood)
             @php
                 $escapedMood = str_replace(['/', ' '], '_', $mood->mood);
             @endphp
 
-            <p class="mb-2 position mood-color-{{ $escapedMood }} mood-filter" data-mood="{{ $mood->mood }}">{{ $mood->mood }}</p>
+            <p class="mb-2 position mood-color-{{ $escapedMood }} mood-filter" data-mood="{{ $mood->mood }}"><strong>{{ $mood->mood }}</strong></p>
         @endforeach
-        <br>
 
-        <p class="card-text">Aprašymas: {{ $user->description}} </p>
+        <p class="card-text"><strong>Aprašymas:</strong> {{ $user->description}} </p>
         <?php if ($user->image && file_exists(public_path('images/' . $user->image))) { ?>
-            <p class="card-text">Paveikslėlis:</p>
+            <p class="card-text"><strong>Paveikslėlis:</strong></p>
             <div class="img-container pb-4">
                 <img src="{{ asset('images/' . $user->image) }}" alt="{{ $user->name }}">
             </div>
         <?php } ?>
-        <a href="{{ route('search') }}" class="btn btn-primary">Grįžti į muzikantų paieškos puslapį</a>
-
-        // cia dar reikes perdaryt
-        @can('updateOrDelete', $resources)
-            <a href="{{ route('resources.edit', $resources->id) }}" class="btn btn-success">Redaguoti</a>
-        @endcan
+        <a href="{{ route('search') }}" class="btn red-button">Grįžti į muzikantų paieškos puslapį</a>
     </div>
 </div>
 @stop

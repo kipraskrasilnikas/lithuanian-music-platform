@@ -30,7 +30,7 @@ class ProfileController extends Controller
             foreach ($songs as $song) {
                 $song->genres = $song->genres()->pluck('genre')->toArray();
                 $song->moods = $song->moods()->pluck('mood')->toArray();
-            }    
+            }
 
             return view('profile', compact('user', 'user_specialties', 'user_genres', 'user_moods', 'locations', 'songs'));
         }
@@ -114,7 +114,6 @@ class ProfileController extends Controller
                 $genre->save();
             }
         }
-        
 
         $user->locations()->delete();
         if ($request->locations) {
@@ -189,5 +188,12 @@ class ProfileController extends Controller
             }
         }
         return $videoId;
+    }
+
+    public function show(string $id) {
+        $user = User::find($id);
+
+        // nes view, o ne route lmao
+        return view('profile.show')->with('user', $user);
     }
 }

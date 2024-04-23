@@ -2935,7 +2935,6 @@ section,
 .position {
   font-size: 14px;
   font-weight: 500;
-  color: #fdab44;
   color: #e84545;
   display: inline-block;
   margin-bottom: 10px;
@@ -3035,7 +3034,7 @@ section,
 .mood-color-Epinė_ir_didinga,
 .mood-color-Išdaigi,
 .mood-color-Bėgiojimo,
-.mood-color-Įtampa,
+.mood-color-Įtempta,
 .mood-color-Keista {
   color: #FF0000;
 }
@@ -3093,4 +3092,14 @@ section,
 
 .text {
   margin-left: 20px; /* Adjust the margin as needed */
+}
+
+/* CSS to underline anchor tags on hover */
+h2 a:hover {
+  text-decoration: underline;
+}
+
+.card-text p {
+  margin: 0; /* Remove all margins */
+  padding: 0; /* Remove all padding */
 }
