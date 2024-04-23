@@ -35,7 +35,14 @@
                                 @else
                                     @foreach ($users as $user)
                                         <div class="team d-md-flex p-4 bg-white">
-                                            <div class="img" style="background-image: url(images/person_2.jpg);"></div>
+                                            <div class=" img-container user-img-container">
+                                                <?php if ($user->avatar && file_exists(public_path('images/' . $user->avatar))) { ?>
+                                                    <img src="{{ asset('images/' . $user->avatar) }}" alt="{{ $user->name }}">
+                                                <?php } else { ?>
+                                                    <img src="{{ asset('images/user_no_image.png') }}" alt="{{ $user->name }}">
+                                                <?php } ?>
+                                            </div>
+
                                             <div class="text pl-md-4">
                                                 @php
                                                     $counties = $user->locations->pluck('county')->sort()->implode(', ');

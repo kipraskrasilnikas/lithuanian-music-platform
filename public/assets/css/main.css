@@ -2973,6 +2973,13 @@ section,
   object-fit: cover;
 }
 
+.user-img-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Make the container circular */
+  padding: 10px;
+}
+
 .description {
   padding-left: 20px;
   color: rgba(42, 41, 41, 0.805);
@@ -3082,4 +3089,8 @@ section,
 .profile-page .table th,
 .table td {
     text-align: left; /* Adjust alignment to left */
+}
+
+.text {
+  margin-left: 20px; /* Adjust the margin as needed */
 }
