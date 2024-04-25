@@ -29,7 +29,7 @@
                     <label class="form-label">Bendra informacija</label>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Vardas, Pavardė<span style="color: red;">*</span></label>
+                    <label class="form-label">Vartotojo vardas<span style="color: red;">*</span></label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
                     @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
