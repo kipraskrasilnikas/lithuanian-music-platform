@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class MusicController extends Controller
 {
     function music() {
-        // galvoju, ar cia iki 5 limituot, ar kitam template irgi pasiimt visas, tik paciam template limituot
-        // logiskai uatrodo template'e
         $songs = Song::all();
 
         // Associate genres and moods with each song

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Resource;
+use App\Models\Song;
 use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
@@ -140,5 +141,62 @@ class SearchController extends Controller
         $user = Auth::user();
 
         return view('resources.index', compact('resources', 'search', 'search_types', 'search_counties', 'user'));
+    }
+
+    public function searchMusic(Request $request) {
+        $search = $request->search ?? '';
+        $search_moods = $request->moods ?? [];
+        $search_genres = $request->genres ?? [];
+
+        // Query for songs
+        $songsQuery = Song::query();
+        $songsQuery->where(function ($query) use ($search, $search_moods, $search_genres) {
+            if ($search) {
+                $query->where('title', 'like', "%$search%")
+                      ->orWhereHas('user', function ($query) use ($search) {
+                          $query->where('name', 'like', "%$search%");
+                      });
+            }
+            if (!empty($search_moods)) {
+                $query->whereHas('moods', function ($query) use ($search_moods) {
+                    $query->whereIn('mood', $search_moods);
+                });
+            }
+            if (!empty($search_genres)) {
+                $query->whereHas('genres', function ($query) use ($search_genres) {
+                    $query->whereIn('genre', $search_genres);
+                });
+            }
+        });
+
+        $songs = $songsQuery->get();
+
+        // Associate genres and moods with each song
+        foreach ($songs as $song) {
+            $song->genres = $song->genres()->pluck('genre')->toArray();
+            $song->moods = $song->moods()->pluck('mood')->toArray();
+        }
+    
+        // Query for users
+        $usersQuery = User::query();
+        $usersQuery->where(function ($query) use ($search, $search_moods, $search_genres) {
+            if ($search) {
+                $query->where('name', 'like', "%$search%");
+            }
+            if (!empty($search_moods)) {
+                $query->whereHas('artistMoods', function ($query) use ($search_moods) {
+                    $query->whereIn('mood', $search_moods);
+                });
+            }
+            if (!empty($search_genres)) {
+                $query->whereHas('genres', function ($query) use ($search_genres) {
+                    $query->whereIn('name', $search_genres);
+                });
+            }
+        });
+
+        $users = $usersQuery->get();
+    
+        return view('music', compact('songs', 'users', 'search', 'search_moods', 'search_genres'));
     }
 }
