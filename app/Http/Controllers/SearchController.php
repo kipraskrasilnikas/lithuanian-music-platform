@@ -236,4 +236,32 @@ class SearchController extends Controller
     
         return view('music.songs', compact('songs', 'search', 'search_moods', 'search_genres'));
     }
+
+    public function searchArtists(Request $request) {
+        $search = $request->search ?? '';
+        $search_moods = $request->moods ?? [];
+        $search_genres = $request->genres ?? [];
+
+        // Query for users
+        $usersQuery = User::query();
+        $usersQuery->where(function ($query) use ($search, $search_moods, $search_genres) {
+            if ($search) {
+                $query->where('name', 'like', "%$search%");
+            }
+            if (!empty($search_moods)) {
+                $query->whereHas('artistMoods', function ($query) use ($search_moods) {
+                    $query->whereIn('mood', $search_moods);
+                });
+            }
+            if (!empty($search_genres)) {
+                $query->whereHas('genres', function ($query) use ($search_genres) {
+                    $query->whereIn('name', $search_genres);
+                });
+            }
+        });
+
+        $users = $usersQuery->paginate(15);
+    
+        return view('music.artists', compact('users', 'search', 'search_moods', 'search_genres'));
+    }
 }
