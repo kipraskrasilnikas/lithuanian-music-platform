@@ -38,50 +38,55 @@
             </div>
         </form>
 
-        <h1 class="display-4 text-center pb-5">Dainos</h1>
-            @if ($songs->isEmpty())
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="alert alert-danger" role="alert">
-                                Pagal nurodytus paieškos kriterijus, dainų nerasta.
-                            </div>
+        <h1 class="display-4 text-center mt-5 pb-3">Dainos</h1>
+
+        <div class="text-right mb-0" style="text-align: right;">
+            <p><a href="{{ route('search.music.songs', ['search' => ($search ?? ''), 'genres' => ($search_genres ?? []), 'moods' => ($search_moods ?? [])]) }}" id="see-all">Peržiūrėti visas</a></p>
+        </div>
+
+        @if ($songs->isEmpty())
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" role="alert">
+                            Pagal nurodytus paieškos kriterijus, dainų nerasta.
                         </div>
                     </div>
                 </div>
-            @else
-                <div class="row row-cols-1 row-cols-md-5 g-4" id="song-container">
-                    <!-- Initial 5 songs displayed -->
-                    @foreach ($songs->take(5) as $song)
-                        <div class="col song">
-                            <div class="card h-100 w-300">
-                                <h5 class="card-title" style="padding: 5px; text-align: center;">{{ $song->title }}</h5>
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe width="100%" height="100%" class="embed-responsive-item" src="{{ $song->embedded_url }}" allowfullscreen></iframe>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Atlikėjas: <a href="{{ route('profile.show', $song->user->id)}}">{{ $song->user->name }}</a></h5>
+            </div>
+        @else
+            <div class="row row-cols-1 row-cols-md-5 g-4" id="song-container">
+                <!-- Initial 5 songs displayed -->
+                @foreach ($songs->take(5) as $song)
+                    <div class="col song">
+                        <div class="card h-100 w-300">
+                            <h5 class="card-title" style="padding: 5px; text-align: center;">{{ $song->title }}</h5>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe width="100%" height="100%" class="embed-responsive-item" src="{{ $song->embedded_url }}" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Atlikėjas: <a href="{{ route('profile.show', $song->user->id)}}">{{ $song->user->name }}</a></h5>
 
-                                    <p class="mb-0 mt-3 text-center">Nuotaikos</p>
-                                    @foreach ($song->moods as $mood)
-                                        @php
-                                            $escapedMood = str_replace(['/', ' '], '_', $mood);
-                                        @endphp
-                                        <p class="mb-2 position mood-color-{{ $escapedMood }} mood-filter" data-mood="{{ $mood }}">{{ $mood }}</p>
-                                    @endforeach
+                                <p class="mb-0 mt-3 text-center">Nuotaikos</p>
+                                @foreach ($song->moods as $mood)
+                                    @php
+                                        $escapedMood = str_replace(['/', ' '], '_', $mood);
+                                    @endphp
+                                    <p class="mb-2 position mood-color-{{ $escapedMood }} mood-filter" data-mood="{{ $mood }}">{{ $mood }}</p>
+                                @endforeach
 
-                                    <p class="mb-0 mt-2 text-center">Žanrai</p>
-                                    @foreach (collect($song->genres)->sortBy('genre') as $genre)
-                                        <span class="position genre-filter" data-genre="{{ $genre }}">{{ $genre }}</span>
-                                    @endforeach
-                                </div>
+                                <p class="mb-0 mt-2 text-center">Žanrai</p>
+                                @foreach (collect($song->genres)->sort() as $genre)
+                                    <span class="position genre-filter" data-genre="{{ $genre }}">{{ $genre }}</span>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
-                </div>
-            @endif
+                    </div>
+                @endforeach
+            </div>
+        @endif
 
-        <h1 class="display-4 text-center pb-5 mt-5">Atlikėjai</h1>
+        <h1 class="display-4 text-center pb-3 mt-5">Atlikėjai</h1>
         @if ($users->isEmpty())
             <div class="container">
                 <div class="row">
@@ -122,7 +127,7 @@
 
                                 @if (count($user->genres) > 0)
                                     <p class="mb-0 mt-3 text-center">Žanrai</p>
-                                    @foreach (collect($user->genres)->sortBy('genre') as $genre)
+                                    @foreach (collect($user->genres)->sortBy('name') as $genre)
                                         <span class="position genre-filter" data-genre="{{ $genre->name }}">{{ $genre->name }}</span>
                                     @endforeach
                                 @endif
