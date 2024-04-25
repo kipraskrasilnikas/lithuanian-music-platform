@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Song;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class MusicController extends Controller
@@ -19,6 +20,9 @@ class MusicController extends Controller
             $song->moods = $song->moods()->pluck('mood')->toArray();
         }
 
-        return view('music', compact('songs'));
+        // Retrieve all users
+        $users = User::all();
+
+        return view('music', compact('songs', 'users'));
     }
 }
