@@ -60,5 +60,5 @@ Route::get('/searchResource', [SearchController::class, 'searchResource'])->name
 
 Route::get('/music', [MusicController::class, 'music'])->name('music');
 
-Route::get('/search/{id}', [ProfileController::class, 'show'])->name('search.show');
+Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 // Route::get('/songsPost', [SearchController::class, 'searchSongs'])->name('songs.post');

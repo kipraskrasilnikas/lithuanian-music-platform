@@ -48,7 +48,7 @@
                                                     $counties = $user->locations->pluck('county')->sort()->implode(', ');
                                                 @endphp
                                                 <span class="location mb-0">{{ $counties }}</span>
-                                                <h2><a style="color: black;" href="{{ route('search.show', $user->id) }}">{{ $user->name }}</a></h2>
+                                                <h2><a style="color: black;" href="{{ route('profile.show', $user->id) }}">{{ $user->name }}</a></h2>
                                                 @foreach ($user->genres->sortBy('name') as $genre)
                                                     <span class="position genre-filter" data-genre="{{ $genre->name }}">{{ $genre->name }}</span>
                                                 @endforeach
@@ -67,7 +67,7 @@
                                                 @if ($user->description)
                                                     <p class="description">{{ $user->description }}</p>
                                                 @endif
-                                                <p><a href="{{ route('search.show', $user->id) }}">Daugiau informacijos</a></p>
+                                                <p><a href="{{ route('profile.show', $user->id) }}">Daugiau informacijos</a></p>
                                                 <p><a href="{{ route('user', $user->id) }}" class="btn red-button">Susisiekti</a></p>
                                             </div>
                                         </div>
