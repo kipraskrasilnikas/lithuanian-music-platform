@@ -3115,3 +3115,11 @@ h2 a:hover {
   padding: 20px; /* Add padding inside the filter container */
   border-radius: 10px; /* Add border-radius for rounded corners */
 }
+
+#see-all {
+  text-decoration: none; /* Remove underline */
+}
+
+#see-all:hover {
+  text-decoration: underline; /* Underline on hover */
+}

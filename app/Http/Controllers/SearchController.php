@@ -199,4 +199,41 @@ class SearchController extends Controller
     
         return view('music', compact('songs', 'users', 'search', 'search_moods', 'search_genres'));
     }
+
+    public function searchSongs(Request $request) {
+        $search = $request->search ?? '';
+        $search_moods = $request->moods ?? [];
+        $search_genres = $request->genres ?? [];
+
+        // Query for songs
+        $songsQuery = Song::query();
+        $songsQuery->where(function ($query) use ($search, $search_moods, $search_genres) {
+            if ($search) {
+                $query->where('title', 'like', "%$search%")
+                      ->orWhereHas('user', function ($query) use ($search) {
+                          $query->where('name', 'like', "%$search%");
+                      });
+            }
+            if (!empty($search_moods)) {
+                $query->whereHas('moods', function ($query) use ($search_moods) {
+                    $query->whereIn('mood', $search_moods);
+                });
+            }
+            if (!empty($search_genres)) {
+                $query->whereHas('genres', function ($query) use ($search_genres) {
+                    $query->whereIn('genre', $search_genres);
+                });
+            }
+        });
+
+        $songs = $songsQuery->paginate(15);
+
+        // Associate genres and moods with each song
+        foreach ($songs as $song) {
+            $song->genres = $song->genres()->pluck('genre')->toArray();
+            $song->moods = $song->moods()->pluck('mood')->toArray();
+        }
+    
+        return view('music.songs', compact('songs', 'search', 'search_moods', 'search_genres'));
+    }
 }
