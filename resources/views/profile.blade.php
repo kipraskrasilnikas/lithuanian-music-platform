@@ -44,7 +44,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="loginEmailInput">Profilio nuotrauka<span style="color: red;">*</span></label>
-                    <input type="file" class="form-control mb-2" name="avatar" id="image-input" accept="image/*">
+                    
+                    <input type="button" class="form-control mb-2 mt-2 red-button" value="Įkelkite paveiksliuką" onclick="document.getElementById('image-input').click();" />
+                    <input type="file" style="display:none;"  name="avatar" id="image-input" accept="image/*">
+
                     <div id="image-preview"></div>
                     <input type="hidden" name="base64_image" id="base64-image">
                     <button type="button" id="image-submit">Išsaugoti paveiksliuką</button>

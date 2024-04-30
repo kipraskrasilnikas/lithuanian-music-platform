@@ -37,7 +37,8 @@
     
         <div class="mb-3">
             <label>Paveikslėlis</label>
-            <input type="file" name="image" id="image" class="form-control">
+            <input type="button" style="width: 15%" class="form-control mb-2 mt-2 red-button" value="Įkelkite paveiksliuką" onclick="document.getElementById('image').click();" />
+            <input type="file" style="display:none;"  name="image" id="image" accept="image/*">
             <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
             <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
             @error('image')
