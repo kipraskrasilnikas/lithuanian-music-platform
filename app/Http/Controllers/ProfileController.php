@@ -85,14 +85,17 @@ class ProfileController extends Controller
         }
 
         $base64_image       = $request->base64_image;
-        list($type, $data)  = explode(';', $base64_image);
-        list(, $data)       = explode(',', $data);
-        $data               = base64_decode($data);
-        $thumb_name         = "thumb_".date('YmdHis').'.png';
-        $thumb_path         = public_path("images/" . $thumb_name);
-        file_put_contents($thumb_path, $data);
 
-        $user->avatar = $thumb_name;
+        if ($base64_image) {
+            list($type, $data)  = explode(';', $base64_image);
+            list(, $data)       = explode(',', $data);
+            $data               = base64_decode($data);
+            $thumb_name         = "thumb_".date('YmdHis').'.png';
+            $thumb_path         = public_path("images/" . $thumb_name);
+            file_put_contents($thumb_path, $data);
+
+            $user->avatar = $thumb_name;
+        }
 
         // Save the updated user information
         $user->save();
