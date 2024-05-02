@@ -36,13 +36,13 @@ class SearchController extends Controller
         $query = User::query();
 
         // Select statement with aliases
-        $query->select('users.*', 'user_genres.name as genre', 'specialties.name as specialty', 'user_locations.county', 'user_locations.city');
+        $query->select('users.*', 'user_genres.name as genre', 'user_specialties.name as specialty', 'user_locations.county', 'user_locations.city');
 
         // Join the genre table
         $query->leftJoin('user_genres', 'users.id', '=', 'user_genres.user_id');
 
         // Join the specialty table
-        $query->leftJoin('specialties', 'users.id', '=', 'specialties.user_id');
+        $query->leftJoin('user_specialties', 'users.id', '=', 'user_specialties.user_id');
 
         // Join the locations table
         $query->leftJoin('user_locations', 'users.id', '=', 'user_locations.user_id');
@@ -54,7 +54,7 @@ class SearchController extends Controller
             if ($search) {
                 $query->where('users.name', 'like', "%$search%")
                     ->orWhere('user_genres.name', 'like', "%$search%")
-                    ->orWhere('specialties.name', 'like', "%$search%")
+                    ->orWhere('user_specialties.name', 'like', "%$search%")
                     ->orWhere('user_locations.county', 'like', "%$search%")
                     ->orWhere('user_locations.city', 'like', "%$search%")   
                     ->orWhere('user_moods.mood', 'like', "%$search%");    
@@ -70,7 +70,7 @@ class SearchController extends Controller
         // Filter by specialty
         $search_specialties = array_filter($request->specialties ?? []);
         if ($search_specialties) {
-            $query->whereIn('specialties.name', $search_specialties);
+            $query->whereIn('user_specialties.name', $search_specialties);
         }
 
         // Filter by county if specified

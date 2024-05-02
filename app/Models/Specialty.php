@@ -9,6 +9,7 @@ class Specialty extends Model
 {
     use HasFactory;
 
+    protected $table = "user_specialties";
     protected $fillable = [
         'name',
     ];
