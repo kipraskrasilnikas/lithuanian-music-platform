@@ -127,7 +127,7 @@ class ProfileController extends Controller
             }
         }
 
-        $user->artistMoods()->delete();
+        $user->moods()->delete();
 
         if ($request->moods) {
             foreach ($request->moods as $moodParameters) {

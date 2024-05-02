@@ -48,16 +48,16 @@ class SearchController extends Controller
         $query->leftJoin('locations', 'users.id', '=', 'locations.user_id');
 
         // Join the artist moods table
-        $query->leftJoin('artist_moods', 'users.id', '=', 'artist_moods.user_id');
+        $query->leftJoin('user_moods', 'users.id', '=', 'user_moods.user_id');
 
-        $query->where(function ($query) use ($search, $request) {
+        $query->where(function ($query) use ($search) {
             if ($search) {
                 $query->where('users.name', 'like', "%$search%")
                     ->orWhere('user_genres.name', 'like', "%$search%")
                     ->orWhere('specialties.name', 'like', "%$search%")
                     ->orWhere('locations.county', 'like', "%$search%")
                     ->orWhere('locations.city', 'like', "%$search%")   
-                    ->orWhere('artist_moods.mood', 'like', "%$search%");    
+                    ->orWhere('user_moods.mood', 'like', "%$search%");    
             }
         });
 
@@ -82,7 +82,7 @@ class SearchController extends Controller
         // Filter by artist moods if specified
         $search_moods = array_filter($request->moods ?? []);
         if ($search_moods) {
-            $query->whereHas('artistMoods', function ($query) use ($search_moods) {
+            $query->whereHas('moods', function ($query) use ($search_moods) {
                 $query->whereIn('mood', $search_moods);
             }, '=', count($search_moods));
         }
@@ -184,7 +184,7 @@ class SearchController extends Controller
                 $query->where('name', 'like', "%$search%");
             }
             if (!empty($search_moods)) {
-                $query->whereHas('artistMoods', function ($query) use ($search_moods) {
+                $query->whereHas('moods', function ($query) use ($search_moods) {
                     $query->whereIn('mood', $search_moods);
                 });
             }
@@ -249,7 +249,7 @@ class SearchController extends Controller
                 $query->where('name', 'like', "%$search%");
             }
             if (!empty($search_moods)) {
-                $query->whereHas('artistMoods', function ($query) use ($search_moods) {
+                $query->whereHas('moods', function ($query) use ($search_moods) {
                     $query->whereIn('mood', $search_moods);
                 });
             }

@@ -57,7 +57,7 @@
                                                     <p class="mb-2 position position-darker specialty-filter" data-specialty="{{ $specialty->name }}">{{ $specialty->name }}</p>
                                                 @endforeach
                                                 <br>
-                                                @foreach ($user->artistMoods as $mood)
+                                                @foreach ($user->moods as $mood)
                                                     @php
                                                         $escapedMood = str_replace(['/', ' '], '_', $mood->mood);
                                                     @endphp

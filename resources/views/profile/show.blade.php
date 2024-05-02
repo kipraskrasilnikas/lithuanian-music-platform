@@ -28,9 +28,9 @@
             <p class="position position-darker specialty-filter" data-specialty="{{ $specialty->name }}"><strong>{{ $specialty->name }}</strong></p>
         @endforeach
 
-        @if (count($user->artistMoods) > 0)
+        @if (count($user->moods) > 0)
             <p class="card-text mt-2"><strong>Atliekamos muzikos nuotaikos:</strong></p>
-            @foreach ($user->artistMoods as $mood)
+            @foreach ($user->moods as $mood)
                 @php
                     $escapedMood = str_replace(['/', ' '], '_', $mood->mood);
                 @endphp

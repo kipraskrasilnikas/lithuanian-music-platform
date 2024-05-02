@@ -67,9 +67,9 @@
 
                             <div class="card-body">
 
-                                @if (count($user->artistMoods) > 0)
+                                @if (count($user->moods) > 0)
                                     <p class="mb-0 mt-3 text-center">Nuotaikos</p>
-                                    @foreach ($user->artistMoods as $mood)
+                                    @foreach ($user->moods as $mood)
                                         @php
                                             $escapedMood = str_replace(['/', ' '], '_', $mood->mood);
                                         @endphp
