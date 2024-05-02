@@ -67,7 +67,7 @@ class User extends Authenticatable
      */
     public function moods()
     {
-        return $this->hasMany(ArtistMood::class);
+        return $this->hasMany(UserMood::class);
     }
 
     public function songs() {

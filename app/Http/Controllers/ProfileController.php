@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Location;
 use App\Models\Genre;
-use App\Models\ArtistMood;
+use App\Models\UserMood;
 use App\Models\Song;
 use App\Models\SongGenre;
 use App\Models\SongMood;
@@ -22,7 +22,7 @@ class ProfileController extends Controller
 
             $user_specialties = Specialty::Where('user_id', $user->id)->get();
             $user_genres = Genre::Where('user_id', $user->id)->get();
-            $user_moods = ArtistMood::Where('user_id', $user->id)->get();
+            $user_moods = UserMood::Where('user_id', $user->id)->get();
             $locations = Location::Where('user_id', $user->id)->get();
             $songs = Song::Where('user_id', $user->id)->get();
 
@@ -131,9 +131,9 @@ class ProfileController extends Controller
 
         if ($request->moods) {
             foreach ($request->moods as $moodParameters) {
-                $artist_mood = new ArtistMood(['mood' => $moodParameters]);
-                $artist_mood->user()->associate($user);
-                $artist_mood->save();
+                $user_mood = new UserMood(['mood' => $moodParameters]);
+                $user_mood->user()->associate($user);
+                $user_mood->save();
             }
         }
 
