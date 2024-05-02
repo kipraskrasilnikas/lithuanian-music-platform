@@ -9,6 +9,8 @@ class Genre extends Model
 {
     use HasFactory;
 
+    protected $table = 'user_genres';
+
     protected $fillable = [
         'name',
     ];

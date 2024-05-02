@@ -36,10 +36,10 @@ class SearchController extends Controller
         $query = User::query();
 
         // Select statement with aliases
-        $query->select('users.*', 'genres.name as genre', 'specialties.name as specialty', 'locations.county', 'locations.city');
+        $query->select('users.*', 'user_genres.name as genre', 'specialties.name as specialty', 'locations.county', 'locations.city');
 
         // Join the genre table
-        $query->leftJoin('genres', 'users.id', '=', 'genres.user_id');
+        $query->leftJoin('user_genres', 'users.id', '=', 'user_genres.user_id');
 
         // Join the specialty table
         $query->leftJoin('specialties', 'users.id', '=', 'specialties.user_id');
@@ -53,7 +53,7 @@ class SearchController extends Controller
         $query->where(function ($query) use ($search, $request) {
             if ($search) {
                 $query->where('users.name', 'like', "%$search%")
-                    ->orWhere('genres.name', 'like', "%$search%")
+                    ->orWhere('user_genres.name', 'like', "%$search%")
                     ->orWhere('specialties.name', 'like', "%$search%")
                     ->orWhere('locations.county', 'like', "%$search%")
                     ->orWhere('locations.city', 'like', "%$search%")   
@@ -64,7 +64,7 @@ class SearchController extends Controller
         // Filter by genre
         $search_genres = array_filter($request->genres ?? []);
         if ($search_genres) {
-            $query->whereIn('genres.name', $search_genres);
+            $query->whereIn('user_genres.name', $search_genres);
         }
 
         // Filter by specialty
