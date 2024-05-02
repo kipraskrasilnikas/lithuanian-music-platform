@@ -44,8 +44,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
   </head>
   <body>
-    @include('include.header')
-
     @section('header')
       <!-- ======= Header ======= -->
       <header id="header" class="header sticky-top d-flex align-items-center">
