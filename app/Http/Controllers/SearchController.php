@@ -36,7 +36,7 @@ class SearchController extends Controller
         $query = User::query();
 
         // Select statement with aliases
-        $query->select('users.*', 'user_genres.name as genre', 'specialties.name as specialty', 'locations.county', 'locations.city');
+        $query->select('users.*', 'user_genres.name as genre', 'specialties.name as specialty', 'user_locations.county', 'user_locations.city');
 
         // Join the genre table
         $query->leftJoin('user_genres', 'users.id', '=', 'user_genres.user_id');
@@ -45,7 +45,7 @@ class SearchController extends Controller
         $query->leftJoin('specialties', 'users.id', '=', 'specialties.user_id');
 
         // Join the locations table
-        $query->leftJoin('locations', 'users.id', '=', 'locations.user_id');
+        $query->leftJoin('user_locations', 'users.id', '=', 'user_locations.user_id');
 
         // Join the artist moods table
         $query->leftJoin('user_moods', 'users.id', '=', 'user_moods.user_id');
@@ -55,8 +55,8 @@ class SearchController extends Controller
                 $query->where('users.name', 'like', "%$search%")
                     ->orWhere('user_genres.name', 'like', "%$search%")
                     ->orWhere('specialties.name', 'like', "%$search%")
-                    ->orWhere('locations.county', 'like', "%$search%")
-                    ->orWhere('locations.city', 'like', "%$search%")   
+                    ->orWhere('user_locations.county', 'like', "%$search%")
+                    ->orWhere('user_locations.city', 'like', "%$search%")   
                     ->orWhere('user_moods.mood', 'like', "%$search%");    
             }
         });
@@ -76,7 +76,7 @@ class SearchController extends Controller
         // Filter by county if specified
         $search_counties = array_filter($request->counties ?? []);
         if ($search_counties) {
-            $query->whereIn('locations.county', $search_counties);
+            $query->whereIn('user_locations.county', $search_counties);
         }
 
         // Filter by artist moods if specified
