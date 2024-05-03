@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Specialty;
+use App\Models\UserSpecialty;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Location;
-use App\Models\Genre;
+use App\Models\UserLocation;
+use App\Models\UserGenre;
 use App\Models\UserMood;
 use App\Models\Song;
 use App\Models\SongGenre;
@@ -20,10 +20,10 @@ class ProfileController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
-            $user_specialties = Specialty::Where('user_id', $user->id)->get();
-            $user_genres = Genre::Where('user_id', $user->id)->get();
+            $user_specialties = UserSpecialty::Where('user_id', $user->id)->get();
+            $user_genres = UserGenre::Where('user_id', $user->id)->get();
             $user_moods = UserMood::Where('user_id', $user->id)->get();
-            $locations = Location::Where('user_id', $user->id)->get();
+            $locations = UserLocation::Where('user_id', $user->id)->get();
             $songs = Song::Where('user_id', $user->id)->get();
 
             // Associate genres and moods with each song
@@ -103,7 +103,7 @@ class ProfileController extends Controller
         $user->specialties()->delete();
         if ($request->specialties) {
             foreach ($request->specialties as $specialtyName) {
-                $specialty = new Specialty(['name' => $specialtyName]);
+                $specialty = new UserSpecialty(['name' => $specialtyName]);
                 $specialty->user()->associate($user);
                 $specialty->save();
             }
@@ -112,7 +112,7 @@ class ProfileController extends Controller
         $user->genres()->delete();
         if ($request->genres) {
             foreach ($request->genres as $genreName) {
-                $genre = new Genre(['name' => $genreName]);
+                $genre = new UserGenre(['name' => $genreName]);
                 $genre->user()->associate($user);
                 $genre->save();
             }
@@ -121,7 +121,7 @@ class ProfileController extends Controller
         $user->locations()->delete();
         if ($request->locations) {
             foreach ($request->locations as $locationParameters) {
-                $location = new Location($locationParameters);
+                $location = new UserLocation($locationParameters);
                 $location->user()->associate($user);
                 $location->save();
             }

@@ -47,15 +47,15 @@ class User extends Authenticatable
     ];
 
     public function locations() {
-        return $this->hasMany(Location::class);
+        return $this->hasMany(UserLocation::class);
     }
 
     public function genres() {
-        return $this->hasMany(Genre::class);
+        return $this->hasMany(UserGenre::class);
     }
 
     public function specialties() {
-        return $this->hasMany(Specialty::class);
+        return $this->hasMany(UserSpecialty::class);
     }
 
     public function resources() {
