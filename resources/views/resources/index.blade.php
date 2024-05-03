@@ -33,9 +33,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="px-4 pb-4">
-                                    <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm add-resource-button" title="Pridėti naują išteklį">
-                                        Pridėti naują išteklį
-                                    </a>
+                                    @auth
+                                        <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm add-resource-button" title="Pridėti naują išteklį">
+                                            Pridėti naują išteklį
+                                        </a>
+                                    @endauth
                                 </div>
                                 @if ($resources->isEmpty())
                                     <div class="container">
