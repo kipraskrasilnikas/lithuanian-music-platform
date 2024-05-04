@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Session;
 
 use Mockery;
 
-class AuthTest extends TestCase
+class AuthManagerTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
