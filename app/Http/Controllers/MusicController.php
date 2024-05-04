@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class MusicController extends Controller
 {
     function music() {
-        $songs = Song::all();
+        $songs = Song::orderBy('id', 'desc')->get();
 
         // Associate genres and moods with each song
         foreach ($songs as $song) {
@@ -18,8 +18,8 @@ class MusicController extends Controller
             $song->moods = $song->moods()->pluck('mood')->toArray();
         }
 
-        // Retrieve all users
-        $users = User::all();
+        // Retrieve all users sorted by id in descending order
+        $users = User::orderBy('id', 'desc')->get();
 
         return view('music', compact('songs', 'users'));
     }
