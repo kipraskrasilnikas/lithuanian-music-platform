@@ -8,10 +8,11 @@ use Tests\TestCase;
 
 use App\Models\Song;
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class MusicControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_music_page_loads_correctly(): void
     {

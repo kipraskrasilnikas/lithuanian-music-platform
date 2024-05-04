@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -16,7 +17,7 @@ use Mockery;
 
 class AuthManagerTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
     use WithFaker;
 
     public function test_user_can_view_a_login_form()
