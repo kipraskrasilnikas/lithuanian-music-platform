@@ -23,13 +23,11 @@ class SongFactory extends Factory
      */
     public function definition(): array
     {
-
         // Get all user IDs from the database
         $userIds = User::pluck('id')->all();
 
         // Select a random user ID from the list
         $userId = $this->faker->randomElement($userIds);
-
         
         return [
             'title' => fake()->name(),
