@@ -119,7 +119,6 @@ class ProfileControllerTest extends TestCase
         // Create a user
         $user = User::factory()->create();
 
-        dump('/profile/' . $user->id);
         // Hit the route
         $response = $this->get('/profile/' . $user->id);
 
