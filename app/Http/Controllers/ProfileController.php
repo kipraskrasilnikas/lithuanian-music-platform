@@ -196,7 +196,6 @@ class ProfileController extends Controller
     public function show(string $id) {
         $user = User::find($id);
 
-        // nes view, o ne route lmao
         return view('profile.show')->with('user', $user);
     }
 }
