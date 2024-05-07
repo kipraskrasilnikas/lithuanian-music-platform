@@ -79,7 +79,7 @@ class ProfileControllerTest extends TestCase
             'moods' => ['Ekscentriška', 'Naivi'],
             'songs' => [
                 ['title' => 'Love Me Like You Do', 'original_url' => 'https://youtu.be/jezEIMRwVTg?si=GAT4sV2x-FIlYpxz', 'genres' => ['Rokas'], 'moods' => ['Nostalgiška']],
-                ['title' => 'All My Exs Live In Texas', 'original_url' => 'https://youtu.be/jezEIMRwVTg?si=GAT4sV2x-FIlYpxz', 'genres' => ['Kantri'], 'moods' => ['Laiminga']],
+                ['title' => 'All My Exs Live In Texas', 'original_url' => 'https://www.youtube.com/watch?v=ZkXG3ZrXlbc', 'genres' => ['Kantri'], 'moods' => ['Laiminga']],
             ],
         ]);
 
