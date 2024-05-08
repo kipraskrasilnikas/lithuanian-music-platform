@@ -16,7 +16,7 @@
         <form action="{{ route('registration.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
             @csrf
             <div class="mb-3">
-                <label class="form-label">Vardas, pavardė</label>
+                <label class="form-label">Atlikėjo slapyvardis</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" onkeyup="saveValue(this);">
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
