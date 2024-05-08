@@ -32,7 +32,7 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
 
-            <button type="submit" class="btn btn-primary">Prisijungti</button>
+            <button type="submit" class="btn red-button">Prisijungti</button>
 
             <div class="no-account">
                 <br>

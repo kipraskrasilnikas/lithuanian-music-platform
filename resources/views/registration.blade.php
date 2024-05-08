@@ -43,7 +43,7 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Registruotis</button>
+            <button type="submit" class="btn red-button">Registruotis</button>
             <div class="no-account">
                 <br>
                 <a href="{{ route('login') }}">Esate prisiregistravęs? Prisijunkite</a>
