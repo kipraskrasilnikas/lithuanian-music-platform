@@ -60,7 +60,7 @@
         </div>
 
         <div class="mb-3">
-            <label>Adresas<span style="color: red;">*</span></label><br>
+            <label>Adresas</label><br>
             <input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}">
             @error('address')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -68,7 +68,7 @@
         </div>
         
         <div class="mb-3">
-            <label>Telefono numeris<span style="color: red;">*</span></label><br>
+            <label>Telefono numeris</label><br>
             <input type="tel" name="telephone" id="telephone" class="form-control" pattern="^\+?[0-9]{9,}$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" value="{{ old('telephone') }}">
             @error('telephone')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="mb-3">
-            <label>Elektroninis paštas<span style="color: red;">*</span></label><br>
+            <label>Elektroninis paštas</label><br>
             <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
             @error('email')
                 <div class="alert alert-danger">{{ $message }}</div>

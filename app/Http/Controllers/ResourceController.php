@@ -38,19 +38,12 @@ class ResourceController extends Controller
         // Validate the uploaded file
         $request->validate([
             'image'     => 'image|mimes:jpeg,png,jpg,gif|max:4096', // Adjust validation rules as needed
-            'address'   => 'required',
-            'telephone' => 'required',
-            'email'     => 'required',
             'county'    => 'required'
         ],
         [
-            'image.required'        => 'Paveikslėlis yra privalomas.',
             'image.image'           => 'Paveikslėlio failas turi būti paveikslėlis.',
             'image.mimes'           => 'Paveikslėlio formatas turi būti jpeg, png, jpg arba gif.',
             'image.max'             => 'Paveikslėlio dydis negali viršyti 2048 kilobaitų.',
-            'address.required'      => 'Adresas yra privalomas.',
-            'telephone.required'    => 'Telefono numeris yra privalomas.',
-            'email.required'        => 'El. paštas yra privalomas.',
             'image.uploaded'        => 'Nepavyko įkelti paveikslėlio.',
             'county.required'       => 'Apskritį pasirinkti privaloma.'
         ]);
@@ -69,9 +62,9 @@ class ResourceController extends Controller
             'type'      => $request->type,
             'description' => $request->description,
             'image'     => $imageName,
-            'address'   => $request->address,
-            'telephone' => $request->telephone,
-            'email'     => $request->email,
+            'address'   => $request->address ?? '',
+            'telephone' => $request->telephone ?? '',
+            'email'     => $request->email ?? '',
             'county'    => $request->county
         ]);
 
@@ -117,19 +110,12 @@ class ResourceController extends Controller
         // Validate the updated data
         $request->validate([
             'image'     => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
-            'address'   => 'required',
-            'telephone' => 'required',
-            'email'     => 'required',
             'county'    => 'required',
         ],
         [
-            'image.required'        => 'Paveikslėlis yra privalomas.',
             'image.image'           => 'Paveikslėlio failas turi būti paveikslėlis.',
             'image.mimes'           => 'Paveikslėlio formatas turi būti jpeg, png, jpg arba gif.',
             'image.max'             => 'Paveikslėlio dydis negali viršyti 2048 kilobaitų.',
-            'address.required'      => 'Adresas yra privalomas.',
-            'telephone.required'    => 'Telefono numeris yra privalomas.',
-            'email.required'        => 'El. paštas yra privalomas.',
             'image.uploaded'        => 'Nepavyko įkelti paveikslėlio.',
             'county.required'       => 'Apskritį pasirinkti privaloma.'
         ]);
@@ -154,16 +140,22 @@ class ResourceController extends Controller
         $resource->name = $request->input('name');
         $resource->type = $request->input('type');
         $resource->description = $request->input('description');
-        $resource->address = $request->input('address');
-        $resource->telephone = $request->input('telephone');
-        $resource->email = $request->input('email');
+        if (isset($resource->address)) {
+            $resource->address = $request->input('address');
+        }
+        if (isset($resource->telephone)) {
+            $resource->telephone = $request->input('telephone');
+        }
+        if (isset($resource->email)) {
+            $resource->email = $request->input('email');
+        }
         $resource->county = $request->input('county');
 
         // Save the updated resource
         $resource->save();
 
         // Redirect back with a success message
-        return redirect()->route('resources.show', $id)->with('flash_message', 'Resursas atnaujintas sėkmingai!');
+        return redirect()->route('resources', $id)->with('flash_message', 'Resursas atnaujintas sėkmingai!');
     }
 
     /**
