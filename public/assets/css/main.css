@@ -3005,7 +3005,8 @@ section,
 .mood-color-Laiminga,
 .mood-color-Viltinga,
 .mood-color-Romantiška,
-.mood-color-Seksuali {
+.mood-color-Seksuali,
+.mood-color-Linksma {
   color: #FFA600; /* Apply the same color to classes starting with 'mood-color-' */
 }
 
@@ -3022,7 +3023,8 @@ section,
 .mood-color-Klajojanti,
 .mood-color-Atsipūtusi,
 .mood-color-Mistiška,
-.mood-color-Taikinga_rami,
+.mood-color-Taikinga
+.mood-color-Rami,
 .mood-color-Atpalaiduojanti,
 .mood-color-Sklandi {
   color: #106f2e;
@@ -3035,7 +3037,9 @@ section,
 .mood-color-Išdaigi,
 .mood-color-Bėgiojimo,
 .mood-color-Įtempta,
-.mood-color-Keista {
+.mood-color-Keista,
+.mood-color-Energina,
+.mood-color-Įkvepianti {
   color: #FF0000;
 }
 

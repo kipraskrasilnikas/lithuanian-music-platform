@@ -63,50 +63,54 @@ return [
                 'Ekscentriška',
                 'Elegantiška',
                 'Euforiška',
-                'Žavi/kerinti',
+                'Linksma',
                 'Laiminga',
-                'Viltinga',
                 'Romantiška',
                 'Seksuali',
+                'Viltinga',
+                'Žavi/kerinti',
             ]
         ],
 
         'Liūdna' => [
             'color_hex' => '#808080', // Gray color
             'moods' => [
-                'Tamsi',
                 'Baiminga',
-                'Sunki/priverčianti susimąstyti',
-                'Nerimąstinga',
                 'Liūdna',
+                'Nerimąstinga',
                 'Sentimentali',
+                'Sunki/priverčianti susimąstyti',
+                'Tamsi',
             ]
         ],
         
         'Rami' => [
             'color_hex' => '#106f2e', // Green color
             'moods' => [
-                'Pasakiška',
-                'Klajojanti',
-                'Atsipūtusi',
-                'Mistiška',
-                'Taikinga/rami',
                 'Atpalaiduojanti',
+                'Atsipūtusi',
+                'Klajojanti',
+                'Mistiška',
+                'Pasakiška',
+                'Rami',
                 'Sklandi',
+                'Taiki',
             ]
         ],
 
         'Energinga' => [
             'color_hex' => '#FF0000', // Red color
             'moods' => [
-                'Pikta',
-                'Perkrauta ir pašėlusi',
                 'Besikeičiančio tempo',
+                'Bėgiojimo',
+                'Energinga',
                 'Epinė ir didinga',
                 'Išdaigi',
-                'Bėgiojimo',
+                'Įkvepianti',
                 'Įtempta',
                 'Keista',
+                'Perkrauta ir pašėlusi',
+                'Pikta',
             ]
         ]
     ]
