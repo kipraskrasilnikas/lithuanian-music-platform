@@ -13,20 +13,26 @@
     <div class="card-body">
         <h3 class="card-title mb-3">{{ $user->name}}</h3>
 
-        <p class="card-text"><strong>Vietos:</strong></p>
-        @foreach ($user->locations->sortBy('county') as $location)
-            <p class="card-text"> {{ (isset($location->county) ? ($location->county . ', ') : '') . (isset($location->city) ? $location->city  : '') . (isset($location->address) ? (', ' . $location->address)  : '') }} </p>
-        @endforeach
+        @if (count($user->locations) > 0) 
+            <p class="card-text"><strong>Vietos:</strong></p>
+            @foreach ($user->locations->sortBy('county') as $location)
+                <p class="card-text"> {{ (isset($location->county) ? ($location->county . ', ') : '') . (isset($location->city) ? $location->city  : '') . (isset($location->address) ? (', ' . $location->address)  : '') }} </p>
+            @endforeach
+        @endif
 
-        <p class="card-text"><strong>Žanrai:</strong></p>
-        @foreach ($user->genres->sortBy('name') as $genre)
-            <span class="position genre-filter" data-genre="{{ $genre->name }}"><strong>{{ $genre->name }}</strong></span>
-        @endforeach
+        @if (count($user->genres) > 0) 
+            <p class="card-text"><strong>Žanrai:</strong></p>
+            @foreach ($user->genres->sortBy('name') as $genre)
+                <span class="position genre-filter" data-genre="{{ $genre->name }}"><strong>{{ $genre->name }}</strong></span>
+            @endforeach
+        @endif
 
-        <p class="card-text mt-2"><strong>Specializacijos:</strong></p>
-        @foreach ($user->specialties->sortBy('name') as $specialty)
-            <p class="position position-darker specialty-filter" data-specialty="{{ $specialty->name }}"><strong>{{ $specialty->name }}</strong></p>
-        @endforeach
+        @if (count($user->specialties) > 0) 
+            <p class="card-text mt-2"><strong>Specializacijos:</strong></p>
+            @foreach ($user->specialties->sortBy('name') as $specialty)
+                <p class="position position-darker specialty-filter" data-specialty="{{ $specialty->name }}"><strong>{{ $specialty->name }}</strong></p>
+            @endforeach
+        @endif
 
         @if (count($user->moods) > 0)
             <p class="card-text mt-2"><strong>Atliekamos muzikos nuotaikos:</strong></p>
