@@ -18,7 +18,7 @@
             @csrf
             <div class="mb-3">
                 <label for="loginEmailInput">El. pašto adresas</label>
-                <input type="email" class="form-control" id="loginEmailInput" name="email" value="{{ old('email', session('email')) }}" onkeyup="saveValue(this);">
+                <input type="email" class="form-control" id="loginEmailInput" name="email" value="{{ old('email', (session()->has('email') ? session('email') : '')) }}" onkeyup="saveValue(this);">
             </div>
             @error('email')
                 <div class="alert alert-danger">{{ $message }}</div>
