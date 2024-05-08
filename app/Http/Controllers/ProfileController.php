@@ -53,10 +53,10 @@ class ProfileController extends Controller
             'name.required'             => 'Vardas yra privalomas!',
             'email.required'            => 'El. paštas yra privalomas!',
             'email.email'               => 'Neteisingas el. pašto formatas!',
-            'specialties.required'      => 'Specialybė(-s) yra privaloma(-os)!',
-            'specialties.*.required'    => 'Kiekviena specialybė yra privaloma!',
+            'specialties.required'      => 'Specializacija(-os) yra privaloma(-os)!',
+            'specialties.*.required'    => 'Kiekviena specializacija yra privaloma!',
             'genres.required'           => 'Žanras(-ai) yra privalomas(-i)!',
-            'genres.*.required'         => 'Kiekvienas žanras yra privaloma!',
+            'genres.*.required'         => 'Kiekvienas žanras yra privalomas!',
             'password.min'              => 'Slaptažodis turi būti bent 8 simbolių ilgio!',
             'password.confirmed'        => 'Slaptažodžiai turi sutapti!',
         ]);
