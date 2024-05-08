@@ -188,8 +188,8 @@
                     <tr>
                         <th>Pavadinimas<span style="color: red;">*</span></th>
                         <th>Nuoroda<span style="color: red;">*</span></th>
-                        <th>Muzikos žanrai<span style="color: red;">*</span></th>
-                        <th>Muzikos nuotaikos<span style="color: red;">*</span></th>
+                        <th>Muzikos žanrai</th>
+                        <th>Muzikos nuotaikos</th>
                         <th>Veiksmas</th>
                     </tr>
                     <tr>

@@ -48,11 +48,6 @@ class ProfileController extends Controller
             'genres.*'              => 'required',       // Validate each value in specialties array is required
             'password'              => $request->filled('password') ? 'min:8|confirmed' : '',
             'password_confirmation' => $request->filled('password') ? 'min:8' : '',
-            'locations.*.county'    => 'required',
-            'locations.*.city'      => 'required',
-            'locations.*.address'   => 'nullable',
-            'songs.*.title'         => 'required',
-            'songs.*.original_url'  => 'required'
         ],
         [
             'name.required'             => 'Vardas yra privalomas!',
@@ -64,11 +59,55 @@ class ProfileController extends Controller
             'genres.*.required'         => 'Kiekvienas žanras yra privaloma!',
             'password.min'              => 'Slaptažodis turi būti bent 8 simbolių ilgio!',
             'password.confirmed'        => 'Slaptažodžiai turi sutapti!',
-            'locations.*.county.required'=> 'Apskritis yra privaloma!',
-            'locations.*.city.required' => 'Miestas yra privalomas!',
-            'songs.*.title.required'    => 'Pavadinimas yra privalomas!',
-            'songs.*.original_url.required' => 'Nuoroda yra privaloma!',
         ]);
+
+        // Validate locations if something is filled
+        $locations = $request->locations;
+
+        if (!empty($locations)) {
+            $rules = [];
+            $customMessages = [];
+
+            // Validate songs if something is filled
+            foreach ($locations as $index => $location) {
+                // Check if either 'title' or 'original_url' is filled
+                if (!empty($location['county']) || !empty($location['city']) || !empty($location['address'])) {
+                    // At least one of the fields is filled, so validate
+                    $rules["locations.$index.county"] = 'required';
+                    $rules["locations.$index.city"] = 'required';
+                    $rules["locations.$index.address"] = 'nullable';
+                    // Add custom error messages
+                    $customMessages["locations.$index.county.required"] = "Apskritis yra privaloma!";
+                    $customMessages["locations.$index.city.required"] = "Miestas yra privalomas!";
+                }
+            }
+
+            // Perform validation
+            $request->validate($rules, $customMessages);
+        }
+
+        // Validate songs if something is filled
+        $songs = $request->songs;
+
+        if (!empty($songs)) {
+            $rules = [];
+            $customMessages = [];
+
+            foreach ($songs as $index => $song) {
+                // Check if either 'title' or 'original_url' is filled
+                if (!empty($song['title']) || !empty($song['original_url'])) {
+                    // At least one of the fields is filled, so validate
+                    $rules["songs.$index.title"] = 'required';
+                    $rules["songs.$index.original_url"] = 'required';
+                    // Add custom error messages
+                    $customMessages["songs.$index.title.required"] = "Pavadinimas yra privalomas!";
+                    $customMessages["songs.$index.original_url.required"] = "Nuoroda yra privaloma!";
+                }
+            }
+
+            // Perform validation
+            $request->validate($rules, $customMessages);
+        }
 
         // Retrieve the authenticated user
         $user = Auth::user();
@@ -121,9 +160,11 @@ class ProfileController extends Controller
         $user->locations()->delete();
         if ($request->locations) {
             foreach ($request->locations as $locationParameters) {
-                $location = new UserLocation($locationParameters);
-                $location->user()->associate($user);
-                $location->save();
+                if ($locationParameters['county'] && $locationParameters['city']) {
+                    $location = new UserLocation($locationParameters);
+                    $location->user()->associate($user);
+                    $location->save();
+                }
             }
         }
 
@@ -140,33 +181,35 @@ class ProfileController extends Controller
         $user->songs()->delete();
         if ($request->songs) {
             foreach ($request->songs as $songParameters) {
-                $videoId = $this->extractYouTubeVideoId($songParameters['original_url']);
-
-                // Create the embedded URL if a valid video ID is found
-                $embeddedUrl = null;
-                if ($videoId !== null) {
-                    $embeddedUrl = "https://www.youtube.com/embed/{$videoId}";
-                }
-
-                $song = new Song([
-                    'title' => $songParameters['title'],
-                    'original_url'  => $songParameters['original_url'],
-                    'embedded_url'  => $embeddedUrl
-                ]);
-
-                $song->user()->associate($user);
-                $song->save();
-
-                foreach ($songParameters['genres'] as $genre) {
-                    $genre = new SongGenre(['genre' => $genre]);
-                    $genre->song()->associate($song);
-                    $genre->save();
-                }
-
-                foreach ($songParameters['moods'] as $mood) {
-                    $mood = new SongMood(['mood' => $mood]);
-                    $mood->song()->associate($song);
-                    $mood->save();
+                if ($songParameters['title'] && $songParameters['original_url']) {
+                    $videoId = $this->extractYouTubeVideoId($songParameters['original_url']);
+    
+                    // Create the embedded URL if a valid video ID is found
+                    $embeddedUrl = null;
+                    if ($videoId !== null) {
+                        $embeddedUrl = "https://www.youtube.com/embed/{$videoId}";
+                    }
+    
+                    $song = new Song([
+                        'title' => $songParameters['title'],
+                        'original_url'  => $songParameters['original_url'],
+                        'embedded_url'  => $embeddedUrl
+                    ]);
+    
+                    $song->user()->associate($user);
+                    $song->save();
+    
+                    foreach ($songParameters['genres'] as $genre) {
+                        $genre = new SongGenre(['genre' => $genre]);
+                        $genre->song()->associate($song);
+                        $genre->save();
+                    }
+    
+                    foreach ($songParameters['moods'] as $mood) {
+                        $mood = new SongMood(['mood' => $mood]);
+                        $mood->song()->associate($song);
+                        $mood->save();
+                    }
                 }
             }
         }
@@ -196,7 +239,6 @@ class ProfileController extends Controller
     public function show(string $id) {
         $user = User::find($id);
 
-        // nes view, o ne route lmao
         return view('profile.show')->with('user', $user);
     }
 }

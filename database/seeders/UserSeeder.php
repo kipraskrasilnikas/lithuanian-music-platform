@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
 
         for ($i = 0; $i < $locationsCount; $i++) {
             $county = $counties[$i]; // Get the county at index $i
-            DB::table('locations')->insert([
+            DB::table('user_locations')->insert([
                 'user_id' => $userId,
                 'county' => $county,
                 'city' => $county . ' City', // You can modify this based on your requirement
@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
         $uniqueGenres = array_slice($genres, 0, $genresCount); // Get a slice of unique genres
 
         foreach ($uniqueGenres as $genre) {
-            DB::table('genres')->insert([
+            DB::table('user_genres')->insert([
                 'user_id' => $userId,
                 'name' => $genre,
             ]);
@@ -88,7 +88,7 @@ class UserSeeder extends Seeder
         $uniqueSpecialties = array_slice($specialties, 0, $specialtiesCount); // Get a slice of unique specialties
 
         foreach ($uniqueSpecialties as $specialty) {
-            DB::table('specialties')->insert([
+            DB::table('user_specialties')->insert([
                 'user_id' => $userId,
                 'name' => $specialty,
             ]);
@@ -107,7 +107,7 @@ class UserSeeder extends Seeder
             $uniqueMoods = array_slice($categoryMoods, 0, $moodCount); // Get a slice of unique moods
 
             foreach ($uniqueMoods as $mood) {
-                DB::table('artist_moods')->insert([
+                DB::table('user_moods')->insert([
                     'user_id' => $userId,
                     'mood' => $mood,
                 ]);
