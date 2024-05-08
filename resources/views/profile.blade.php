@@ -68,7 +68,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Aprašymas</label>
-                    <textarea class="form-control" id="description" name="description" rows="3">{{ $user->description }}</textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $user->description) }}</textarea>
                     <div id="description-counter" class="form-text text-muted">Characters left: <span id="description-count">{{ 500 - strlen($user->description) }}</span></div>
                 </div>
                 <div class="mb-3" style="font-size: 30px;">
@@ -86,7 +86,7 @@
                     @foreach (config('music_config.specialties') as $specialty)
                         <div class="form-check checkboxes">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="specialties[]" value="{{ $specialty }}" {{ in_array($specialty, $user_specialties->pluck('name')->toArray()) ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="specialties[]" value="{{ $specialty }}" {{ (is_array(old('specialties')) && in_array($specialty, old('specialties'))) || (in_array($specialty, $user_specialties->pluck('name')->toArray())) ? 'checked' : '' }}>
                                 <span>{{ $specialty }}</span>
                             </label>
                         </div>
@@ -101,7 +101,7 @@
                     @foreach (config('music_config.genres') as $genre)
                         <div class="form-check checkboxes">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="genres[]" value="{{ $genre }}" {{ in_array($genre, $user_genres->pluck('name')->toArray()) ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="genres[]" value="{{ $genre }}" {{ (is_array(old('genres')) && in_array($genre, old('genres'))) || (in_array($genre, $user_genres->pluck('name')->toArray())) ? 'checked' : '' }}>
                                 <span>{{ $genre }}</span>
                             </label>
                         </div>
@@ -126,7 +126,7 @@
                                 <li style="list-style-type: none;">
                                     <div class="form-check checkboxes" style="color: {{ $mood_details['color_hex'] }}">
                                         <label class="form-check-label" for="mood-{{ $loop->iteration }}">
-                                            <input class="form-check-input subOption" type="checkbox" id="mood-{{ $loop->iteration }}" name="moods[]" value="{{ $mood }}" {{ in_array($mood, $user_moods->pluck('mood')->toArray()) ? 'checked' : '' }}>
+                                            <input class="form-check-input subOption" type="checkbox" id="mood-{{ $loop->iteration }}" name="moods[]" value="{{ $mood }}" {{ (is_array(old('moods')) && in_array($mood, old('moods'))) || (in_array($mood, $user_moods->pluck('mood')->toArray())) ? 'checked' : '' }}>
                                             <span>{{ $mood }}</span>
                                         </label>
                                     </div>
@@ -156,15 +156,19 @@
                             <select name="locations[0][county]" class="form-control">
                                 <option value="">Pasirinkti apskritį</option>
                                 @foreach (config('music_config.counties') as $county)
-                                    <option value="{{ $county }}" {{ isset($locations[0]) && $locations[0]->county == $county ? 'selected' : '' }}>{{ $county }}</option>
+                                    <option value="{{ $county }}" 
+                                        @if(old("locations.0.county") === $county || (!old("locations.0.county") && isset($locations[0]) && $locations[0]->county == $county))
+                                            selected
+                                        @endif
+                                    >{{ $county }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <input type="text" name="locations[0][city]" value="{{ isset($locations[0]) ? $locations[0]->city : '' }}" placeholder="Įveskite miestą" class="form-control">
+                            <input type="text" name="locations[0][city]" value="{{ old("locations.0.city", (isset($locations[0]) ? $locations[0]->city : '')) }}" placeholder="Įveskite miestą" class="form-control">
                         </td>
                         <td>
-                            <input type="text" name="locations[0][address]" value="{{ isset($locations[0]) ? $locations[0]->address : '' }}" placeholder="Įveskite adresą" class="form-control">
+                            <input type="text" name="locations[0][address]" value="{{ old("locations.0.address", (isset($locations[0]) ? $locations[0]->address : '')) }}" placeholder="Įveskite adresą" class="form-control">
                         </td>
                         <td>
                             <button type="button" name="add" id="add_location" class="btn btn-success">Pridėti daugiau</button>
@@ -194,20 +198,20 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="songs[0][title]" placeholder="Įveskite pavadinimą" class="form-control" value="{{ $songs[0]->title ?? '' }}">
+                            <input type="text" name="songs[0][title]" placeholder="Įveskite pavadinimą" class="form-control" value="{{ old("songs.0.title", ($songs[0]->title ?? '')) }}">
                         </td>
                         <td>
-                            <input type="text" name="songs[0][original_url]" placeholder="Įveskite nuorodą" class="form-control" value="{{ $songs[0]->original_url ?? '' }}">
+                            <input type="text" name="songs[0][original_url]" placeholder="Įveskite nuorodą" class="form-control" value="{{ old("songs.0.original_url", ($songs[0]->original_url ?? '')) }}">
                             @if(isset($songs[0]) && $songs[0]->embedded_url)
                                 <div class="youtube-preview" style="padding: 10px;">
-                                    <iframe width="280" height="160" src="{{ $songs[0]->embedded_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe width="280" height="160" src="{{ old("song.0.original_url", $songs[0]->embedded_url) }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             @endif
                         </td>
                         <td>
                             <select class="form-select" name="songs[0][genres][]" multiple>
                                 @foreach (config('music_config.genres') as $genre)
-                                    <option value="{{ $genre }}" {{ in_array($genre, $songs[0]->genres ?? []) ? 'selected' : ''}}>{{ $genre }}</option>
+                                    <option value="{{ $genre }}" {{ (is_array(old('songs.0.genres')) && in_array($genre, old('songs.0.genres'))) || (in_array($genre, $songs[0]->genres ?? [])) ? 'selected' : ''}}>{{ $genre }}</option>
                                 @endforeach
                             </select>
                         </td>
@@ -216,7 +220,7 @@
                                 @foreach (config('music_config.music_moods') as $mood_category => $mood_details)
                                     <optgroup label="{{ $mood_category }}">
                                         @foreach ($mood_details['moods'] as $mood)
-                                            <option value="{{ $mood }}" {{ in_array($mood, $songs[0]->moods ?? []) ? 'selected' : '' }}>{{ $mood }}</option>
+                                            <option value="{{ $mood }}" {{ (is_array(old('songs.0.moods')) && in_array($mood, old('songs.0.moods'))) || (in_array($mood, $songs[0]->moods ?? [])) ? 'selected' : '' }}>{{ $mood }}</option>
                                         @endforeach
                                     </optgroup>
                                 @endforeach
@@ -301,7 +305,7 @@
                             <select name="locations[` + form_location_i + `][county]" class="form-control">
                                 <option value="">Pasirinkti apskritį</option>
                                 @foreach (config('music_config.counties') as $county)
-                                    <option value="{{ $county }}" ${(isFromDB && locations[form_location_i].county === "{{ $county }}") ? 'selected' : ''}>{{ $county }}</option>
+                                    <option value="{{ $county }}" ${(isFromDB && (locations[form_location_i].county === "{{ $county }}" || old("locations." + form_location_i + ".county"))) ? 'selected' : ''}>{{ $county }}</option>
                                 @endforeach
                             </select>
                         </td>
