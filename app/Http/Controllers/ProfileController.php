@@ -199,16 +199,20 @@ class ProfileController extends Controller
                     $song->user()->associate($user);
                     $song->save();
     
-                    foreach ($songParameters['genres'] as $genre) {
-                        $genre = new SongGenre(['genre' => $genre]);
-                        $genre->song()->associate($song);
-                        $genre->save();
+                    if (isset($songParameters['genres'])) {
+                        foreach ($songParameters['genres'] as $genre) {
+                            $genre = new SongGenre(['genre' => $genre]);
+                            $genre->song()->associate($song);
+                            $genre->save();
+                        }
                     }
-    
-                    foreach ($songParameters['moods'] as $mood) {
-                        $mood = new SongMood(['mood' => $mood]);
-                        $mood->song()->associate($song);
-                        $mood->save();
+
+                    if (isset($songParameters['moods'])) {
+                        foreach ($songParameters['moods'] as $mood) {
+                            $mood = new SongMood(['mood' => $mood]);
+                            $mood->song()->associate($song);
+                            $mood->save();
+                        }
                     }
                 }
             }
