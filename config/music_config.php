@@ -6,7 +6,6 @@ return [
         'Choras',
         'Džiazas ir Bliuzas',
         'Elektroninė muzika',
-        'Elektroninė šokių muzika',
         'Garso takelis',
         'Indie',
         'Kantri',
@@ -20,6 +19,7 @@ return [
         'Ritmenbliuzas',
         'Rokas',
         'Sielos muzika',
+        'Šokių muzika',
         'Techno',
         'Trance muzika'
     ],
@@ -79,7 +79,8 @@ return [
                 'Liūdna',
                 'Nerimąstinga',
                 'Sentimentali',
-                'Sunki/priverčianti susimąstyti',
+                'Sunki',
+                'Priverčianti susimąstyti',
                 'Tamsi',
             ]
         ],
