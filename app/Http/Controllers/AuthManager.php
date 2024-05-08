@@ -74,7 +74,10 @@ class AuthManager extends Controller
             return redirect(route('registration'))->with("error", "Registracija nepavyko. Bandykite iš naujo.");
         }
 
-        return redirect(route('login'))->with("success", "Registraciją sėkminga! Prisijunkite, kad pasiekti platformą."); 
+        return redirect(route('login'))->with([
+            "success" => "Registraciją sėkminga! Prisijunkite, kad pasiekti platformą.",
+            "email" => $request->email
+        ]); 
     }
 
     function logout() {
