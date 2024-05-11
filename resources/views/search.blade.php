@@ -10,7 +10,7 @@
                     <div class="col-md-12 ftco-animate text-center mb-5">
                         <p class="breadcrumbs mb-0"><span class="mr-3"><a href="">Paieškos<i
                                         class="ion-ios-arrow-forward"></i></a></span> <span>puslapis</span></p>
-                        <h1 class="mb-3 bread">Raskite savo kolaborantą</h1>
+                        <h1 class="mb-3 bread">Raskite su kuo bendradarbiauti</h1>
                     </div>
                 </div>
             </div>

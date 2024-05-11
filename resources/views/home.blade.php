@@ -54,7 +54,7 @@
         <div class="row">
           <div class="col-lg-10">
             <h2 data-aos="fade-up" data-aos-delay="100">Sveiki atvykę</h2>
-            <p data-aos="fade-up" data-aos-delay="200">Raskite su kuo kolaboruoti, pasirinkdami specifinius filtrus</p>
+            <p data-aos="fade-up" data-aos-delay="200">Raskite su kuo bendradarbiauti, pasirinkdami specifinius filtrus</p>
           </div>
           <div class="col-lg-10">
             <form action="/searchPost" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
