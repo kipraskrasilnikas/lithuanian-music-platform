@@ -24,7 +24,7 @@
                 <img src="{{ asset('images/' . $resources->image) }}" alt="{{ $resources->name }}">
             </div>
         <?php } ?>
-        <a href="{{ route('resources') }}" class="btn btn-primary">Grįžti į išteklių puslapį</a>
+        <a href="{{ route('resources') }}" class="btn red-button">Grįžti į išteklių puslapį</a>
         @can('updateOrDelete', $resources)
             <a href="{{ route('resources.edit', $resources->id) }}" class="btn btn-success">Redaguoti</a>
         @endcan
