@@ -58,7 +58,7 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{ route('home') }}#hero" class="{{ request()->is('/') ? 'active' : '' }}">Namų puslapis</a></li>
-                    <li><a href="{{ route('music') }}" class="{{ request()->is('/music') ? 'active' : '' }}">Atraskite muziką</a></li>
+                    <li><a href="{{ route('music') }}" class="{{ request()->is('music') || request()->is('searchSongs') || request()->is('searchArtists') ? 'active' : '' }}">Atraskite muziką</a></li>
                     <li><a href="{{ route('search') }}" class="{{ request()->is('search') ? 'active' : '' }}">Muzikantų paieška</a></li>
                     <li><a href="{{ route('resources') }}" class="{{ request()->is('resources') || request()->is('resource*') ? 'active' : '' }}">Ištekliai</a></li>
 
