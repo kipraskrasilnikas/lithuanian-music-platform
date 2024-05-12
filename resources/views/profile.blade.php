@@ -191,7 +191,7 @@
                 <table class="table table-bordered" id="songs_table">
                     <tr>
                         <th>Pavadinimas<span style="color: red;">*</span></th>
-                        <th>Nuoroda<span style="color: red;">*</span></th>
+                        <th>YouTube nuoroda<span style="color: red;">*</span></th>
                         <th>Muzikos žanrai</th>
                         <th>Muzikos nuotaikos</th>
                         <th>Veiksmas</th>
