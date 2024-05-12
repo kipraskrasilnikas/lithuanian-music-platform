@@ -247,7 +247,7 @@
                 <div class="mb-5">
                     <div class="form-check checkboxes">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="status" value="1" {{ $user->status == 1 ? 'checked' : '' }}>
+                            <input class="form-check-input" type="checkbox" name="status" value="1" {{ old('status') == 'on' || old('status') == 1 ? 'checked' : ($user->status == 1 ? 'checked' : '') }}>
                             <span>Aktyvus</span>
                         </label>
                     </div>
