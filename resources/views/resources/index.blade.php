@@ -60,7 +60,7 @@
                                                 <?php } ?>
                                             </div>
                                             <div class="description text pl-md-4">
-                                                <span class="location">{{ $resource->county ? ($resource->county . ', ') : '' }} {{ $resource->address }}</span>
+                                                <span class="location">{{ $resource->county ?? '' }}{{ $resource->address ? (', ' . $resource->address) : ''}}</span>
                                                 <h2>{{ $resource->name }}</h2>
                                                 <span class="position type-filter" data-type="{{ $resource->type }}">{{ $resource->type }}</span>
                                                 <p class="mb-2">{{ Str::limit($resource->description, 250) }}</p>
