@@ -18,8 +18,8 @@ class MusicController extends Controller
             $song->moods = $song->moods()->pluck('mood')->toArray();
         }
 
-        // Retrieve all users sorted by id in descending order
-        $users = User::orderBy('id', 'desc')->get();
+        // Retrieve all active users sorted by id in descending order
+        $users = User::where('status', 1)->orderBy('id', 'desc')->get();
 
         return view('music', compact('songs', 'users'));
     }

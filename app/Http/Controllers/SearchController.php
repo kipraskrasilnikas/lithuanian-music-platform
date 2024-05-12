@@ -260,6 +260,9 @@ class SearchController extends Controller
             }
         });
 
+        // Filter inactive users
+        $usersQuery->where('status', 1);
+
         $users = $usersQuery->paginate(15);
     
         return view('music.artists', compact('users', 'search', 'search_moods', 'search_genres'));
