@@ -74,7 +74,7 @@ class ResourceController extends Controller
         $resource->save();
 
         // Redirect back with a success message
-        return redirect('resources')->with('flash_message', 'Resursas įkeltas sėkmingai!');
+        return redirect('resources')->with('flash_message', 'Išteklis įkeltas sėkmingai!');
     }
 
     /**
@@ -96,7 +96,7 @@ class ResourceController extends Controller
         try {
             $this->authorize('updateOrDelete', $resource);
         } catch (AuthorizationException $exception) {
-            return redirect()->route('resources')->with('flash_message', 'Redaguoti gali tik resurso autorius ar administratorius. Jei tai jūsų resursas, prisijunkite.')->with('flash_type', 'danger');
+            return redirect()->route('resources')->with('flash_message', 'Redaguoti gali tik išteklio autorius ar administratorius. Jei tai jūsų išteklis, prisijunkite.')->with('flash_type', 'danger');
         }
         
         return view('resources.edit')->with('resources', $resource);
@@ -155,7 +155,7 @@ class ResourceController extends Controller
         $resource->save();
 
         // Redirect back with a success message
-        return redirect()->route('resources', $id)->with('flash_message', 'Resursas atnaujintas sėkmingai!');
+        return redirect()->route('resources', $id)->with('flash_message', 'Išteklis atnaujintas sėkmingai!');
     }
 
     /**
@@ -167,10 +167,10 @@ class ResourceController extends Controller
             $resource = Resource::findOrFail($id);
             $this->authorize('updateOrDelete', $resource);
         } catch (AuthorizationException $exception) {
-            return redirect()->route('resources')->with('flash_message', 'Trinti gali tik resurso autorius ar administratorius. Jei tai jūsų resursas, prisijunkite.')->with('flash_type', 'danger');
+            return redirect()->route('resources')->with('flash_message', 'Trinti gali tik išteklio autorius ar administratorius. Jei tai jūsų išteklis, prisijunkite.')->with('flash_type', 'danger');
         }
 
         Resource::destroy($id);
-        return redirect()->route('resources')->with('flash_message', 'Resursas ištrintas sėkmingai!');
+        return redirect()->route('resources')->with('flash_message', 'Išteklis ištrintas sėkmingai!');
     }
 }

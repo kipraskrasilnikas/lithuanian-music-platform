@@ -9,7 +9,7 @@
 @endif 
 
 <div class="card" style="margin:20px;">
-    <div class="card-header">Resurso informacija</div>
+    <div class="card-header">Išteklio informacija</div>
     <div class="card-body">
         <h5 class="card-title">Pavadinimas: {{ $resources->name}} </h5>
         <p class="card-text">Tipas: {{ $resources->type}} </p>
@@ -24,7 +24,7 @@
                 <img src="{{ asset('images/' . $resources->image) }}" alt="{{ $resources->name }}">
             </div>
         <?php } ?>
-        <a href="{{ route('resources') }}" class="btn btn-primary">Grįžti į resursų puslapį</a>
+        <a href="{{ route('resources') }}" class="btn btn-primary">Grįžti į išteklių puslapį</a>
         @can('updateOrDelete', $resources)
             <a href="{{ route('resources.edit', $resources->id) }}" class="btn btn-success">Redaguoti</a>
         @endcan

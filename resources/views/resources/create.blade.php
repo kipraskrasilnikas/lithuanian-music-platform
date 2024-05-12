@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="card" style="margin:20px;">
-  <div class="card-header">Įkelti naują resursą</div>
+  <div class="card-header">Įkelti naują išteklį</div>
   <div class="card-body">
     <form action="{{ route('resources.store') }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -16,7 +16,7 @@
         </div>
     
         <div class="mb-3">
-            <label>Resurso tipas</label><br>
+            <label>Išteklio tipas</label><br>
             <select name="type" id="type" class="form-control" required>
                 @foreach(config('music_config.resource_types') as $type)
                     <option value="{{ $type }}" {{ old('type') == $type ? 'selected' : '' }}>{{ $type }}</option>
