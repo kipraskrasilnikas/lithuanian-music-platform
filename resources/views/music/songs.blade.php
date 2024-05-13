@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Music')
+@section('title', 'Dainų puslapis')
 
 @section('content')
     <div class="container">
