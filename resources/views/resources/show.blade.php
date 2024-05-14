@@ -11,7 +11,7 @@
 <div class="card" style="margin:20px;">
     <div class="card-header">Išteklio informacija</div>
     <div class="card-body">
-        <h5 class="card-title">Pavadinimas: {{ $resources->name}} </h5>
+        <h5 class="card-title">{{ $resources->name}} </h5>
         <p class="card-text">Tipas: {{ $resources->type}} </p>
         <p class="card-text">Aprašymas: {{ $resources->description}} </p>
         <p class="card-text">Apskritis: {{ $resources->county}} </p>
