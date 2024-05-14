@@ -17,14 +17,14 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label">Atlikėjo slapyvardis</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" onkeyup="saveValue(this);">
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="registrationEmailInput">El. pašto adresas</label>
-                <input type="email" class="form-control" id="registrationEmailInput" name="email" value="{{ old('email') }}" onkeyup="saveValue(this);">
+                <input type="email" class="form-control" id="registrationEmailInput" name="email" value="{{ old('email') }}" oninvalid="InvalidEmailMsg(this);" oninput="InvalidEmailMsg(this);">
                 @error('email')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -50,4 +50,16 @@
             </div>
         </form>
     </div>
+
+    <script>
+        function InvalidEmailMsg(input) {
+            if (input.validity.typeMismatch){
+                input.setCustomValidity('Elektroninio pašto formatas neteisingas!');
+            }    
+            else {
+                input.setCustomValidity('');
+            }
+            return true;
+        } 
+    </script>
 @endsection

@@ -69,7 +69,7 @@
         
         <div class="mb-3">
             <label>Telefono numeris</label><br>
-            <input type="tel" name="telephone" id="telephone" class="form-control" pattern="^\+?[0-9]{9,}$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" value="{{ old('telephone') }}">
+            <input type="tel" name="telephone" id="telephone" class="form-control" pattern="^\+?[0-9]{9,}$" oninvalid="InvalidTelephoneMsg(this);" oninput="InvalidTelephoneMsg(this);" value="{{ old('telephone') }}">
             @error('telephone')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -77,7 +77,7 @@
 
         <div class="mb-3">
             <label>Elektroninis paštas</label><br>
-            <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
+            <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" oninvalid="InvalidEmailMsg(this);" oninput="InvalidEmailMsg(this);">
             @error('email')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -103,20 +103,29 @@
         }
     }
 
-    $("#image").change(function(){
+    $("#image").change(function() {
         readURL(this);
     });
 
-    function InvalidMsg(textbox) {
+    function InvalidTelephoneMsg(textbox) {
         if (textbox.validity.patternMismatch){
             textbox.setCustomValidity('Telefono numerį turi sudaryti bent 9 skaičiai!');
         }    
         else {
             textbox.setCustomValidity('');
         }
-
         return true;
     }
+
+    function InvalidEmailMsg(input) {
+        if (input.validity.typeMismatch){
+            input.setCustomValidity('Elektroninio pašto formatas neteisingas!');
+        }    
+        else {
+            input.setCustomValidity('');
+        }
+        return true;
+    } 
 </script>
 
 @stop

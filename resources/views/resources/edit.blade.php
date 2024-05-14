@@ -82,7 +82,7 @@
         
         <div class="mb-3">
             <label>Elektroninis paštas</label><br>
-            <input type="email" name="email" id="email" class="form-control" value="{{ $resources->email }}">
+            <input type="email" name="email" id="email" class="form-control" value="{{ $resources->email }}" oninvalid="InvalidEmailMsg(this);" oninput="InvalidEmailMsg(this);">
             @error('email')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -121,6 +121,16 @@
 
         return true;
     }
+
+    function InvalidEmailMsg(input) {
+        if (input.validity.typeMismatch){
+            input.setCustomValidity('Elektroninio pašto formatas neteisingas!');
+        }    
+        else {
+            input.setCustomValidity('');
+        }
+        return true;
+    } 
 </script>
 
 @stop
