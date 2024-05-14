@@ -192,7 +192,5 @@
                 form.submit(); // Submit the form
             });
         });
-
     </script>
-
 @endsection

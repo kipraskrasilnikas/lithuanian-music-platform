@@ -34,8 +34,8 @@
                             <div class="col-md-12">
                                 <div class="px-4 pb-4">
                                     @auth
-                                        <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm add-resource-button" title="Pridėti naują išteklį">
-                                            Pridėti naują išteklį
+                                        <a href=" {{ route('resources.create') }}" class="btn btn-success btn-sm add-resource-button" title="Pridėti naują išteklių">
+                                            Pridėti naują išteklių
                                         </a>
                                     @endauth
                                 </div>
@@ -72,7 +72,7 @@
                                                     <form method="POST" action="{{ route('resources.delete', $resource->id) }}" accept-charset="UTF-8" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" title="Ištrinti išteklį" onclick="return confirm('Ar tikrai norite ištrinti {{ $resource->name }}?')"><i class="fa fa-trash-o" aria-hidden="true"></i>Trinti</button>
+                                                        <button type="submit" class="btn btn-danger btn-sm" title="Ištrinti išteklių" onclick="return confirm('Ar tikrai norite ištrinti {{ $resource->name }}?')"><i class="fa fa-trash-o" aria-hidden="true"></i>Trinti</button>
                                                     </form>
                                                 @endcan
                                             </div>
@@ -100,7 +100,7 @@
                                     <input type="text" value="{{ request('search') }}" name="search" class="form-control" placeholder="Search...">
                                 </div>
 
-                                <h3 class="heading-sidebar">Pagal išteklio tipą</h3>
+                                <h3 class="heading-sidebar">Pagal ištekliaus tipą</h3>
                                 @foreach (config('music_config.resource_types') as $type)
                                     <label for="option-{{ $loop->iteration }}">
                                         <input type="checkbox" id="option-{{ $loop->iteration }}" name="types[]" value="{{ $type }}" {{ in_array($type, (isset($search_types) ? $search_types : [])) ? 'checked' : '' }}>

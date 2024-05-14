@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="card" style="margin:20px;">
-  <div class="card-header">Įkelti naują išteklį</div>
+  <div class="card-header">Įkelti naują išteklių</div>
   <div class="card-body">
     <form action="{{ route('resources.store') }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -16,7 +16,7 @@
         </div>
     
         <div class="mb-3">
-            <label>Išteklio tipas</label><br>
+            <label>Ištekliaus tipas</label><br>
             <select name="type" id="type" class="form-control" required>
                 @foreach(config('music_config.resource_types') as $type)
                     <option value="{{ $type }}" {{ old('type') == $type ? 'selected' : '' }}>{{ $type }}</option>
@@ -39,7 +39,7 @@
             <label>Paveikslėlis</label>
             <input type="button" style="width: 15%" class="form-control mb-2 mt-2 red-button" value="Įkelkite paveiksliuką" onclick="document.getElementById('image').click();" />
             <input type="file" style="display:none;"  name="image" id="image" accept="image/*">
-            <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif</small><br>
+            <small class="text-muted">Leidžiami formatai: jpeg, png, jpg, gif. Maksimalus dydis: 2MB</small><br>
             <img id="preview_image" src="#" alt="Preview" style="display: none; width: 100px; height: 100px;"><br>
             @error('image')
                 <div class="alert alert-danger">{{ $message }}</div>
