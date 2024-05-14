@@ -43,13 +43,13 @@
 </body>
 @endsection
 
+<div id="notification-bar" class="notification-bar"></div>
+
 <body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
   <main id="main">
-
     <!-- Hero Section - Home Page -->
     <section id="hero" class="hero">
       <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in">
-
       <div class="container">
         <div class="row">
           <div class="col-lg-10">
@@ -109,5 +109,23 @@
     <div></div>
   </div>
 </body>
+
+<script>
+  // Check if a success message is available in the session
+  @if(session('success'))
+      // Get the notification bar element
+      var notificationBar = document.getElementById('notification-bar');
+      // Set the success message
+      notificationBar.innerHTML = '{{ session('success') }}';
+      // Show the notification bar
+      notificationBar.classList.add('show');
+      // Automatically hide the notification after 5 seconds
+      setTimeout(function(){
+          notificationBar.classList.add('hide');
+      }, 4000); // Adjust the duration (in milliseconds) as needed
+  @endif
+
+</script>
+
 
 @endsection

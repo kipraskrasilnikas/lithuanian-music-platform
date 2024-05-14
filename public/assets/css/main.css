@@ -3128,3 +3128,48 @@ h2 a:hover {
 #see-all:hover {
   text-decoration: underline; /* Underline on hover */
 }
+
+/* SUCCESSFUL LOGIN START */
+.notification-bar {
+  position: fixed;
+  top: 60px; /* Adjust the value to match the height of your navigation menu */
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  display: none;
+  z-index: 9999;
+}
+
+.notification-bar.show {
+  display: block;
+  animation: slideDown 0.5s ease forwards;
+}
+
+.notification-bar.hide {
+  animation: slideUp 0.5s ease backwards;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+@keyframes slideDown {
+  from {
+      transform: translateY(-100%);
+  }
+  to {
+      transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+      transform: translateY(0);
+  }
+  to {
+      transform: translateY(-100%);
+  }
+}
+/* SUCCESSFUL LOGIN END */
