@@ -192,8 +192,8 @@
                     <tr>
                         <th>Pavadinimas<span style="color: red;">*</span></th>
                         <th>YouTube nuoroda<span style="color: red;">*</span></th>
-                        <th>Muzikos žanrai</th>
-                        <th>Muzikos nuotaikos</th>
+                        <th>Dainos žanrai</th>
+                        <th>Dainos nuotaikos</th>
                         <th>Veiksmas</th>
                     </tr>
                     <tr>
