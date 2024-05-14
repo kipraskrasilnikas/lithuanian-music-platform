@@ -53,7 +53,7 @@ class AuthManager extends Controller
             'password_confirmation'  => 'required|min:8'
         ],
         [
-            'name.required'                  => 'Vardas yra privalomas!',
+            'name.required'                  => 'Slapyvardis yra privalomas!',
             'email.required'                 => 'El. paštas yra privalomas!',
             'email.email'                    => 'Neteisingas el. pašto formatas!',
             'email.unique'                   => 'Toks el. paštas jau egzistuoja!',
