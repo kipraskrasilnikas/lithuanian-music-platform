@@ -155,7 +155,7 @@ class ResourceController extends Controller
         $resource->save();
 
         // Redirect back with a success message
-        return redirect()->route('resources', $id)->with('flash_message', 'Išteklius atnaujintas sėkmingai!');
+        return redirect()->route('resources')->with('flash_message', 'Išteklius atnaujintas sėkmingai!');
     }
 
     /**

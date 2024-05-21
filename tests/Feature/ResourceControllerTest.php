@@ -86,7 +86,7 @@ class ResourceControllerTest extends TestCase
 
         $this->post('/resources', $data)
             ->assertRedirect('/resources')
-            ->assertSessionHas('flash_message', 'Išteklis įkeltas sėkmingai!');
+            ->assertSessionHas('flash_message', 'Išteklius įkeltas sėkmingai!');
 
         $this->assertDatabaseHas('resources', [
             'name' => $data['name'],
@@ -162,7 +162,7 @@ class ResourceControllerTest extends TestCase
         ]);
 
         // Assert that the update request was successful
-        $response->assertRedirect(route('resources.show', $resource->id));
+        $response->assertRedirect(route('resources'));
 
         // Assert that the resource details have been updated in the database
         $this->assertDatabaseHas('resources', [
@@ -201,7 +201,7 @@ class ResourceControllerTest extends TestCase
         $this->assertDatabaseMissing('resources', ['id' => $resource->id]);
 
         // Assert that the flash message indicates successful deletion
-        $response->assertSessionHas('flash_message', 'Išteklis ištrintas sėkmingai!');
+        $response->assertSessionHas('flash_message', 'Išteklius ištrintas sėkmingai!');
     }
 
     public function test_destroy_method_redirects_non_authorised_user()
@@ -222,6 +222,6 @@ class ResourceControllerTest extends TestCase
         $response->assertRedirect(route('resources'));
 
         // Assert that the flash message indicates lack of authorisation
-        $response->assertSessionHas('flash_message', 'Trinti gali tik išteklio autorius ar administratorius. Jei tai jūsų išteklis, prisijunkite.');
+        $response->assertSessionHas('flash_message', 'Trinti gali tik ištekliaus autorius ar administratorius. Jei tai jūsų išteklius, prisijunkite.');
     }
 }
