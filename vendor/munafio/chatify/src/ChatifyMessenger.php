@@ -292,7 +292,6 @@ class ChatifyMessenger
      */
     public function getUserWithAvatar($user)
     {
-        // va cia problema
         if ($user->avatar == 'avatar.png' && config('chatify.gravatar.enabled')) {
             $imageSize = config('chatify.gravatar.image_size');
             $imageset = config('chatify.gravatar.imageset');
@@ -430,7 +429,8 @@ class ChatifyMessenger
      */
     public function getUserAvatarUrl($user_avatar_name)
     {
-        return self::storage()->url(config('chatify.user_avatar.folder') . '/' . $user_avatar_name);
+        // return self::storage()->url(config('chatify.user_avatar.folder') . '/' . $user_avatar_name);
+        return asset('images/' . $user_avatar_name);
     }
 
     /**
