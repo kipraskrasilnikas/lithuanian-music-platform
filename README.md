@@ -10,8 +10,6 @@ A web application designed to showcase and promote Lithuanian music by allowing 
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Testing](#testing)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
