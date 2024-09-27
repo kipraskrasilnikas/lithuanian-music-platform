@@ -31,7 +31,7 @@ A web application designed to showcase and promote Lithuanian music by allowing 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/lithuanian-music-platform.git
+   git clone https://github.com/kipraskrasilnikas/lithuanian-music-platform.git
    cd lithuanian-music-platform
 
 # Project Setup Instructions
